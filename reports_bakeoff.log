@@ -1,0 +1,126 @@
+
+[sim] cohort of 400 dogs
+  cohort 400 dogs x 400 days; events: {'pruritic_flare': 148, 'oa_mobility': 81, 'acute_gi': 62, 'tick_fever': 53, 'chf_decomp': 40, 'ckd_pupd': 25, 'heat_illness': 13}
+
+[B] Per-dog abnormality detectors
+    Chronos-Bolt + ARIMA on 216 dogs ...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/101 [00:00<?, ?it/s]Loading weights: 100%|##########| 101/101 [00:00<00:00, 2206.67it/s]
+    chf_decomp      Rolling-median z (baseline)        AUROC 0.966  sens 0.87  prec 0.95  FA/dog-mo 0.00
+    chf_decomp      CUSUM change-point                 AUROC 0.947  sens 0.83  prec 0.79  FA/dog-mo 0.02
+    chf_decomp      Linear-regression trend            AUROC 0.968  sens 0.74  prec 0.94  FA/dog-mo 0.00
+    chf_decomp      ARIMA surprise                     AUROC 0.904  sens 0.91  prec 0.60  FA/dog-mo 0.04
+    chf_decomp      Chronos-Bolt surprise (HF)         AUROC 0.945  sens 0.74  prec 0.81  FA/dog-mo 0.01
+    chf_decomp      Rule: sleeping RR > 30 (Rishniw)   AUROC 0.855  sens 0.83  prec 0.45  FA/dog-mo 0.07
+    pruritic_flare  Rolling-median z (baseline)        AUROC 0.750  sens 0.43  prec 0.21  FA/dog-mo 0.05
+    pruritic_flare  CUSUM change-point                 AUROC 0.726  sens 0.68  prec 0.17  FA/dog-mo 0.10
+    pruritic_flare  Linear-regression trend            AUROC 0.725  sens 0.35  prec 0.20  FA/dog-mo 0.04
+    pruritic_flare  ARIMA surprise                     AUROC 0.769  sens 0.76  prec 0.13  FA/dog-mo 0.18
+    pruritic_flare  Chronos-Bolt surprise (HF)         AUROC 0.731  sens 0.54  prec 0.24  FA/dog-mo 0.05
+    oa_mobility     Rolling-median z (baseline)        AUROC 0.612  sens 0.36  prec 0.07  FA/dog-mo 0.13
+    oa_mobility     CUSUM change-point                 AUROC 0.618  sens 0.08  prec 0.14  FA/dog-mo 0.01
+    oa_mobility     Linear-regression trend            AUROC 0.551  sens 0.00  prec 0.00  FA/dog-mo 0.01
+    oa_mobility     ARIMA surprise                     AUROC 0.650  sens 0.60  prec 0.08  FA/dog-mo 0.22
+    oa_mobility     Chronos-Bolt surprise (HF)         AUROC 0.595  sens 0.52  prec 0.06  FA/dog-mo 0.21
+    ckd_pupd        Rolling-median z (baseline)        AUROC 0.792  sens 0.20  prec 0.12  FA/dog-mo 0.01
+    ckd_pupd        CUSUM change-point                 AUROC 0.965  sens 1.00  prec 0.42  FA/dog-mo 0.01
+    ckd_pupd        Linear-regression trend            AUROC 0.653  sens 0.00  prec 0.00  FA/dog-mo 0.01
+    ckd_pupd        ARIMA surprise                     AUROC 0.923  sens 1.00  prec 0.50  FA/dog-mo 0.01
+    ckd_pupd        Chronos-Bolt surprise (HF)         AUROC 0.628  sens 0.40  prec 0.01  FA/dog-mo 0.17
+    acute_gi        Rolling-median z (baseline)        AUROC 0.583  sens 0.15  prec 0.02  FA/dog-mo 0.12
+    acute_gi        CUSUM change-point                 AUROC 0.610  sens 0.10  prec 0.01  FA/dog-mo 0.20
+    acute_gi        Linear-regression trend            AUROC 0.564  sens 0.05  prec 0.01  FA/dog-mo 0.09
+    acute_gi        ARIMA surprise                     AUROC 0.573  sens 0.15  prec 0.01  FA/dog-mo 0.28
+    acute_gi        Chronos-Bolt surprise (HF)         AUROC 0.588  sens 0.15  prec 0.02  FA/dog-mo 0.11
+    tick_fever      Rolling-median z (baseline)        AUROC 0.592  sens 0.06  prec 0.01  FA/dog-mo 0.07
+    tick_fever      CUSUM change-point                 AUROC 0.616  sens 0.06  prec 0.01  FA/dog-mo 0.06
+    tick_fever      Linear-regression trend            AUROC 0.535  sens 0.06  prec 0.00  FA/dog-mo 0.16
+    tick_fever      ARIMA surprise                     AUROC 0.573  sens 0.11  prec 0.01  FA/dog-mo 0.17
+    tick_fever      Chronos-Bolt surprise (HF)         AUROC 0.609  sens 0.00  prec 0.00  FA/dog-mo 0.01
+
+[C] Risk prediction bake-off (dogs held out, thresholds calibrated on separate dogs)
+    oa_mobility     Deterministic rules                    AUROC 0.930 AUPRC 0.609 (prev 0.040) | sens 0.80 prec 0.89 FA/dog-mo 0.00 lead 20.0
+    oa_mobility     Logistic regression (linear)           AUROC 0.969 AUPRC 0.793 (prev 0.040) | sens 0.90 prec 0.91 FA/dog-mo 0.00 lead 37.5
+    oa_mobility     HistGB                                 AUROC 0.983 AUPRC 0.865 (prev 0.040) | sens 0.88 prec 0.90 FA/dog-mo 0.01 lead 42.0
+    oa_mobility     XGBoost                                AUROC 0.986 AUPRC 0.870 (prev 0.040) | sens 0.94 prec 0.77 FA/dog-mo 0.01 lead 46.0
+    oa_mobility     Random Forest                          AUROC 0.977 AUPRC 0.861 (prev 0.040) | sens 0.93 prec 0.82 FA/dog-mo 0.01 lead 43.5
+    oa_mobility     Bayesian (naive-Bayes network)         AUROC 0.946 AUPRC 0.599 (prev 0.040) | sens 0.95 prec 0.42 FA/dog-mo 0.05 lead 43.0
+    oa_mobility     Stacked ensemble (LR+XGB+HGB -> LR)    AUROC 0.975 AUPRC 0.847 (prev 0.040) | sens 0.89 prec 0.89 FA/dog-mo 0.00 lead 40.0
+    oa_mobility     Survival analysis (Cox PH)             AUROC 0.970 AUPRC 0.730 (prev 0.040) | sens 0.83 prec 0.85 FA/dog-mo 0.00 lead 20.0
+    pruritic_flare  Deterministic rules                    AUROC 0.735 AUPRC 0.106 (prev 0.014) | sens 0.63 prec 0.30 FA/dog-mo 0.05 lead 2.0
+    pruritic_flare  Logistic regression (linear)           AUROC 0.788 AUPRC 0.233 (prev 0.014) | sens 0.75 prec 0.47 FA/dog-mo 0.03 lead 3.0
+    pruritic_flare  HistGB                                 AUROC 0.807 AUPRC 0.265 (prev 0.014) | sens 0.70 prec 0.44 FA/dog-mo 0.04 lead 4.0
+    pruritic_flare  XGBoost                                AUROC 0.786 AUPRC 0.243 (prev 0.014) | sens 0.69 prec 0.40 FA/dog-mo 0.04 lead 4.0
+    pruritic_flare  Random Forest                          AUROC 0.832 AUPRC 0.291 (prev 0.014) | sens 0.77 prec 0.51 FA/dog-mo 0.03 lead 4.0
+    pruritic_flare  Bayesian (naive-Bayes network)         AUROC 0.707 AUPRC 0.080 (prev 0.014) | sens 0.73 prec 0.28 FA/dog-mo 0.14 lead 4.0
+    pruritic_flare  Stacked ensemble (LR+XGB+HGB -> LR)    AUROC 0.790 AUPRC 0.272 (prev 0.014) | sens 0.75 prec 0.48 FA/dog-mo 0.03 lead 4.0
+    pruritic_flare  Survival analysis (Cox PH)             AUROC 0.784 AUPRC 0.193 (prev 0.014) | sens 0.70 prec 0.47 FA/dog-mo 0.03 lead 2.0
+    chf_decomp      Deterministic rules                    AUROC 0.855 AUPRC 0.529 (prev 0.014) | sens 0.62 prec 0.88 FA/dog-mo 0.01 lead 3.0
+    chf_decomp      Logistic regression (linear)           AUROC 0.935 AUPRC 0.752 (prev 0.014) | sens 0.97 prec 0.82 FA/dog-mo 0.01 lead 4.0
+    chf_decomp      HistGB                                 AUROC 0.951 AUPRC 0.810 (prev 0.014) | sens 0.97 prec 0.84 FA/dog-mo 0.02 lead 5.0
+    chf_decomp      XGBoost                                AUROC 0.947 AUPRC 0.798 (prev 0.014) | sens 0.95 prec 0.89 FA/dog-mo 0.01 lead 4.0
+    chf_decomp      Random Forest                          AUROC 0.952 AUPRC 0.827 (prev 0.014) | sens 0.95 prec 0.85 FA/dog-mo 0.01 lead 4.0
+    chf_decomp      Bayesian (naive-Bayes network)         AUROC 0.892 AUPRC 0.191 (prev 0.014) | sens 0.95 prec 0.22 FA/dog-mo 0.41 lead 4.0
+    chf_decomp      Stacked ensemble (LR+XGB+HGB -> LR)    AUROC 0.927 AUPRC 0.810 (prev 0.014) | sens 0.97 prec 0.89 FA/dog-mo 0.01 lead 3.5
+    chf_decomp      Survival analysis (Cox PH)             AUROC 0.949 AUPRC 0.531 (prev 0.014) | sens 0.93 prec 0.72 FA/dog-mo 0.03 lead 3.0
+    acute_gi        Deterministic rules                    AUROC 0.591 AUPRC 0.003 (prev 0.001) | sens 0.13 prec 0.02 FA/dog-mo 0.10 lead 1.5
+    acute_gi        Logistic regression (linear)           AUROC 0.490 AUPRC 0.001 (prev 0.001) | sens 0.05 prec 0.01 FA/dog-mo 0.16 lead 2.0
+    acute_gi        HistGB                                 AUROC 0.545 AUPRC 0.002 (prev 0.001) | sens 0.08 prec 0.01 FA/dog-mo 0.20 lead 2.0
+    acute_gi        XGBoost                                AUROC 0.580 AUPRC 0.002 (prev 0.001) | sens 0.08 prec 0.01 FA/dog-mo 0.18 lead 1.0
+    acute_gi        Random Forest                          AUROC 0.574 AUPRC 0.004 (prev 0.001) | sens 0.08 prec 0.01 FA/dog-mo 0.17 lead 1.0
+    acute_gi        Bayesian (naive-Bayes network)         AUROC 0.512 AUPRC 0.002 (prev 0.001) | sens 0.08 prec 0.01 FA/dog-mo 0.13 lead 2.0
+    acute_gi        Stacked ensemble (LR+XGB+HGB -> LR)    AUROC 0.493 AUPRC 0.001 (prev 0.001) | sens 0.02 prec 0.00 FA/dog-mo 0.23 lead 3.0
+    acute_gi        Survival analysis (Cox PH)             AUROC 0.479 AUPRC 0.001 (prev 0.001) | sens 0.08 prec 0.00 FA/dog-mo 0.21 lead 2.0
+    tick_fever      Deterministic rules                    AUROC 0.607 AUPRC 0.007 (prev 0.003) | sens 0.26 prec 0.02 FA/dog-mo 0.12 lead 1.0
+    tick_fever      Logistic regression (linear)           AUROC 0.666 AUPRC 0.011 (prev 0.003) | sens 0.38 prec 0.02 FA/dog-mo 0.16 lead 2.0
+    tick_fever      HistGB                                 AUROC 0.577 AUPRC 0.020 (prev 0.003) | sens 0.28 prec 0.16 FA/dog-mo 0.09 lead 1.0
+    tick_fever      XGBoost                                AUROC 0.608 AUPRC 0.019 (prev 0.003) | sens 0.26 prec 0.08 FA/dog-mo 0.09 lead 1.0
+    tick_fever      Random Forest                          AUROC 0.566 AUPRC 0.040 (prev 0.003) | sens 0.32 prec 0.34 FA/dog-mo 0.01 lead 1.0
+    tick_fever      Bayesian (naive-Bayes network)         AUROC 0.639 AUPRC 0.005 (prev 0.003) | sens 0.55 prec 0.02 FA/dog-mo 0.40 lead 2.0
+    tick_fever      Stacked ensemble (LR+XGB+HGB -> LR)    AUROC 0.624 AUPRC 0.013 (prev 0.003) | sens 0.36 prec 0.04 FA/dog-mo 0.12 lead 1.0
+    tick_fever      Survival analysis (Cox PH)             AUROC 0.662 AUPRC 0.006 (prev 0.003) | sens 0.36 prec 0.06 FA/dog-mo 0.11 lead 1.0
+    ckd_pupd        Deterministic rules                    AUROC 0.937 AUPRC 0.621 (prev 0.010) | sens 0.80 prec 0.61 FA/dog-mo 0.00 lead 25.0
+    ckd_pupd        Logistic regression (linear)           AUROC 0.993 AUPRC 0.858 (prev 0.010) | sens 0.92 prec 0.89 FA/dog-mo 0.00 lead 30.0
+    ckd_pupd        HistGB                                 AUROC 0.997 AUPRC 0.866 (prev 0.010) | sens 0.72 prec 0.79 FA/dog-mo 0.00 lead 37.5
+    ckd_pupd        XGBoost                                AUROC 0.998 AUPRC 0.909 (prev 0.010) | sens 0.72 prec 0.80 FA/dog-mo 0.00 lead 33.0
+    ckd_pupd        Random Forest                          AUROC 0.995 AUPRC 0.876 (prev 0.010) | sens 0.84 prec 0.91 FA/dog-mo 0.00 lead 29.0
+    ckd_pupd        Bayesian (naive-Bayes network)         AUROC 0.930 AUPRC 0.334 (prev 0.010) | sens 0.84 prec 0.32 FA/dog-mo 0.03 lead 41.0
+    ckd_pupd        Stacked ensemble (LR+XGB+HGB -> LR)    AUROC 0.980 AUPRC 0.876 (prev 0.010) | sens 0.64 prec 0.89 FA/dog-mo 0.00 lead 36.5
+    ckd_pupd        Survival analysis (Cox PH)             AUROC 0.992 AUPRC 0.747 (prev 0.010) | sens 0.76 prec 0.72 FA/dog-mo 0.00 lead 33.5
+    winners: {'acute_gi': 'Deterministic rules', 'chf_decomp': 'Random Forest', 'ckd_pupd': 'XGBoost', 'oa_mobility': 'HistGB', 'pruritic_flare': 'Random Forest', 'tick_fever': 'Random Forest'}
+
+[D] Sensor-fusion ablation
+    A_accel            oa_mobility     AUROC 0.983 AUPRC 0.878 sens 0.95 prec 0.87
+    A_accel            pruritic_flare  AUROC 0.819 AUPRC 0.285 sens 0.83 prec 0.46
+    A_accel            chf_decomp      AUROC 0.941 AUPRC 0.829 sens 0.80 prec 0.85
+    A_accel            acute_gi        AUROC 0.588 AUPRC 0.003 sens 0.10 prec 0.01
+    A_accel            tick_fever      AUROC 0.575 AUPRC 0.038 sens 0.32 prec 0.25
+    A_accel            ckd_pupd        AUROC 0.996 AUPRC 0.918 sens 0.68 prec 0.84
+    B_accel_mic        oa_mobility     AUROC 0.985 AUPRC 0.876 sens 0.91 prec 0.90
+    B_accel_mic        pruritic_flare  AUROC 0.823 AUPRC 0.288 sens 0.73 prec 0.51
+    B_accel_mic        chf_decomp      AUROC 0.941 AUPRC 0.832 sens 0.97 prec 0.85
+    B_accel_mic        acute_gi        AUROC 0.595 AUPRC 0.003 sens 0.08 prec 0.01
+    B_accel_mic        tick_fever      AUROC 0.560 AUPRC 0.042 sens 0.42 prec 0.31
+    B_accel_mic        ckd_pupd        AUROC 0.997 AUPRC 0.929 sens 0.80 prec 0.88
+    C_accel_mic_env    oa_mobility     AUROC 0.983 AUPRC 0.865 sens 0.88 prec 0.90
+    C_accel_mic_env    pruritic_flare  AUROC 0.832 AUPRC 0.291 sens 0.77 prec 0.51
+    C_accel_mic_env    chf_decomp      AUROC 0.952 AUPRC 0.827 sens 0.95 prec 0.85
+    C_accel_mic_env    acute_gi        AUROC 0.591 AUPRC 0.003 sens 0.13 prec 0.02
+    C_accel_mic_env    tick_fever      AUROC 0.566 AUPRC 0.040 sens 0.32 prec 0.34
+    C_accel_mic_env    ckd_pupd        AUROC 0.998 AUPRC 0.909 sens 0.72 prec 0.80
+    D_plus_skin_temp   oa_mobility     AUROC 0.985 AUPRC 0.880 sens 0.94 prec 0.92
+    D_plus_skin_temp   pruritic_flare  AUROC 0.830 AUPRC 0.288 sens 0.76 prec 0.50
+    D_plus_skin_temp   chf_decomp      AUROC 0.949 AUPRC 0.830 sens 0.93 prec 0.85
+    D_plus_skin_temp   acute_gi        AUROC 0.625 AUPRC 0.003 sens 0.10 prec 0.01
+    D_plus_skin_temp   tick_fever      AUROC 0.566 AUPRC 0.033 sens 0.34 prec 0.24
+    D_plus_skin_temp   ckd_pupd        AUROC 0.998 AUPRC 0.915 sens 0.72 prec 0.85
+    E_ideal            oa_mobility     AUROC 1.000 AUPRC 0.997 sens 1.00 prec 0.98
+    E_ideal            pruritic_flare  AUROC 0.826 AUPRC 0.319 sens 0.81 prec 0.45
+    E_ideal            chf_decomp      AUROC 0.967 AUPRC 0.840 sens 0.93 prec 0.85
+    E_ideal            acute_gi        AUROC 0.629 AUPRC 0.004 sens 0.05 prec 0.03
+    E_ideal            tick_fever      AUROC 0.690 AUPRC 0.237 sens 0.51 prec 0.88
+    E_ideal            ckd_pupd        AUROC 0.998 AUPRC 0.903 sens 0.92 prec 0.72
+
+[E] Random row split vs held-out dogs
+
+Done in 553.7 min -> D:\dog\reports\ALGORITHM_BAKEOFF.md

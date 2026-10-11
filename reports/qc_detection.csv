@@ -1,0 +1,5 @@
+fault,flag,fault_days,flagged_days,recall,precision
+loose_collar,dq_loose,8434,8548,0.982570547782784,0.9694665418811418
+sensor_flatline,dq_flatline,484,488,1.0,0.9918032786885246
+spike_glitch,dq_spike,325,302,0.9261538461538461,0.9966887417218543
+wet_fur,dq_rr_low_yield,8228,10006,0.9979338842975206,0.8206076354187487

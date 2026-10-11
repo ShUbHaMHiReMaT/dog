@@ -1,0 +1,13 @@
+numpy>=1.26
+pandas>=2.2
+scipy>=1.13
+scikit-learn>=1.5
+xgboost>=2.0
+statsmodels>=0.14
+lifelines>=0.29
+torch>=2.2
+chronos-forecasting>=2.0     # Hugging Face: amazon/chronos-bolt-tiny
+pyarrow>=15
+joblib>=1.4
+streamlit>=1.45
+plotly>=5.20

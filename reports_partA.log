@@ -1,0 +1,15 @@
+    HistGB (incumbent)             acc 0.873  macroF1 0.876  scratch sens/PPV 0.92/0.91  (200s)
+    XGBoost                        acc 0.874  macroF1 0.877  scratch sens/PPV 0.92/0.91  (115s)
+    Random Forest                  acc 0.865  macroF1 0.868  scratch sens/PPV 0.91/0.89  (25s)
+    SVM (RBF)                      acc 0.861  macroF1 0.864  scratch sens/PPV 0.90/0.89  (18s)
+    Linear (logistic)              acc 0.818  macroF1 0.824  scratch sens/PPV 0.84/0.82  (3s)
+    Stacked (HGB+RF+SVM -> LR)     acc 0.878  macroF1 0.881  scratch sens/PPV 0.93/0.91  (563s)
+    1D CNN on raw signal           acc 0.826  macroF1 0.831  scratch sens/PPV 0.93/0.92  (87s)
+                        model  accuracy  macro_f1  scratch_sens  scratch_ppv  seconds                       verdict
+0          HistGB (incumbent)  0.872651  0.875875      0.916955     0.906758    199.6                     INCUMBENT
+1                     XGBoost  0.874183  0.877407      0.916090     0.913719    115.1  TIE - keep simpler incumbent
+2               Random Forest  0.864992  0.868367      0.905709     0.886537     25.4  TIE - keep simpler incumbent
+3                   SVM (RBF)  0.861111  0.864394      0.897924     0.894057     18.3                        REJECT
+4           Linear (logistic)  0.818015  0.823925      0.839100     0.824830      2.7                        REJECT
+5  Stacked (HGB+RF+SVM -> LR)  0.878472  0.881452      0.926471     0.912266    563.5  TIE - keep simpler incumbent
+6        1D CNN on raw signal  0.826287  0.830546      0.934256     0.923077     87.4                        REJECT

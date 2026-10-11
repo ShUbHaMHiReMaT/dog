@@ -1,0 +1,47 @@
+  S0 no faults, no QC        oa_mobility     AUROC 0.979 sens 0.97 prec 0.96 FA/dog-mo 0.001 fault-caused FA 0
+  S0 no faults, no QC        pruritic_flare  AUROC 0.781 sens 0.63 prec 0.36 FA/dog-mo 0.041 fault-caused FA 0
+  S0 no faults, no QC        chf_decomp      AUROC 0.819 sens 0.63 prec 0.80 FA/dog-mo 0.009 fault-caused FA 0
+  S0 no faults, no QC        acute_gi        AUROC 0.570 sens 0.12 prec 0.01 FA/dog-mo 0.217 fault-caused FA 0
+  S0 no faults, no QC        tick_fever      AUROC 0.605 sens 0.25 prec 0.02 FA/dog-mo 0.158 fault-caused FA 0
+  S0 no faults, no QC        ckd_pupd        AUROC 0.996 sens 0.85 prec 0.76 FA/dog-mo 0.004 fault-caused FA 0
+  S1 faults, no QC (v0.1)    oa_mobility     AUROC 0.980 sens 0.91 prec 0.96 FA/dog-mo 0.001 fault-caused FA 4
+  S1 faults, no QC (v0.1)    pruritic_flare  AUROC 0.760 sens 0.32 prec 0.21 FA/dog-mo 0.063 fault-caused FA 85
+  S1 faults, no QC (v0.1)    chf_decomp      AUROC 0.844 sens 0.68 prec 0.78 FA/dog-mo 0.011 fault-caused FA 0
+  S1 faults, no QC (v0.1)    acute_gi        AUROC 0.570 sens 0.06 prec 0.00 FA/dog-mo 0.214 fault-caused FA 24
+  S1 faults, no QC (v0.1)    tick_fever      AUROC 0.586 sens 0.09 prec 0.05 FA/dog-mo 0.117 fault-caused FA 4
+  S1 faults, no QC (v0.1)    ckd_pupd        AUROC 0.992 sens 0.93 prec 0.59 FA/dog-mo 0.008 fault-caused FA 0
+  S2 faults + QC (v0.2)      oa_mobility     AUROC 0.981 sens 0.90 prec 0.97 FA/dog-mo 0.001 fault-caused FA 2
+  S2 faults + QC (v0.2)      pruritic_flare  AUROC 0.780 sens 0.59 prec 0.36 FA/dog-mo 0.037 fault-caused FA 24
+  S2 faults + QC (v0.2)      chf_decomp      AUROC 0.820 sens 0.68 prec 0.82 FA/dog-mo 0.009 fault-caused FA 1
+  S2 faults + QC (v0.2)      acute_gi        AUROC 0.557 sens 0.05 prec 0.00 FA/dog-mo 0.245 fault-caused FA 23
+  S2 faults + QC (v0.2)      tick_fever      AUROC 0.586 sens 0.20 prec 0.01 FA/dog-mo 0.185 fault-caused FA 57
+  S2 faults + QC (v0.2)      ckd_pupd        AUROC 0.996 sens 0.85 prec 0.67 FA/dog-mo 0.006 fault-caused FA 0
+scenario        S0 no faults, no QC  S1 faults, no QC (v0.1)  S2 faults + QC (v0.2)
+condition                                                                          
+acute_gi                      0.217                    0.214                  0.245
+chf_decomp                    0.009                    0.011                  0.009
+ckd_pupd                      0.004                    0.008                  0.006
+oa_mobility                   0.001                    0.001                  0.001
+pruritic_flare                0.041                    0.063                  0.037
+tick_fever                    0.158                    0.117                  0.185
+scenario        S0 no faults, no QC  S1 faults, no QC (v0.1)  S2 faults + QC (v0.2)
+condition                                                                          
+acute_gi                       0.12                     0.06                   0.05
+chf_decomp                     0.63                     0.68                   0.68
+ckd_pupd                       0.85                     0.93                   0.85
+oa_mobility                    0.98                     0.91                   0.90
+pruritic_flare                 0.63                     0.32                   0.59
+tick_fever                     0.25                     0.09                   0.20
+         condition          policy  sensitivity  alert_precision  false_alerts_per_dog_month
+0      oa_mobility     no feedback        0.938            0.949                       0.002
+1      oa_mobility  owner feedback        0.938            0.949                       0.002
+2   pruritic_flare     no feedback        0.586            0.368                       0.035
+3   pruritic_flare  owner feedback        0.579            0.399                       0.031
+4       chf_decomp     no feedback        0.732            0.789                       0.012
+5       chf_decomp  owner feedback        0.732            0.811                       0.011
+6         acute_gi     no feedback        0.031            0.004                       0.095
+7         acute_gi  owner feedback        0.031            0.005                       0.081
+8       tick_fever     no feedback        0.125            0.016                       0.088
+9       tick_fever  owner feedback        0.071            0.012                       0.066
+10        ckd_pupd     no feedback        0.815            0.833                       0.002
+11        ckd_pupd  owner feedback        0.815            0.830                       0.002

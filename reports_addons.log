@@ -1,0 +1,33 @@
+computing ARIMA + Chronos features ...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/101 [00:00<?, ?it/s]Loading weights: 100%|##########| 101/101 [00:00<00:00, 1523.85it/s]
+  chf_decomp      baseline features  AUROC 0.951 AUPRC 0.810 sens 0.97 prec 0.84
+  chf_decomp      + ARIMA            AUROC 0.951 AUPRC 0.808 sens 0.93 prec 0.91
+  chf_decomp      + Chronos          AUROC 0.950 AUPRC 0.800 sens 0.90 prec 0.90
+  pruritic_flare  baseline features  AUROC 0.728 AUPRC 0.174 sens 0.38 prec 0.48
+  pruritic_flare  + ARIMA            AUROC 0.724 AUPRC 0.167 sens 0.53 prec 0.50
+  pruritic_flare  + Chronos          AUROC 0.730 AUPRC 0.179 sens 0.38 prec 0.32
+  oa_mobility     baseline features  AUROC 0.979 AUPRC 0.838 sens 0.85 prec 0.79
+  oa_mobility     + ARIMA            AUROC 0.979 AUPRC 0.834 sens 0.82 prec 0.89
+  oa_mobility     + Chronos          AUROC 0.979 AUPRC 0.835 sens 0.82 prec 0.85
+  ckd_pupd        baseline features  AUROC 0.987 AUPRC 0.798 sens 0.64 prec 0.96
+  ckd_pupd        + ARIMA            AUROC 0.987 AUPRC 0.807 sens 0.50 prec 0.95
+  ckd_pupd        + Chronos          AUROC 0.987 AUPRC 0.798 sens 0.57 prec 0.96
+  acute_gi        baseline features  AUROC 0.507 AUPRC 0.002 sens 0.05 prec 0.00
+  acute_gi        + ARIMA            AUROC 0.512 AUPRC 0.002 sens 0.00 prec 0.00
+  acute_gi        + Chronos          AUROC 0.512 AUPRC 0.002 sens 0.00 prec 0.00
+  tick_fever      baseline features  AUROC 0.529 AUPRC 0.002 sens 0.00 prec 0.00
+  tick_fever      + ARIMA            AUROC 0.528 AUPRC 0.002 sens 0.00 prec 0.00
+  tick_fever      + Chronos          AUROC 0.547 AUPRC 0.003 sens 0.08 prec 0.01
+{
+  "+ ARIMA": {
+    "mean_gain": -0.0006881923139142309,
+    "helped": [],
+    "adopt": false
+  },
+  "+ Chronos": {
+    "mean_gain": -0.0011962605783050484,
+    "helped": [],
+    "adopt": false
+  }
+}

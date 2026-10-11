@@ -1,0 +1,21 @@
+  behaviour accuracy  random-split 0.900 | leave-dogs-out 0.865 | leave-breed-group-out 0.870
+    train dogs   2: within-dog 0.899  unseen-dog 0.673
+    train dogs   4: within-dog 0.926  unseen-dog 0.749
+    train dogs   8: within-dog 0.906  unseen-dog 0.812
+    train dogs  16: within-dog 0.896  unseen-dog 0.846
+    train dogs  32: within-dog 0.908  unseen-dog 0.865
+    train dogs  48: within-dog 0.909  unseen-dog 0.869
+leave_dogs_out {'lying_rest': 0.96, 'standing': 0.89, 'walking': 0.65, 'trotting': 0.84, 'scratching': 0.92, 'head_shaking': 0.92, 'eating': 0.86, 'drinking': 0.87, 'panting': 0.89}
+                           config   coat  yield_  bias  loa_lo  loa_hi  within_2bpm
+              12-bit, 150 ug/rtHz   long    0.80  0.05   -1.58    1.68         1.00
+              12-bit, 150 ug/rtHz medium    0.92  0.07   -1.41    1.55         1.00
+              12-bit, 150 ug/rtHz  short    1.00 -0.03   -1.47    1.42         1.00
+16-bit, 150 ug/rtHz (recommended)   long    0.75 -0.20   -1.31    0.91         1.00
+16-bit, 150 ug/rtHz (recommended) medium    0.92  0.13   -1.36    1.61         1.00
+16-bit, 150 ug/rtHz (recommended)  short    0.95  0.16   -1.58    1.89         1.00
+       16-bit, 150 ug/rtHz, 25 Hz   long    0.82 -0.91  -10.18    8.36         0.94
+       16-bit, 150 ug/rtHz, 25 Hz medium    0.95  0.16   -1.33    1.64         1.00
+       16-bit, 150 ug/rtHz, 25 Hz  short    0.98 -0.14   -1.46    1.18         1.00
+ 16-bit, 400 ug/rtHz (cheap MEMS)   long    0.95 -0.21   -1.74    1.33         0.95
+ 16-bit, 400 ug/rtHz (cheap MEMS) medium    0.92  0.09   -1.39    1.57         1.00
+ 16-bit, 400 ug/rtHz (cheap MEMS)  short    0.92  0.02   -1.43    1.47         1.00

@@ -1,0 +1,8 @@
+{
+  "acute_gi": "Deterministic rules",
+  "chf_decomp": "Random Forest",
+  "ckd_pupd": "XGBoost",
+  "oa_mobility": "HistGB",
+  "pruritic_flare": "Random Forest",
+  "tick_fever": "Random Forest"
+}

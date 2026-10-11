@@ -1,0 +1,12 @@
+{
+  "+ ARIMA": {
+    "mean_gain": -0.0006881923139142309,
+    "helped": [],
+    "adopt": false
+  },
+  "+ Chronos": {
+    "mean_gain": -0.0011962605783050484,
+    "helped": [],
+    "adopt": false
+  }
+}

@@ -1,0 +1,5 @@
+cond,TRUE,look-alike: boarding_or_owner_away,look-alike: flea_tick_infestation,look-alike: kennel_cough,look-alike: minor_injury,other illness: ckd_pupd,other illness: oa_mobility,unexplained
+chf_decomp,28,0,0,1,0,0,0,2
+ckd_pupd,43,0,0,1,0,0,0,3
+oa_mobility,141,0,1,0,0,1,0,6
+pruritic_flare,108,6,84,4,4,3,9,8
