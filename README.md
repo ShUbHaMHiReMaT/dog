@@ -5,17 +5,20 @@ recognition, resting-respiratory-rate extraction, a 400-dog × 400-day Indian co
 look-alike events, per-dog baselines, risk prediction, calibrated alerts and a clinician dashboard.
 Real hardware data plugs into the same pipeline through `praniiva/ingest.py`.
 
-> Everything here is simulated from parameters in the feasibility dossier (09 Oct 2026). It tests the
-> **pipeline and the choice of algorithms and sensors**. It is not evidence that the device detects disease.
-> The dossier's claim discipline applies: Level 1-2 (monitoring, per-dog anomaly) only.
+> **A canine health-monitoring and anomaly-alert prototype - not a diagnostic device.** Everything here is
+> simulated from parameters in the feasibility dossier (09 Oct 2026). It tests the **pipeline and the choice of
+> algorithms and sensors**; no real-world detection performance has been established. See
+> [docs/VALIDATION_STATUS.md](docs/VALIDATION_STATUS.md) for exactly what is and is not proven.
 
 ## Quick start
 
 ```powershell
-pip install -r requirements.txt
-python scripts/run_bakeoff.py          # algorithm bake-off -> reports/ALGORITHM_BAKEOFF.md (30-60 min)
-python scripts/run_simulation.py       # trains production models with the winners, writes data/
-streamlit run app.py                   # dashboard
+pip install -r requirements.txt            # core: simulation, models, dashboard, hardware ingest
+pip install -r requirements-research.txt   # optional: bake-off (CNN/ARIMA/Cox), Chronos, tests
+python scripts/run_simulation.py           # dev cohort + untouched 300-dog test cohort -> data/, models/
+streamlit run app.py                       # dashboard
+python -m pytest tests                     # ingest + alert-safety tests
+python scripts/run_bakeoff.py              # optional algorithm bake-off (30-60 min)
 ```
 
 ## How it fits together
@@ -83,3 +86,14 @@ print(daily_from_raw(p, "D9999", Path("models")).T)
 * `docs/RESEARCH_NOTES.md` - competitor methods and data-quality literature, with sources.
 * `scripts/audit_plots.py` -> `reports/audit/*.png` - visual audit (event-aligned signals, alert causes, sanity
   checks against the literature).
+
+## v0.3 - review fixes (honest evaluation, safe ingest)
+
+* **Untouched test cohort:** models, thresholds and calibration are fixed on development dogs, then evaluated once
+  on 300 separate dogs with dog-level 95 % CIs (`reports/final_test.csv`). Alerts switch on only if that test passes.
+* **Ingest validation:** units, timestamps, duplicates, clock resets, NaN/inf, sample rate, local-date day split,
+  whole-window gap mask, no extrapolation of short recordings (`tests/test_ingest.py`).
+* **No score without evidence:** per-condition status `ok / insufficient_data / reduced_inputs / not_applicable`.
+* **Concern level instead of "risk %":** score / alert threshold (1.0 = alert line); not a clinical probability.
+* **No alerts after a vet diagnosis** (treatment tracking instead); device messages limited to once per 14 days.
+* Dependencies split and pinned; the core runs without torch/Chronos.

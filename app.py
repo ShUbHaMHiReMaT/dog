@@ -62,7 +62,9 @@ def bundle():
 
 
 def banner():
-    st.caption("⚠️ **Simulation.** Dogs, diseases and sensor errors are generated from published parameters "
+    st.caption("⚠️ **Research simulation - a monitoring & anomaly-alert prototype, not a diagnostic device.** "
+               "No real-world detection performance has been established. "
+               "Dogs, diseases and sensor errors are generated from published parameters "
                "(PRANIIVA feasibility dossier). Numbers rank methods and test the pipeline - they are not clinical claims.")
 
 
@@ -77,7 +79,7 @@ def personal_band(s: pd.Series):
 def timeline_figure(meas, scores, events, episodes, channels, conds, today=None, chronos=None, truth_mode=True):
     rows = len(channels) + 1
     fig = make_subplots(rows=rows, cols=1, shared_xaxes=True, vertical_spacing=0.03,
-                        subplot_titles=[CH_LABEL.get(c, c) for c in channels] + ["Risk (calibrated) and alerts"])
+                        subplot_titles=[CH_LABEL.get(c, c) for c in channels] + ["Concern level (1.0 = alert line - not a probability)"])
     x = meas.day.values
     for i, c in enumerate(channels, start=1):
         s = meas[c]
@@ -107,12 +109,13 @@ def timeline_figure(meas, scores, events, episodes, channels, conds, today=None,
             fig.add_trace(go.Scatter(x=xx, y=q50, line=dict(color="royalblue", dash="dash"), showlegend=False), i, 1)
     colors = ["#d62728", "#ff7f0e", "#9467bd", "#8c564b", "#e377c2", "#17becf"]
     for k, cond in enumerate(conds):
-        col = f"risk_{cond}"
+        col = f"concern_{cond}"
         if col not in scores or scores[col].isna().all():
             continue
-        fig.add_trace(go.Scatter(x=scores.day, y=scores[col], name=SHORT[cond], line=dict(color=colors[k % 6])), rows, 1)
+        yv = scores[col].clip(upper=2.0)
+        fig.add_trace(go.Scatter(x=scores.day, y=yv, name=SHORT[cond], line=dict(color=colors[k % 6])), rows, 1)
         fired = scores[scores.get(f"fired_{cond}", False) == True]  # noqa: E712
-        fig.add_trace(go.Scatter(x=fired.day, y=fired[col], mode="markers", marker=dict(symbol="triangle-up", size=11,
+        fig.add_trace(go.Scatter(x=fired.day, y=fired[col].clip(upper=2.0) + 0.06, mode="markers", marker=dict(symbol="triangle-up", size=11,
                                  color=colors[k % 6], line=dict(color="black", width=1)), name=f"ALERT {SHORT[cond]}",
                                  showlegend=False), rows, 1)
     if truth_mode and events is not None and len(events):
@@ -129,7 +132,8 @@ def timeline_figure(meas, scores, events, episodes, channels, conds, today=None,
             fig.add_vline(x=today, line=dict(color="black", dash="dash"), row=r, col=1)
     fig.update_layout(height=200 * rows + 80, margin=dict(l=10, r=10, t=40, b=10),
                       legend=dict(orientation="h", y=-0.03), hovermode="x unified")
-    fig.update_yaxes(range=[0, 1.12], row=rows, col=1)
+    fig.add_hline(y=1.0, line=dict(color="white", dash="dot", width=1), row=rows, col=1)
+    fig.update_yaxes(range=[0, 2.15], row=rows, col=1)
     return fig
 
 
@@ -152,7 +156,7 @@ if page == "🏥 Clinic overview":
     R = D["risk_oof"]
     co = D["cohort"].set_index("dog_id")
     snap = R[R.day == today].set_index("dog_id")
-    rc = [f"risk_{c}" for c in CONDITIONS if f"risk_{c}" in snap]
+    rc = [f"concern_{c}" for c in CONDITIONS if f"concern_{c}" in snap]
     window = R[(R.day > today - 7) & (R.day <= today)]
     fired = [f"fired_{c}" for c in CONDITIONS if f"fired_{c}" in window]
     alerts = window.melt(id_vars=["dog_id", "day"], value_vars=fired, var_name="cond", value_name="f")
@@ -168,9 +172,9 @@ if page == "🏥 Clinic overview":
         a = alerts.merge(co[["breed", "age0", "weight"]], left_on="dog_id", right_index=True)
         a["age"] = (a.age0 + a.day / 365).round(1)
         if len(D["alerts"]):
-            w = D["alerts"].assign(condition=D["alerts"].condition.map(SHORT))[["dog_id", "day", "condition", "risk", "why"]]
+            w = D["alerts"].assign(condition=D["alerts"].condition.map(SHORT))[["dog_id", "day", "condition", "concern", "why"]]
             a = a.merge(w, on=["dog_id", "day", "condition"], how="left")
-        cols = ["dog_id", "breed", "age", "weight", "condition", "day"] + [c for c in ("risk", "why") if c in a]
+        cols = ["dog_id", "breed", "age", "weight", "condition", "day"] + [c for c in ("concern", "why") if c in a]
         st.dataframe(a[cols].sort_values("day", ascending=False), hide_index=True, width="stretch")
     else:
         st.info("No alerts fired in this window.")
@@ -180,13 +184,15 @@ if page == "🏥 Clinic overview":
         st.subheader(f"Device / data-quality messages sent to owners (last 7 days): {len(recent)}")
         st.caption("Bad data becomes a maintenance message - never a health alert.")
         st.dataframe(recent.sort_values("day", ascending=False), hide_index=True, width="stretch")
-    st.subheader("Highest risks today")
+    st.subheader("Highest concern today")
     tab = snap[rc].copy()
-    tab.columns = [SHORT[c.replace("risk_", "")] for c in rc]
+    tab.columns = [SHORT[c.replace("concern_", "")] for c in rc]
     tab = tab.join(co[["breed", "weight"]])
-    tab["max risk"] = tab[[SHORT[c.replace("risk_", "")] for c in rc]].max(axis=1)
-    st.dataframe(tab.sort_values("max risk", ascending=False).head(25).style.format(precision=2)
-                 .background_gradient(cmap="Reds", subset=[SHORT[c.replace('risk_', '')] for c in rc]), width="stretch")
+    tab["max concern"] = tab[[SHORT[c.replace("concern_", "")] for c in rc]].max(axis=1)
+    st.caption("Concern level: 1.0 = that condition's alert line. Empty = insufficient data or not applicable.")
+    st.dataframe(tab.sort_values("max concern", ascending=False).head(25).style.format(precision=2)
+                 .background_gradient(cmap="Reds", vmin=0, vmax=1.5,
+                                      subset=[SHORT[c.replace('concern_', '')] for c in rc]), width="stretch")
     with st.expander("Ground truth (simulation only) - events near today"):
         ev = D["events"]
         st.dataframe(ev[(ev.event_day >= today - 7) & (ev.event_day <= today + 30)].sort_values("event_day"),
@@ -225,9 +231,15 @@ elif page == "🐕 Dog timeline":
         sc = D["risk_oof"][D["risk_oof"].dog_id == dog_id].sort_values("day")
         chron = None
         if use_chronos and chans:
-            from praniiva.forecasters import chronos_forecast_one
+            try:
+                from praniiva.forecasters import chronos_forecast_one
+            except ImportError:
+                st.warning("Chronos needs the research extras: pip install -r requirements-research.txt")
+                chans_chronos = []
+            else:
+                chans_chronos = chans
             chron = {}
-            for c in chans:
+            for c in chans_chronos:
                 hist = m[m.day < today][c].values
                 if np.isfinite(hist).sum() > 20:
                     q10, q50, q90 = chronos_forecast_one(hist, 14)
@@ -258,7 +270,8 @@ elif page == "🐕 Dog timeline":
             st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch")
         st.caption("Orange x = day flagged as low data quality (loose collar, frozen sensor, glitch, wet fur) and ignored by the models. "
                    "Green band = this dog's normal from 2-4 months earlier (median ± 2 MAD), so slow declines show as leaving the band. Triangles = alerts "
-                   "after debouncing. Risk is the out-of-fold, isotonic-calibrated probability.")
+                   "after debouncing; none fire after the vet's diagnosis (treatment tracking instead). Concern = model score / "
+                   "alert threshold, from a model that never saw this dog - NOT a clinical probability.")
 
 # ======================================================================================
 elif page == "🧪 Live simulator":
@@ -277,6 +290,9 @@ elif page == "🧪 Live simulator":
         outdoor = st.checkbox("Mostly outdoors")
         compliance = st.slider("Owner collar compliance", 0.3, 1.0, 0.9)
     with c3:
+        st.caption("Only the conditions injected here occur. The Atopic / Otitis boxes change the dog's baseline "
+                   "scratching and head shaking; they do not cause flares on their own. Heat illness is simulated but "
+                   "has no predictor yet.")
         inj = st.multiselect("Inject condition(s)", list(CONDITIONS) + ["heat_illness"], default=["chf_decomp"],
                              format_func=lambda c: SHORT.get(c, c))
         ev_day = st.slider("Event day (clinical recognition)", 80, SIM_DAYS - 20, 220)
@@ -312,6 +328,11 @@ elif page == "🧪 Live simulator":
         st.subheader("Did the platform see it coming?")
         st.dataframe(pd.DataFrame(summary), hide_index=True)
         st.caption(f"All alerts fired over 400 days (true + false): {fa}")
+        stat = {SHORT[c]: sc[f"status_{c}"].value_counts().to_dict() for c in CONDITIONS if f"status_{c}" in sc}
+        st.markdown("**Days the platform could / could not assess each condition** "
+                    "(insufficient_data = key measurement missing, e.g. scratching while the collar was loose, "
+                    "or the 35-day personal baseline not yet learned)")
+        st.dataframe(pd.DataFrame(stat).T.fillna(0).astype(int), width="stretch")
         if "alerts" in res and len(res["alerts"]):
             st.markdown("**Each alert and why it fired**")
             st.dataframe(res["alerts"].assign(condition=res["alerts"].condition.map(SHORT)), hide_index=True, width="stretch")
@@ -404,12 +425,21 @@ elif page == "📊 Algorithms & validation":
     with tabs[5]:
         try:
             b = bundle()
-            st.dataframe(pd.DataFrame([dict(condition=SHORT[c], model=v["model_name"], threshold=v["threshold"],
-                                            alerts="ON" if v.get("deploy_alerts", True) else "MONITOR ONLY",
-                                            **{k: v["oof_alert_metrics"][k] for k in ("sensitivity", "alert_precision",
-                                               "false_alerts_per_dog_month", "median_lead_days")},
-                                            auroc=v["oof_metrics"]["auroc"]) for c, v in b["conditions"].items()]),
-                         hide_index=True, width="stretch")
+            rows = []
+            for c, v in b["conditions"].items():
+                t = v.get("test_alert_metrics") or v.get("dev_alert_metrics") or {}
+                ci = lambda k: (f"{t[k]:.2f} [{t[k + '_lo']:.2f}-{t[k + '_hi']:.2f}]"   # noqa: E731
+                                if t and pd.notna(t.get(k)) else "n/a")
+                rows.append(dict(condition=SHORT[c], model=v["model_name"],
+                                 alerts="ON" if v.get("deploy_alerts") else "MONITOR ONLY",
+                                 gate_basis=v.get("gate_basis", "?"), test_events=t.get("events"),
+                                 sensitivity_95ci=ci("sensitivity"), alert_precision_95ci=ci("alert_precision"),
+                                 false_alerts_per_dog_month_95ci=ci("false_alerts_per_dog_month"),
+                                 calibration_ece=t.get("ece")))
+            st.markdown("**Frozen models evaluated once on an untouched test cohort** (separate dogs, never used for "
+                        "model choice, thresholds or calibration). 95% CIs by resampling dogs. Gate: precision >= 0.30, "
+                        "sensitivity >= 0.30, >= 10 test events - a research filter, not a clinical standard.")
+            st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch")
         except Exception as e:  # noqa: BLE001
             st.info(f"No production models yet ({e}).")
 

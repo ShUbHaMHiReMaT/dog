@@ -26,6 +26,9 @@ MOTION = ["active_min", "high_int_min", "standing_min", "rest_min", "scratch_min
 LIMITS = dict(active_min=480, high_int_min=240, standing_min=600, scratch_min=120, headshake_count=600,
               eat_min=120, drink_min=90, pant_min=900, night_bouts=80, sleep_rr=90)
 MIN_RR_SEGMENTS = 5
+MIN_DAY_COVERAGE = 0.75          # same rule as ingest.py
+MINUTE_CHANNELS = ["active_min", "high_int_min", "standing_min", "rest_min", "scratch_min", "headshake_count",
+                   "eat_min", "drink_min", "pant_min"]
 
 
 def _robust_dev(s: pd.Series, lag=1, win=28):
@@ -40,9 +43,14 @@ def assess(meas: pd.DataFrame) -> pd.DataFrame:
     g = m.groupby("dog_id", sort=False)
     worn = m.wear_frac.fillna(0) > 0
     m["dq_nonwear"] = m.wear_frac.fillna(0) < 0.5
+    # 50-75 % coverage: minute totals would be extrapolated from an unrepresentative part of the day
+    m["dq_low_coverage"] = worn & ~m.dq_nonwear & (m.wear_frac.fillna(0) < MIN_DAY_COVERAGE)
     m["dq_flatline"] = worn & (m.vm_std_mg < 3)
-    jz = g["fit_jitter_mg"].transform(lambda s: _robust_dev(s)[0])
-    m["dq_loose"] = worn & ((jz > 4) | (m.fit_jitter_mg > 12))
+    if m["fit_jitter_mg"].notna().any():
+        jz = g["fit_jitter_mg"].transform(lambda s: _robust_dev(s)[0])
+        m["dq_loose"] = worn & ((jz > 4) | (m.fit_jitter_mg > 12))
+    else:                                   # firmware did not report the fit metric -> cannot judge fit
+        m["dq_loose"] = False
     impl = np.zeros(len(m), bool)
     for c, lim in LIMITS.items():
         if c in m:
@@ -54,6 +62,7 @@ def assess(meas: pd.DataFrame) -> pd.DataFrame:
     score = np.ones(len(m))
     score *= np.where(m.dq_nonwear, 0.0, np.clip(m.wear_frac.fillna(0), 0, 1) ** 0.5)
     score *= np.where(m.dq_flatline, 0.0, 1.0)
+    score *= np.where(m.dq_low_coverage, 0.6, 1.0)
     score *= np.where(m.dq_spike, 0.2, 1.0)
     score *= np.where(m.dq_loose, 0.5, 1.0)
     score *= np.where(m.dq_rr_low_yield, 0.85, 1.0)
@@ -67,25 +76,29 @@ def clean(m: pd.DataFrame) -> pd.DataFrame:
     bad_all = m.dq_nonwear | m.dq_flatline
     m.loc[bad_all, MOTION + ["sleep_rr", "cough_count"]] = np.nan
     m.loc[m.dq_spike, ["active_min", "high_int_min", "standing_min", "rest_min"]] = np.nan
+    m.loc[m.dq_low_coverage, MINUTE_CHANNELS] = np.nan
     m.loc[m.dq_loose, ["scratch_min", "headshake_count", "gait_asym"]] = np.nan
     m.loc[m.dq_rr_low_yield, "sleep_rr"] = np.nan
     return m
 
 
-def maintenance_messages(m: pd.DataFrame, min_run=2) -> pd.DataFrame:
-    """Owner-facing device messages (debounced runs of >= min_run days)."""
+def maintenance_messages(m: pd.DataFrame, min_run=2, cooldown=14) -> pd.DataFrame:
+    """Owner-facing device messages: an issue must persist >= min_run days, and the same message is not
+    repeated within cooldown days (owners mute apps that nag)."""
     rows = []
     msgs = {"dq_loose": "Collar seems loose - tighten so two fingers fit underneath",
             "dq_flatline": "Sensor not responding - restart or contact support",
             "dq_nonwear": "Collar not worn / not charged",
+            "dq_low_coverage": "Collar only worn part of the day - wear it 18+ hours for reliable monitoring",
             "dq_rr_low_yield": "Breathing-rate readings unreliable (wet or matted fur, heat, panting)"}
     for dog, g in m.sort_values("day").groupby("dog_id", sort=False):
         for flag, text in msgs.items():
             f = g[flag].fillna(False).values.astype(bool)
-            run = 0
+            run, last = 0, -10_000
             for day, v in zip(g.day.values, f):
                 run = run + 1 if v else 0
-                if run == min_run:
+                if run == min_run and day - last >= cooldown:
+                    last = day
                     rows.append(dict(dog_id=dog, day=int(day), issue=flag.replace("dq_", ""), message=text))
     return pd.DataFrame(rows, columns=["dog_id", "day", "issue", "message"])
 

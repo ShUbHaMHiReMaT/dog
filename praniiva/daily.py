@@ -73,7 +73,7 @@ def make_weather(days=SIM_DAYS, start=SIM_START, seed=0):
 # ======================================================================================
 # Cohort
 # ======================================================================================
-def make_cohort(n_dogs=400, seed=0):
+def make_cohort(n_dogs=400, seed=0, prefix="D"):
     rng = np.random.default_rng(seed)
     names = breed_names()
     rows = []
@@ -90,7 +90,7 @@ def make_cohort(n_dogs=400, seed=0):
         p_mmvd = 0.10 * info["mmvd"]   # SIM-ENRICHED x2.5
         p_mmvd = p_mmvd * (2.5 if small else 1.0) * (3.0 if age0 > 8 else (1.4 if age0 > 5 else 0.3))
         rows.append(dict(
-            dog_id=f"D{i:04d}", breed=b, group=info["group"], weight=round(w, 1), age0=round(age0, 2),
+            dog_id=f"{prefix}{i:04d}", breed=b, group=info["group"], weight=round(w, 1), age0=round(age0, 2),
             sex=rng.choice(["M", "F"]), neutered=bool(rng.random() < 0.45),
             coat=info["coat"], double_coat=info["double"], cfr=info["cfr"], brachy=brachy,
             coat_colour=rng.choice(["light", "mixed", "dark"], p=[0.35, 0.35, 0.30]),
@@ -342,9 +342,9 @@ def simulate_dog(dog: pd.Series, wx: pd.DataFrame, rng: np.random.Generator, inj
     return df, events, episodes
 
 
-def simulate_cohort(n_dogs=400, days=SIM_DAYS, seed=0, verbose=True):
+def simulate_cohort(n_dogs=400, days=SIM_DAYS, seed=0, verbose=True, prefix="D"):
     wx = make_weather(days, seed=seed)
-    cohort = make_cohort(n_dogs, seed=seed)
+    cohort = make_cohort(n_dogs, seed=seed, prefix=prefix)
     rng = np.random.default_rng(seed + 1)
     frames, ev_rows, ep_rows = [], [], []
     for _, dog in cohort.iterrows():

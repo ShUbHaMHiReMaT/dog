@@ -1,17 +1,19 @@
 [2] Simulating 400 dogs
   cohort 400 dogs x 400 days; events: {'pruritic_flare': 147, 'oa_mobility': 80, 'acute_gi': 64, 'tick_fever': 56, 'chf_decomp': 41, 'ckd_pupd': 27, 'heat_illness': 9}
-    QC: 3826 owner maintenance messages; fault detection:
+    QC: 6939 owner maintenance messages; fault detection:
           fault            flag  fault_days  flagged_days  recall  precision
    loose_collar        dq_loose        8434          8548    0.98       0.97
 sensor_flatline     dq_flatline         484           488    1.00       0.99
    spike_glitch        dq_spike         325           302    0.93       1.00
         wet_fur dq_rr_low_yield        8228         10006    1.00       0.82
-[3] Training production models: {'acute_gi': 'Deterministic rules', 'chf_decomp': 'Random Forest', 'ckd_pupd': 'XGBoost', 'oa_mobility': 'HistGB', 'pruritic_flare': 'Random Forest', 'tick_fever': 'Random Forest'}
-    acute_gi        Deterministic rules                  OOF AUROC 0.600  thr 1.172  sens 0.02 prec 0.02 FA/dog-mo 0.01  -> MONITOR ONLY (failed gate)
-    chf_decomp      Random Forest                        OOF AUROC 0.817  thr 0.729  sens 0.68 prec 0.90 FA/dog-mo 0.00  -> ALERTS ON
-    ckd_pupd        XGBoost                              OOF AUROC 0.997  thr 0.980  sens 0.78 prec 0.85 FA/dog-mo 0.00  -> ALERTS ON
-    oa_mobility     HistGB                               OOF AUROC 0.981  thr 0.995  sens 0.94 prec 0.95 FA/dog-mo 0.00  -> ALERTS ON
-    pruritic_flare  Random Forest                        OOF AUROC 0.811  thr 0.496  sens 0.61 prec 0.41 FA/dog-mo 0.03  -> ALERTS ON
-    tick_fever      Random Forest                        OOF AUROC 0.546  thr 0.090  sens 0.18 prec 0.03 FA/dog-mo 0.07  -> MONITOR ONLY (failed gate)
+[2b] Untouched TEST cohort (300 new dogs, different random world) - used once, for the gate
+  cohort 300 dogs x 400 days; events: {'pruritic_flare': 119, 'oa_mobility': 51, 'acute_gi': 43, 'tick_fever': 36, 'chf_decomp': 31, 'ckd_pupd': 18, 'heat_illness': 5}
+[3] Training production models on development dogs: {'acute_gi': 'Deterministic rules', 'chf_decomp': 'Random Forest', 'ckd_pupd': 'XGBoost', 'oa_mobility': 'HistGB', 'pruritic_flare': 'Random Forest', 'tick_fever': 'Random Forest'}
+    acute_gi        Deterministic rules            TEST (43 events, 300 dogs): sens 0.02 [0.00-0.08]  prec 0.03 [0.00-0.10]  FA/dog-mo 0.01 [0.01-0.01]  -> MONITOR ONLY
+    chf_decomp      Random Forest                  TEST (31 events, 39 dogs): sens 0.55 [0.38-0.72]  prec 0.85 [0.71-1.00]  FA/dog-mo 0.01 [0.00-0.01]  -> ALERTS ON
+    ckd_pupd        XGBoost                        TEST (18 events, 300 dogs): sens 1.00 [1.00-1.00]  prec 0.81 [0.71-0.91]  FA/dog-mo 0.00 [0.00-0.00]  -> ALERTS ON
+    oa_mobility     HistGB                         TEST (51 events, 300 dogs): sens 0.90 [0.82-0.98]  prec 0.96 [0.92-0.99]  FA/dog-mo 0.00 [0.00-0.00]  -> ALERTS ON
+    pruritic_flare  Random Forest                  TEST (116 events, 300 dogs): sens 0.68 [0.60-0.77]  prec 0.46 [0.38-0.54]  FA/dog-mo 0.03 [0.02-0.03]  -> ALERTS ON
+    tick_fever      Random Forest                  TEST (36 events, 300 dogs): sens 0.17 [0.06-0.29]  prec 0.15 [0.04-0.28]  FA/dog-mo 0.01 [0.01-0.01]  -> MONITOR ONLY
 [4] Saving data/
-Done in 7.2 min.  Next:  streamlit run app.py
+Done in 8.9 min.  Next:  streamlit run app.py

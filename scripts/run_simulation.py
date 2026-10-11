@@ -36,6 +36,8 @@ def main():
     ap.add_argument("--dogs", type=int, default=400)
     ap.add_argument("--config", default=DEFAULT_CONFIG)
     ap.add_argument("--retrain-behaviour", action="store_true")
+    ap.add_argument("--test-dogs", type=int, default=300)
+    ap.add_argument("--test-seed", type=int, default=101)
     a = ap.parse_args()
     for p in (MODELS, DATA, REPORTS):
         p.mkdir(exist_ok=True)
@@ -56,9 +58,13 @@ def main():
     F = add_labels(build_features(meas, cohort, events), events, cohort)
     wfile = REPORTS / "winners.json"
     winners = json.loads(wfile.read_text()) if wfile.exists() else {c: "HistGB" for c in CONDITIONS}
-    print(f"[3] Training production models: {winners}")
-    bundle, oof = train_production(F, events, winners, MODELS)
-    oof = debounce_alerts(oof)
+    print(f"[2b] Untouched TEST cohort ({a.test_dogs} new dogs, different random world) - used once, for the gate")
+    co_t, tr_t, ev_t, _, _ = simulate_cohort(a.test_dogs, seed=a.test_seed, prefix="T")
+    mt = clean(assess(measure(tr_t, co_t, a.config, MODELS, faults=True, seed=a.test_seed)))
+    F_test = add_labels(build_features(mt, co_t, ev_t), ev_t, co_t)
+    print(f"[3] Training production models on development dogs: {winners}")
+    bundle, oof = train_production(F, events, winners, MODELS, F_test=F_test, events_test=ev_t)
+    oof = debounce_alerts(oof, diagnoses=events)
     print("[4] Saving data/")
     cohort.to_parquet(DATA / "cohort.parquet")
     truth.to_parquet(DATA / "truth.parquet")
@@ -72,7 +78,7 @@ def main():
         if col not in oof:
             continue
         for _, r in oof[oof[col] == True].iterrows():  # noqa: E712
-            fired.append(dict(dog_id=r.dog_id, day=int(r.day), condition=cond, risk=float(r[f"risk_{cond}"]),
+            fired.append(dict(dog_id=r.dog_id, day=int(r.day), condition=cond, concern=float(r[f"concern_{cond}"]),
                               why="; ".join(explain(Fi.loc[(r.dog_id, r.day)], cond))))
     pd.DataFrame(fired).to_parquet(DATA / "alerts.parquet")
     events.to_parquet(DATA / "events.parquet")

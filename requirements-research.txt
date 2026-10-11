@@ -1,0 +1,7 @@
+# Research extras: algorithm bake-off (CNN, ARIMA, Cox), Chronos forecaster, tests.
+-r requirements.txt
+torch==2.10.0
+chronos-forecasting==2.3.2
+statsmodels==0.15.0
+lifelines==0.30.3
+pytest==8.3.2
