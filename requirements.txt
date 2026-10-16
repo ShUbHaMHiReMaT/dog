@@ -9,3 +9,4 @@ joblib==1.5.3
 streamlit==1.56.0
 plotly==6.8.0
 matplotlib==3.9.0
+pyserial==3.5

@@ -211,9 +211,48 @@ def night_rr(acc: np.ndarray, labels: np.ndarray, hours: np.ndarray, seg_s=60) -
 # ======================================================================================
 # 3. daily summary
 # ======================================================================================
-def daily_from_raw(path: Path | str, dog_id: str, model_dir: Path, report: IngestReport | None = None) -> pd.DataFrame:
+def load_many(paths, report: IngestReport | None = None) -> pd.DataFrame:
+    """Several raw files of one dog (SD rotation every 6 h, one logger file per day) -> one validated stream.
+    Overlapping/duplicated samples across files are removed."""
     rep = report if report is not None else IngestReport()
-    raw = load_raw(path, rep)
+    paths = [paths] if isinstance(paths, (str, Path)) else list(paths)
+    if not paths:
+        raise IngestError("no raw files given")
+    frames = []
+    for pth in sorted(paths):
+        r = IngestReport()
+        frames.append(load_raw(pth, r))
+        rep.rows_in += r.rows_in
+        rep.fixes += [f"{Path(pth).name}: {x}" for x in r.fixes]
+        rep.warnings += [f"{Path(pth).name}: {x}" for x in r.warnings]
+        rep.est_fs = r.est_fs
+    df = pd.concat(frames, ignore_index=True)
+    dup = df.timestamp_ms.duplicated()
+    if dup.any():
+        rep.fixes.append(f"dropped {int(dup.sum())} samples duplicated across files")
+    df = df[~dup].sort_values("timestamp_ms").reset_index(drop=True)
+    rep.rows_used = len(df)
+    return df
+
+
+def load_qc(paths) -> pd.DataFrame:
+    """Firmware per-minute telemetry -> daily fit_jitter_mg (median resting jitter) by local date."""
+    paths = [paths] if isinstance(paths, (str, Path)) else list(paths)
+    frames = [pd.read_csv(p) for p in paths if Path(p).exists() and Path(p).stat().st_size > 0]
+    if not frames:
+        return pd.DataFrame(columns=["date", "fit_jitter_mg", "qc_dropped", "qc_temp_c"])
+    q = pd.concat(frames, ignore_index=True)
+    q = q[pd.to_numeric(q.timestamp_ms, errors="coerce") > 1e11]
+    q["date"] = pd.to_datetime(q.timestamp_ms.astype("int64"), unit="ms", utc=True).dt.tz_convert(LOCAL_TZ).dt.date
+    return (q.groupby("date").agg(fit_jitter_mg=("rest_jitter_mg", "median"), qc_dropped=("dropped", "sum"),
+                                  qc_temp_c=("temp_c", "median")).reset_index())
+
+
+def daily_from_raw(path, dog_id: str, model_dir: Path, report: IngestReport | None = None,
+                   qc_paths=None) -> pd.DataFrame:
+    """path: one raw CSV or a list of them (same dog). qc_paths: optional firmware *_qc.csv files."""
+    rep = report if report is not None else IngestReport()
+    raw = load_many(path, rep)
     rs = resample_50hz(raw)
     rows = []
     for date, day in rs.groupby(rs.t.dt.date):
@@ -257,7 +296,12 @@ def daily_from_raw(path: Path | str, dog_id: str, model_dir: Path, report: Inges
                 row[col] = np.nan
         row["skin_temp"] = np.nan
         rows.append(row)
-    return pd.DataFrame(rows)
+    out = pd.DataFrame(rows)
+    if qc_paths:
+        qc = load_qc(qc_paths)
+        if len(qc):
+            out = out.drop(columns="fit_jitter_mg").merge(qc.assign(date=pd.to_datetime(qc.date)), on="date", how="left")
+    return out
 
 
 def write_demo_raw(path: Path, hours=3.0, seed=0):
