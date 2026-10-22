@@ -1,0 +1,247 @@
+{
+  "session": "MD_WRIST_20261022-170417",
+  "mount": "wrist",
+  "device": {
+    "fw": "0.4.0",
+    "dog": "MD_WRIST",
+    "time_synced": "1",
+    "sd": "0",
+    "queue": "0",
+    "overflows": "0",
+    "range_g": "8",
+    "odr_hz": "50.0"
+  },
+  "duration_min": 36.17,
+  "samples": 108378,
+  "expected_samples": 108514,
+  "completeness_pct": 99.87,
+  "lost_samples": 121,
+  "longest_gap_ms": 2068,
+  "duplicate_timestamps": 18,
+  "read_errors": 2,
+  "sensor_recoveries": 1,
+  "dropped": 0,
+  "qc_reports": 36,
+  "reconnects": 0,
+  "accel_peak_g": 2.76,
+  "accel_range_g": 8,
+  "clipping_samples": 0,
+  "activity_seconds": {
+    "Still (calibrate posture)": 804,
+    "Small movements": 750,
+    "Walking": 488,
+    "Running / playing": 90,
+    "Shaking / scratching": 32
+  },
+  "bouts_over_10s": [
+    [
+      "Still (calibrate posture)",
+      22
+    ],
+    [
+      "Still (calibrate posture)",
+      10
+    ],
+    [
+      "Running / playing",
+      12
+    ],
+    [
+      "Walking",
+      38
+    ],
+    [
+      "Walking",
+      28
+    ],
+    [
+      "Running / playing",
+      22
+    ],
+    [
+      "Walking",
+      10
+    ],
+    [
+      "Small movements",
+      14
+    ],
+    [
+      "Small movements",
+      12
+    ],
+    [
+      "Small movements",
+      18
+    ],
+    [
+      "Walking",
+      20
+    ],
+    [
+      "Still (calibrate posture)",
+      14
+    ],
+    [
+      "Still (calibrate posture)",
+      18
+    ],
+    [
+      "Small movements",
+      10
+    ],
+    [
+      "Small movements",
+      14
+    ],
+    [
+      "Still (calibrate posture)",
+      14
+    ],
+    [
+      "Small movements",
+      12
+    ],
+    [
+      "Still (calibrate posture)",
+      20
+    ],
+    [
+      "Still (calibrate posture)",
+      14
+    ],
+    [
+      "Still (calibrate posture)",
+      10
+    ],
+    [
+      "Still (calibrate posture)",
+      16
+    ],
+    [
+      "Small movements",
+      12
+    ],
+    [
+      "Still (calibrate posture)",
+      12
+    ],
+    [
+      "Small movements",
+      12
+    ],
+    [
+      "Small movements",
+      16
+    ],
+    [
+      "Walking",
+      10
+    ],
+    [
+      "Still (calibrate posture)",
+      14
+    ],
+    [
+      "Small movements",
+      10
+    ],
+    [
+      "Still (calibrate posture)",
+      12
+    ],
+    [
+      "Small movements",
+      18
+    ],
+    [
+      "Small movements",
+      10
+    ],
+    [
+      "Small movements",
+      10
+    ],
+    [
+      "Still (calibrate posture)",
+      12
+    ],
+    [
+      "Small movements",
+      18
+    ],
+    [
+      "Small movements",
+      24
+    ],
+    [
+      "Walking",
+      10
+    ],
+    [
+      "Still (calibrate posture)",
+      18
+    ],
+    [
+      "Walking",
+      12
+    ],
+    [
+      "Still (calibrate posture)",
+      10
+    ],
+    [
+      "Still (calibrate posture)",
+      54
+    ],
+    [
+      "Still (calibrate posture)",
+      34
+    ],
+    [
+      "Still (calibrate posture)",
+      16
+    ],
+    [
+      "Small movements",
+      10
+    ],
+    [
+      "Small movements",
+      24
+    ],
+    [
+      "Still (calibrate posture)",
+      26
+    ],
+    [
+      "Still (calibrate posture)",
+      12
+    ],
+    [
+      "Still (calibrate posture)",
+      18
+    ],
+    [
+      "Still (calibrate posture)",
+      24
+    ],
+    [
+      "Still (calibrate posture)",
+      20
+    ],
+    [
+      "Still (calibrate posture)",
+      28
+    ]
+  ],
+  "n_activity_changes": 450,
+  "sound": {
+    "rows": 4344,
+    "mic_ok_pct": 100.0,
+    "median_dbfs": -36.5,
+    "loudest_peak_dbfs": -0.1
+  },
+  "markers": [],
+  "model_vs_rules_agreement": 39.3
+}

@@ -1,0 +1,7 @@
+family,cases,passed,pass_rate
+A_motion,4000,4000,1.0
+B_posture,2400,2400,1.0
+C_pipeline,1500,1500,1.0
+D_files,1500,1500,1.0
+F_worst_case,1500,1500,1.0
+G_fit_check,540,540,1.0

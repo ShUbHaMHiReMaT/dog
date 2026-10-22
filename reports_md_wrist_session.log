@@ -1,0 +1,219 @@
+started D:\dog\data\raw\MD_WRIST\MD_WRIST_20261022-170417
+   10s conn=True rate=49.9 n=482 missing=0 reconn=0 rows={'raw': 482, 'sound': 23, 'labels': 4} now={'still': 1, 'walking': 2, 'small': 1} err=None
+   20s conn=True rate=50.0 n=982 missing=0 reconn=0 rows={'raw': 982, 'sound': 43, 'labels': 9} now={'small': 1, 'still': 3, 'walking': 1} err=None
+   30s conn=True rate=50.0 n=1482 missing=0 reconn=0 rows={'raw': 1482, 'sound': 63, 'labels': 14} now={'walking': 3, 'small': 1, 'still': 1} err=None
+   40s conn=True rate=50.0 n=1982 missing=0 reconn=0 rows={'raw': 1982, 'sound': 83, 'labels': 19, 'qc': 1} now={'still': 1, 'small': 3, 'walking': 1} err=None
+   50s conn=True rate=50.0 n=2482 missing=0 reconn=0 rows={'raw': 2482, 'sound': 103, 'labels': 24, 'qc': 1} now={'walking': 2, 'small': 3} err=None
+   60s conn=True rate=50.0 n=2982 missing=0 reconn=0 rows={'raw': 2982, 'sound': 123, 'labels': 29, 'qc': 1} now={'walking': 2, 'small': 1, 'still': 2} err=None
+   70s conn=True rate=50.0 n=3482 missing=0 reconn=0 rows={'raw': 3482, 'sound': 143, 'labels': 34, 'qc': 1} now={'still': 4, 'small': 1} err=None
+   80s conn=True rate=50.0 n=3983 missing=0 reconn=0 rows={'raw': 3983, 'sound': 163, 'labels': 39, 'qc': 1} now={'still': 1, 'walking': 2, 'shaking': 2} err=None
+   90s conn=True rate=50.0 n=4483 missing=0 reconn=0 rows={'raw': 4483, 'sound': 183, 'labels': 44, 'qc': 1} now={'walking': 1, 'shaking': 4} err=None
+  100s conn=True rate=50.0 n=4983 missing=0 reconn=0 rows={'raw': 4983, 'sound': 203, 'labels': 49, 'qc': 2} now={'walking': 3, 'small': 2} err=None
+  110s conn=True rate=50.0 n=5483 missing=0 reconn=0 rows={'raw': 5483, 'sound': 223, 'labels': 54, 'qc': 2} now={'walking': 3, 'small': 1, 'running': 1} err=None
+  120s conn=True rate=50.0 n=5983 missing=0 reconn=0 rows={'raw': 5983, 'sound': 243, 'labels': 59, 'qc': 2} now={'walking': 1, 'still': 4} err=None
+  130s conn=True rate=50.0 n=6483 missing=0 reconn=0 rows={'raw': 6483, 'sound': 263, 'labels': 64, 'qc': 2} now={'still': 5} err=None
+  140s conn=True rate=50.0 n=6982 missing=0 reconn=0 rows={'raw': 6982, 'sound': 283, 'labels': 69, 'qc': 2} now={'still': 4, 'small': 1} err=None
+  150s conn=True rate=50.0 n=7484 missing=0 reconn=0 rows={'raw': 7484, 'sound': 303, 'labels': 74, 'qc': 2} now={'still': 3, 'small': 2} err=None
+  160s conn=True rate=50.0 n=7984 missing=0 reconn=0 rows={'raw': 7984, 'sound': 323, 'labels': 79, 'qc': 3} now={'still': 4, 'small': 1} err=None
+  170s conn=True rate=50.0 n=8484 missing=0 reconn=0 rows={'raw': 8484, 'sound': 343, 'labels': 84, 'qc': 3} now={'running': 4, 'walking': 1} err=None
+  180s conn=True rate=50.0 n=8984 missing=0 reconn=0 rows={'raw': 8984, 'sound': 363, 'labels': 89, 'qc': 3} now={'running': 3, 'walking': 2} err=None
+  190s conn=True rate=50.0 n=9484 missing=0 reconn=0 rows={'raw': 9484, 'sound': 383, 'labels': 94, 'qc': 3} now={'walking': 5} err=None
+  200s conn=True rate=50.0 n=9984 missing=0 reconn=0 rows={'raw': 9984, 'sound': 403, 'labels': 99, 'qc': 3} now={'walking': 5} err=None
+  210s conn=True rate=50.0 n=10484 missing=0 reconn=0 rows={'raw': 10484, 'sound': 423, 'labels': 104, 'qc': 3} now={'walking': 5} err=None
+  220s conn=True rate=50.0 n=10984 missing=0 reconn=0 rows={'raw': 10984, 'sound': 443, 'labels': 109, 'qc': 4} now={'walking': 3, 'small': 2} err=None
+  230s conn=True rate=50.0 n=11484 missing=0 reconn=0 rows={'raw': 11484, 'sound': 463, 'labels': 114, 'qc': 4} now={'walking': 4, 'small': 1} err=None
+  240s conn=True rate=50.0 n=11984 missing=0 reconn=0 rows={'raw': 11984, 'sound': 483, 'labels': 119, 'qc': 4} now={'walking': 5} err=None
+  250s conn=True rate=50.0 n=12484 missing=0 reconn=0 rows={'raw': 12484, 'sound': 503, 'labels': 124, 'qc': 4} now={'walking': 5} err=None
+  260s conn=True rate=50.0 n=12984 missing=0 reconn=0 rows={'raw': 12984, 'sound': 523, 'labels': 129, 'qc': 4} now={'walking': 2, 'running': 1, 'small': 2} err=None
+  270s conn=True rate=50.0 n=13485 missing=0 reconn=0 rows={'raw': 13485, 'sound': 543, 'labels': 134, 'qc': 4} now={'still': 2, 'walking': 2, 'small': 1} err=None
+  280s conn=True rate=50.0 n=13984 missing=0 reconn=0 rows={'raw': 13984, 'sound': 563, 'labels': 139, 'qc': 5} now={'walking': 2, 'running': 3} err=None
+  290s conn=True rate=50.0 n=14485 missing=0 reconn=0 rows={'raw': 14485, 'sound': 583, 'labels': 144, 'qc': 5} now={'running': 5} err=None
+  300s conn=True rate=50.0 n=14985 missing=0 reconn=0 rows={'raw': 14985, 'sound': 603, 'labels': 149, 'qc': 5} now={'running': 4, 'walking': 1} err=None
+  310s conn=True rate=50.0 n=15484 missing=0 reconn=0 rows={'raw': 15484, 'sound': 623, 'labels': 154, 'qc': 5} now={'walking': 3, 'small': 2} err=None
+  320s conn=True rate=50.0 n=15985 missing=0 reconn=0 rows={'raw': 15985, 'sound': 643, 'labels': 159, 'qc': 5} now={'small': 3, 'still': 2} err=None
+  330s conn=True rate=50.0 n=16485 missing=0 reconn=0 rows={'raw': 16485, 'sound': 663, 'labels': 164, 'qc': 5} now={'still': 2, 'running': 3} err=None
+  340s conn=True rate=50.0 n=16985 missing=0 reconn=0 rows={'raw': 16985, 'sound': 683, 'labels': 169, 'qc': 6} now={'walking': 5} err=None
+  350s conn=True rate=50.0 n=17485 missing=0 reconn=0 rows={'raw': 17485, 'sound': 703, 'labels': 174, 'qc': 6} now={'small': 5} err=None
+  360s conn=True rate=50.0 n=17985 missing=0 reconn=0 rows={'raw': 17985, 'sound': 723, 'labels': 179, 'qc': 6} now={'small': 4, 'walking': 1} err=None
+  370s conn=True rate=50.0 n=18485 missing=0 reconn=0 rows={'raw': 18485, 'sound': 743, 'labels': 184, 'qc': 6} now={'small': 4, 'walking': 1} err=None
+  380s conn=True rate=50.0 n=18985 missing=0 reconn=0 rows={'raw': 18985, 'sound': 763, 'labels': 189, 'qc': 6} now={'small': 5} err=None
+  390s conn=True rate=50.0 n=19485 missing=0 reconn=0 rows={'raw': 19485, 'sound': 783, 'labels': 194, 'qc': 6} now={'small': 4, 'walking': 1} err=None
+  400s conn=True rate=50.0 n=19984 missing=0 reconn=0 rows={'raw': 19984, 'sound': 803, 'labels': 199, 'qc': 7} now={'small': 4, 'walking': 1} err=None
+  410s conn=True rate=50.0 n=20485 missing=0 reconn=0 rows={'raw': 20485, 'sound': 823, 'labels': 204, 'qc': 7} now={'small': 4, 'still': 1} err=None
+  420s conn=True rate=50.0 n=20985 missing=0 reconn=0 rows={'raw': 20985, 'sound': 843, 'labels': 209, 'qc': 7} now={'walking': 4, 'running': 1} err=None
+  430s conn=True rate=50.0 n=21484 missing=0 reconn=0 rows={'raw': 21484, 'sound': 863, 'labels': 214, 'qc': 7} now={'walking': 4, 'small': 1} err=None
+  440s conn=True rate=50.0 n=21984 missing=0 reconn=0 rows={'raw': 21984, 'sound': 883, 'labels': 219, 'qc': 7} now={'small': 1, 'walking': 4} err=None
+  450s conn=True rate=50.0 n=22484 missing=0 reconn=0 rows={'raw': 22484, 'sound': 903, 'labels': 224, 'qc': 7} now={'walking': 5} err=None
+  460s conn=True rate=50.0 n=22985 missing=0 reconn=0 rows={'raw': 22985, 'sound': 923, 'labels': 229, 'qc': 8} now={'walking': 3, 'still': 2} err=None
+  470s conn=True rate=50.0 n=23484 missing=0 reconn=0 rows={'raw': 23484, 'sound': 943, 'labels': 234, 'qc': 8} now={'walking': 3, 'running': 1, 'small': 1} err=None
+  480s conn=True rate=50.0 n=23984 missing=0 reconn=0 rows={'raw': 23984, 'sound': 963, 'labels': 239, 'qc': 8} now={'small': 2, 'walking': 1, 'still': 2} err=None
+  490s conn=True rate=50.0 n=24484 missing=0 reconn=0 rows={'raw': 24484, 'sound': 983, 'labels': 244, 'qc': 8} now={'still': 4, 'small': 1} err=None
+  500s conn=True rate=50.0 n=24984 missing=0 reconn=0 rows={'raw': 24984, 'sound': 1003, 'labels': 249, 'qc': 8} now={'still': 5} err=None
+  510s conn=True rate=50.0 n=25484 missing=0 reconn=0 rows={'raw': 25484, 'sound': 1023, 'labels': 254, 'qc': 8} now={'walking': 2, 'small': 1, 'still': 2} err=None
+  520s conn=True rate=50.0 n=25984 missing=0 reconn=0 rows={'raw': 25984, 'sound': 1043, 'labels': 259, 'qc': 9} now={'small': 3, 'still': 2} err=None
+  530s conn=True rate=50.0 n=26484 missing=0 reconn=0 rows={'raw': 26484, 'sound': 1063, 'labels': 264, 'qc': 9} now={'small': 1, 'walking': 1, 'still': 3} err=None
+  540s conn=True rate=50.0 n=26984 missing=0 reconn=0 rows={'raw': 26984, 'sound': 1083, 'labels': 269, 'qc': 9} now={'still': 5} err=None
+  550s conn=True rate=50.0 n=27484 missing=0 reconn=0 rows={'raw': 27484, 'sound': 1103, 'labels': 274, 'qc': 9} now={'still': 2, 'small': 2, 'walking': 1} err=None
+  560s conn=True rate=50.0 n=27984 missing=0 reconn=0 rows={'raw': 27984, 'sound': 1123, 'labels': 279, 'qc': 9} now={'small': 5} err=None
+  570s conn=True rate=50.0 n=28484 missing=0 reconn=0 rows={'raw': 28484, 'sound': 1143, 'labels': 284, 'qc': 9} now={'walking': 1, 'small': 4} err=None
+  580s conn=True rate=50.0 n=28984 missing=0 reconn=0 rows={'raw': 28984, 'sound': 1163, 'labels': 289, 'qc': 10} now={'small': 3, 'walking': 2} err=None
+  590s conn=True rate=50.0 n=29484 missing=0 reconn=0 rows={'raw': 29484, 'sound': 1183, 'labels': 294, 'qc': 10} now={'small': 3, 'walking': 1, 'still': 1} err=None
+  600s conn=True rate=50.0 n=29984 missing=0 reconn=0 rows={'raw': 29984, 'sound': 1203, 'labels': 299, 'qc': 10} now={'walking': 4, 'small': 1} err=None
+  610s conn=True rate=50.0 n=30484 missing=0 reconn=0 rows={'raw': 30484, 'sound': 1223, 'labels': 304, 'qc': 10} now={'small': 2, 'still': 3} err=None
+  620s conn=True rate=50.0 n=30984 missing=0 reconn=0 rows={'raw': 30984, 'sound': 1243, 'labels': 309, 'qc': 10} now={'still': 1, 'walking': 3, 'small': 1} err=None
+  630s conn=True rate=50.0 n=31484 missing=0 reconn=0 rows={'raw': 31484, 'sound': 1263, 'labels': 314, 'qc': 10} now={'small': 3, 'still': 2} err=None
+  640s conn=True rate=50.0 n=31984 missing=0 reconn=0 rows={'raw': 31984, 'sound': 1283, 'labels': 319, 'qc': 11} now={'still': 4, 'small': 1} err=None
+  650s conn=True rate=50.0 n=32484 missing=0 reconn=0 rows={'raw': 32484, 'sound': 1303, 'labels': 324, 'qc': 11} now={'small': 1, 'walking': 2, 'still': 2} err=None
+  660s conn=True rate=50.0 n=32985 missing=0 reconn=0 rows={'raw': 32985, 'sound': 1323, 'labels': 329, 'qc': 11} now={'still': 1, 'small': 3, 'walking': 1} err=None
+  670s conn=True rate=50.0 n=33484 missing=0 reconn=0 rows={'raw': 33484, 'sound': 1343, 'labels': 334, 'qc': 11} now={'small': 3, 'still': 2} err=None
+  680s conn=True rate=50.0 n=33985 missing=0 reconn=0 rows={'raw': 33985, 'sound': 1363, 'labels': 339, 'qc': 11} now={'still': 5} err=None
+  690s conn=True rate=50.0 n=34485 missing=0 reconn=0 rows={'raw': 34485, 'sound': 1383, 'labels': 344, 'qc': 11} now={'still': 3, 'small': 2} err=None
+  700s conn=True rate=50.0 n=34985 missing=0 reconn=0 rows={'raw': 34985, 'sound': 1403, 'labels': 349, 'qc': 12} now={'small': 5} err=None
+  710s conn=True rate=50.0 n=35485 missing=0 reconn=0 rows={'raw': 35485, 'sound': 1423, 'labels': 354, 'qc': 12} now={'still': 5} err=None
+  720s conn=True rate=50.0 n=35985 missing=0 reconn=0 rows={'raw': 35985, 'sound': 1443, 'labels': 359, 'qc': 12} now={'still': 5} err=None
+  730s conn=True rate=50.0 n=36484 missing=0 reconn=0 rows={'raw': 36484, 'sound': 1463, 'labels': 364, 'qc': 12} now={'walking': 1, 'still': 2, 'small': 2} err=None
+  740s conn=True rate=50.0 n=36984 missing=0 reconn=0 rows={'raw': 36984, 'sound': 1483, 'labels': 369, 'qc': 12} now={'still': 5} err=None
+  750s conn=True rate=50.0 n=37484 missing=0 reconn=0 rows={'raw': 37484, 'sound': 1503, 'labels': 374, 'qc': 12} now={'still': 3, 'walking': 1, 'small': 1} err=None
+  760s conn=True rate=50.0 n=37983 missing=0 reconn=0 rows={'raw': 37983, 'sound': 1523, 'labels': 379, 'qc': 13} now={'still': 3, 'small': 2} err=None
+  770s conn=True rate=50.0 n=38485 missing=0 reconn=0 rows={'raw': 38485, 'sound': 1543, 'labels': 384, 'qc': 13} now={'walking': 1, 'small': 1, 'still': 3} err=None
+  780s conn=True rate=50.0 n=38985 missing=0 reconn=0 rows={'raw': 38985, 'sound': 1563, 'labels': 389, 'qc': 13} now={'still': 3, 'small': 2} err=None
+  790s conn=True rate=50.0 n=39485 missing=0 reconn=0 rows={'raw': 39485, 'sound': 1584, 'labels': 394, 'qc': 13} now={'still': 5} err=None
+  800s conn=True rate=50.0 n=39985 missing=0 reconn=0 rows={'raw': 39985, 'sound': 1604, 'labels': 399, 'qc': 13} now={'still': 3, 'small': 2} err=None
+  810s conn=True rate=50.0 n=40485 missing=0 reconn=0 rows={'raw': 40485, 'sound': 1624, 'labels': 404, 'qc': 13} now={'small': 4, 'still': 1} err=None
+  820s conn=True rate=50.0 n=40985 missing=0 reconn=0 rows={'raw': 40985, 'sound': 1644, 'labels': 409, 'qc': 14} now={'still': 3, 'small': 2} err=None
+  830s conn=True rate=50.0 n=41485 missing=0 reconn=0 rows={'raw': 41485, 'sound': 1664, 'labels': 414, 'qc': 14} now={'small': 3, 'still': 1, 'walking': 1} err=None
+  840s conn=True rate=50.0 n=41985 missing=0 reconn=0 rows={'raw': 41985, 'sound': 1684, 'labels': 419, 'qc': 14} now={'small': 3, 'walking': 2} err=None
+  850s conn=True rate=50.0 n=42485 missing=0 reconn=0 rows={'raw': 42485, 'sound': 1704, 'labels': 424, 'qc': 14} now={'small': 3, 'walking': 1, 'still': 1} err=None
+  860s conn=True rate=50.0 n=42985 missing=0 reconn=0 rows={'raw': 42985, 'sound': 1724, 'labels': 429, 'qc': 14} now={'small': 4, 'still': 1} err=None
+  870s conn=True rate=50.0 n=43485 missing=0 reconn=0 rows={'raw': 43485, 'sound': 1744, 'labels': 434, 'qc': 14} now={'small': 3, 'still': 2} err=None
+  880s conn=True rate=50.0 n=43985 missing=0 reconn=0 rows={'raw': 43985, 'sound': 1764, 'labels': 439, 'qc': 15} now={'still': 2, 'small': 2, 'walking': 1} err=None
+  890s conn=True rate=50.0 n=44485 missing=0 reconn=0 rows={'raw': 44485, 'sound': 1784, 'labels': 444, 'qc': 15} now={'still': 4, 'walking': 1} err=None
+  900s conn=True rate=50.0 n=44985 missing=0 reconn=0 rows={'raw': 44985, 'sound': 1804, 'labels': 449, 'qc': 15} now={'still': 4, 'small': 1} err=None
+  910s conn=True rate=50.0 n=45485 missing=0 reconn=0 rows={'raw': 45485, 'sound': 1824, 'labels': 454, 'qc': 15} now={'small': 1, 'walking': 1, 'still': 3} err=None
+  920s conn=True rate=50.0 n=45985 missing=0 reconn=0 rows={'raw': 45985, 'sound': 1844, 'labels': 459, 'qc': 15} now={'small': 4, 'still': 1} err=None
+  930s conn=True rate=50.0 n=46485 missing=0 reconn=0 rows={'raw': 46485, 'sound': 1864, 'labels': 464, 'qc': 15} now={'still': 2, 'shaking': 1, 'small': 2} err=None
+  940s conn=True rate=50.0 n=46985 missing=0 reconn=0 rows={'raw': 46985, 'sound': 1884, 'labels': 469, 'qc': 16} now={'still': 2, 'small': 2, 'walking': 1} err=None
+  950s conn=True rate=50.0 n=47485 missing=0 reconn=0 rows={'raw': 47485, 'sound': 1904, 'labels': 474, 'qc': 16} now={'small': 3, 'still': 2} err=None
+  960s conn=True rate=50.0 n=47985 missing=0 reconn=0 rows={'raw': 47985, 'sound': 1924, 'labels': 479, 'qc': 16} now={'small': 3, 'still': 2} err=None
+  970s conn=True rate=50.0 n=48485 missing=0 reconn=0 rows={'raw': 48485, 'sound': 1944, 'labels': 484, 'qc': 16} now={'small': 4, 'still': 1} err=None
+  980s conn=True rate=50.0 n=48985 missing=0 reconn=0 rows={'raw': 48985, 'sound': 1964, 'labels': 489, 'qc': 16} now={'still': 3, 'small': 2} err=None
+  990s conn=True rate=50.0 n=49485 missing=0 reconn=0 rows={'raw': 49485, 'sound': 1984, 'labels': 494, 'qc': 16} now={'still': 5} err=None
+ 1000s conn=True rate=50.0 n=49984 missing=0 reconn=0 rows={'raw': 49984, 'sound': 2004, 'labels': 499, 'qc': 17} now={'small': 3, 'walking': 2} err=None
+ 1010s conn=True rate=50.0 n=50485 missing=0 reconn=0 rows={'raw': 50485, 'sound': 2024, 'labels': 504, 'qc': 17} now={'still': 1, 'small': 4} err=None
+ 1020s conn=True rate=50.0 n=50985 missing=0 reconn=0 rows={'raw': 50985, 'sound': 2044, 'labels': 509, 'qc': 17} now={'small': 4, 'shaking': 1} err=None
+ 1030s conn=True rate=50.0 n=51485 missing=0 reconn=0 rows={'raw': 51485, 'sound': 2064, 'labels': 514, 'qc': 17} now={'small': 3, 'walking': 2} err=None
+ 1040s conn=True rate=50.0 n=51985 missing=0 reconn=0 rows={'raw': 51985, 'sound': 2084, 'labels': 519, 'qc': 17} now={'walking': 2, 'still': 1, 'small': 2} err=None
+ 1050s conn=True rate=50.0 n=52485 missing=0 reconn=0 rows={'raw': 52485, 'sound': 2104, 'labels': 524, 'qc': 17} now={'walking': 2, 'shaking': 2, 'small': 1} err=None
+ 1060s conn=True rate=50.0 n=52985 missing=0 reconn=0 rows={'raw': 52985, 'sound': 2124, 'labels': 529, 'qc': 18} now={'walking': 3, 'small': 2} err=None
+ 1070s conn=True rate=50.0 n=53485 missing=0 reconn=0 rows={'raw': 53485, 'sound': 2144, 'labels': 534, 'qc': 18} now={'walking': 2, 'small': 3} err=None
+ 1080s conn=True rate=50.0 n=53985 missing=0 reconn=0 rows={'raw': 53985, 'sound': 2164, 'labels': 539, 'qc': 18} now={'shaking': 1, 'walking': 1, 'small': 3} err=None
+ 1090s conn=True rate=50.0 n=54484 missing=0 reconn=0 rows={'raw': 54484, 'sound': 2184, 'labels': 544, 'qc': 18} now={'small': 5} err=None
+ 1100s conn=True rate=50.0 n=54985 missing=0 reconn=0 rows={'raw': 54985, 'sound': 2204, 'labels': 549, 'qc': 18} now={'still': 3, 'small': 1, 'walking': 1} err=None
+ 1110s conn=True rate=50.0 n=55485 missing=0 reconn=0 rows={'raw': 55485, 'sound': 2224, 'labels': 554, 'qc': 18} now={'still': 1, 'walking': 2, 'small': 2} err=None
+ 1120s conn=True rate=50.0 n=55985 missing=0 reconn=0 rows={'raw': 55985, 'sound': 2244, 'labels': 559, 'qc': 19} now={'walking': 3, 'running': 2} err=None
+ 1130s conn=True rate=50.0 n=56483 missing=0 reconn=0 rows={'raw': 56483, 'sound': 2264, 'labels': 564, 'qc': 19} now={'small': 2, 'still': 1, 'walking': 2} err=None
+ 1140s conn=True rate=50.0 n=56985 missing=0 reconn=0 rows={'raw': 56985, 'sound': 2284, 'labels': 569, 'qc': 19} now={'small': 1, 'walking': 4} err=None
+ 1150s conn=True rate=50.0 n=57485 missing=0 reconn=0 rows={'raw': 57485, 'sound': 2304, 'labels': 574, 'qc': 19} now={'walking': 3, 'small': 2} err=None
+ 1160s conn=True rate=50.0 n=57985 missing=0 reconn=0 rows={'raw': 57985, 'sound': 2324, 'labels': 579, 'qc': 19} now={'still': 1, 'small': 4} err=None
+ 1170s conn=True rate=50.0 n=58485 missing=0 reconn=0 rows={'raw': 58485, 'sound': 2344, 'labels': 584, 'qc': 19} now={'still': 5} err=None
+ 1180s conn=True rate=50.0 n=58985 missing=0 reconn=0 rows={'raw': 58985, 'sound': 2364, 'labels': 589, 'qc': 20} now={'still': 2, 'small': 2, 'walking': 1} err=None
+ 1190s conn=True rate=50.0 n=59485 missing=0 reconn=0 rows={'raw': 59485, 'sound': 2384, 'labels': 594, 'qc': 20} now={'small': 4, 'still': 1} err=None
+ 1200s conn=True rate=50.0 n=59985 missing=0 reconn=0 rows={'raw': 59985, 'sound': 2404, 'labels': 599, 'qc': 20} now={'still': 1, 'small': 4} err=None
+ 1210s conn=True rate=50.0 n=60485 missing=0 reconn=0 rows={'raw': 60485, 'sound': 2424, 'labels': 604, 'qc': 20} now={'small': 1, 'still': 4} err=None
+ 1220s conn=True rate=50.0 n=60985 missing=0 reconn=0 rows={'raw': 60985, 'sound': 2444, 'labels': 609, 'qc': 20} now={'small': 2, 'still': 3} err=None
+ 1230s conn=True rate=50.0 n=61485 missing=0 reconn=0 rows={'raw': 61485, 'sound': 2464, 'labels': 614, 'qc': 20} now={'still': 2, 'walking': 2, 'small': 1} err=None
+ 1240s conn=True rate=50.0 n=61985 missing=0 reconn=0 rows={'raw': 61985, 'sound': 2484, 'labels': 619, 'qc': 21} now={'still': 2, 'small': 3} err=None
+ 1250s conn=True rate=50.0 n=62485 missing=0 reconn=0 rows={'raw': 62485, 'sound': 2504, 'labels': 624, 'qc': 21} now={'small': 3, 'still': 2} err=None
+ 1260s conn=True rate=50.0 n=62985 missing=0 reconn=0 rows={'raw': 62985, 'sound': 2524, 'labels': 629, 'qc': 21} now={'still': 3, 'small': 2} err=None
+ 1270s conn=True rate=50.0 n=63484 missing=0 reconn=0 rows={'raw': 63484, 'sound': 2544, 'labels': 634, 'qc': 21} now={'still': 4, 'small': 1} err=None
+ 1280s conn=True rate=50.0 n=63984 missing=0 reconn=0 rows={'raw': 63984, 'sound': 2564, 'labels': 639, 'qc': 21} now={'still': 3, 'walking': 1, 'small': 1} err=None
+ 1290s conn=True rate=50.0 n=64484 missing=0 reconn=0 rows={'raw': 64484, 'sound': 2584, 'labels': 644, 'qc': 21} now={'walking': 1, 'small': 3, 'still': 1} err=None
+ 1300s conn=True rate=50.0 n=64984 missing=0 reconn=0 rows={'raw': 64984, 'sound': 2604, 'labels': 649, 'qc': 22} now={'small': 4, 'still': 1} err=None
+ 1310s conn=True rate=50.0 n=65484 missing=0 reconn=0 rows={'raw': 65484, 'sound': 2624, 'labels': 654, 'qc': 22} now={'still': 4, 'walking': 1} err=None
+ 1320s conn=True rate=50.0 n=65984 missing=0 reconn=0 rows={'raw': 65984, 'sound': 2644, 'labels': 659, 'qc': 22} now={'walking': 1, 'small': 3, 'shaking': 1} err=None
+ 1330s conn=True rate=50.0 n=66484 missing=0 reconn=0 rows={'raw': 66484, 'sound': 2664, 'labels': 664, 'qc': 22} now={'small': 5} err=None
+ 1340s conn=True rate=50.0 n=66984 missing=0 reconn=0 rows={'raw': 66984, 'sound': 2684, 'labels': 669, 'qc': 22} now={'small': 4, 'still': 1} err=None
+ 1350s conn=True rate=50.0 n=67484 missing=0 reconn=0 rows={'raw': 67484, 'sound': 2704, 'labels': 674, 'qc': 22} now={'walking': 2, 'still': 3} err=None
+ 1360s conn=True rate=50.0 n=67984 missing=0 reconn=0 rows={'raw': 67984, 'sound': 2724, 'labels': 679, 'qc': 23} now={'walking': 2, 'running': 1, 'small': 2} err=None
+ 1370s conn=True rate=50.0 n=68484 missing=0 reconn=0 rows={'raw': 68484, 'sound': 2744, 'labels': 684, 'qc': 23} now={'still': 1, 'small': 4} err=None
+ 1380s conn=True rate=50.0 n=68984 missing=0 reconn=0 rows={'raw': 68984, 'sound': 2764, 'labels': 689, 'qc': 23} now={'small': 2, 'walking': 3} err=None
+ 1390s conn=True rate=50.0 n=69484 missing=0 reconn=0 rows={'raw': 69484, 'sound': 2784, 'labels': 694, 'qc': 23} now={'small': 3, 'still': 2} err=None
+ 1400s conn=True rate=50.0 n=69984 missing=0 reconn=0 rows={'raw': 69984, 'sound': 2804, 'labels': 699, 'qc': 23} now={'still': 3, 'small': 2} err=None
+ 1410s conn=True rate=50.0 n=70483 missing=0 reconn=0 rows={'raw': 70483, 'sound': 2824, 'labels': 704, 'qc': 23} now={'small': 4, 'still': 1} err=None
+ 1420s conn=True rate=50.0 n=70983 missing=0 reconn=0 rows={'raw': 70983, 'sound': 2844, 'labels': 709, 'qc': 24} now={'still': 3, 'small': 2} err=None
+ 1430s conn=True rate=50.0 n=71483 missing=0 reconn=0 rows={'raw': 71483, 'sound': 2864, 'labels': 714, 'qc': 24} now={'still': 3, 'small': 2} err=None
+ 1440s conn=True rate=50.0 n=71983 missing=0 reconn=0 rows={'raw': 71983, 'sound': 2884, 'labels': 719, 'qc': 24} now={'walking': 2, 'small': 2, 'still': 1} err=None
+ 1450s conn=True rate=50.0 n=72483 missing=0 reconn=0 rows={'raw': 72483, 'sound': 2904, 'labels': 724, 'qc': 24} now={'walking': 2, 'small': 2, 'still': 1} err=None
+ 1460s conn=True rate=50.0 n=72983 missing=0 reconn=0 rows={'raw': 72983, 'sound': 2924, 'labels': 729, 'qc': 24} now={'still': 5} err=None
+ 1470s conn=True rate=50.0 n=73483 missing=0 reconn=0 rows={'raw': 73483, 'sound': 2944, 'labels': 734, 'qc': 24} now={'walking': 3, 'small': 2} err=None
+ 1480s conn=True rate=50.0 n=73983 missing=0 reconn=0 rows={'raw': 73983, 'sound': 2964, 'labels': 739, 'qc': 25} now={'small': 2, 'walking': 2, 'still': 1} err=None
+ 1490s conn=True rate=50.0 n=74483 missing=0 reconn=0 rows={'raw': 74483, 'sound': 2984, 'labels': 744, 'qc': 25} now={'still': 2, 'small': 3} err=None
+ 1500s conn=True rate=50.0 n=74983 missing=0 reconn=0 rows={'raw': 74983, 'sound': 3004, 'labels': 749, 'qc': 25} now={'small': 5} err=None
+ 1510s conn=True rate=50.0 n=75483 missing=0 reconn=0 rows={'raw': 75483, 'sound': 3024, 'labels': 754, 'qc': 25} now={'small': 4, 'walking': 1} err=None
+ 1520s conn=True rate=50.0 n=75983 missing=0 reconn=0 rows={'raw': 75983, 'sound': 3044, 'labels': 759, 'qc': 25} now={'still': 2, 'small': 3} err=None
+ 1530s conn=True rate=50.0 n=76483 missing=0 reconn=0 rows={'raw': 76483, 'sound': 3064, 'labels': 764, 'qc': 25} now={'still': 1, 'small': 4} err=None
+ 1540s conn=True rate=50.0 n=76983 missing=0 reconn=0 rows={'raw': 76983, 'sound': 3084, 'labels': 769, 'qc': 26} now={'small': 5} err=None
+ 1550s conn=True rate=50.0 n=77483 missing=0 reconn=0 rows={'raw': 77483, 'sound': 3104, 'labels': 774, 'qc': 26} now={'small': 4, 'walking': 1} err=None
+ 1560s conn=True rate=50.0 n=77982 missing=0 reconn=0 rows={'raw': 77982, 'sound': 3124, 'labels': 779, 'qc': 26} now={'small': 2, 'walking': 3} err=None
+ 1570s conn=True rate=50.0 n=78482 missing=0 reconn=0 rows={'raw': 78482, 'sound': 3144, 'labels': 784, 'qc': 26} now={'walking': 4, 'small': 1} err=None
+ 1580s conn=True rate=50.0 n=78982 missing=0 reconn=0 rows={'raw': 78982, 'sound': 3164, 'labels': 789, 'qc': 26} now={'walking': 1, 'small': 2, 'still': 2} err=None
+ 1590s conn=True rate=50.0 n=79482 missing=0 reconn=0 rows={'raw': 79482, 'sound': 3184, 'labels': 794, 'qc': 26} now={'running': 2, 'walking': 1, 'small': 1, 'still': 1} err=None
+ 1600s conn=True rate=50.0 n=79982 missing=0 reconn=0 rows={'raw': 79982, 'sound': 3204, 'labels': 799, 'qc': 27} now={'small': 1, 'still': 4} err=None
+ 1610s conn=True rate=50.0 n=80482 missing=0 reconn=0 rows={'raw': 80482, 'sound': 3224, 'labels': 804, 'qc': 27} now={'small': 1, 'walking': 3, 'running': 1} err=None
+ 1620s conn=True rate=50.0 n=80982 missing=0 reconn=0 rows={'raw': 80982, 'sound': 3244, 'labels': 809, 'qc': 27} now={'still': 5} err=None
+ 1630s conn=True rate=50.0 n=81482 missing=0 reconn=0 rows={'raw': 81482, 'sound': 3264, 'labels': 814, 'qc': 27} now={'still': 4, 'running': 1} err=None
+ 1640s conn=True rate=50.0 n=81982 missing=0 reconn=0 rows={'raw': 81982, 'sound': 3284, 'labels': 819, 'qc': 27} now={'walking': 5} err=None
+ 1650s conn=True rate=50.0 n=82482 missing=0 reconn=0 rows={'raw': 82482, 'sound': 3304, 'labels': 824, 'qc': 27} now={'walking': 4, 'shaking': 1} err=None
+ 1660s conn=True rate=41.5 n=82880 missing=102 reconn=0 rows={'raw': 82880, 'sound': 3324, 'labels': 827, 'qc': 28} now={'walking': 3, 'running': 1, 'shaking': 1} err=None
+ 1670s conn=True rate=50.0 n=83380 missing=102 reconn=0 rows={'raw': 83380, 'sound': 3344, 'labels': 832, 'qc': 28} now={'walking': 2, 'still': 3} err=None
+ 1680s conn=True rate=50.0 n=83880 missing=102 reconn=0 rows={'raw': 83880, 'sound': 3364, 'labels': 837, 'qc': 28} now={'still': 2, 'small': 1, 'running': 1, 'shaking': 1} err=None
+ 1690s conn=True rate=50.0 n=84380 missing=102 reconn=0 rows={'raw': 84380, 'sound': 3384, 'labels': 842, 'qc': 28} now={'still': 5} err=None
+ 1700s conn=True rate=50.0 n=84880 missing=102 reconn=0 rows={'raw': 84880, 'sound': 3404, 'labels': 847, 'qc': 28} now={'still': 5} err=None
+ 1710s conn=True rate=50.0 n=85380 missing=102 reconn=0 rows={'raw': 85380, 'sound': 3424, 'labels': 852, 'qc': 28} now={'still': 5} err=None
+ 1720s conn=True rate=50.0 n=85879 missing=102 reconn=0 rows={'raw': 85879, 'sound': 3444, 'labels': 857, 'qc': 29} now={'still': 5} err=None
+ 1730s conn=True rate=50.0 n=86379 missing=102 reconn=0 rows={'raw': 86379, 'sound': 3464, 'labels': 862, 'qc': 29} now={'still': 5} err=None
+ 1740s conn=True rate=50.0 n=86879 missing=102 reconn=0 rows={'raw': 86879, 'sound': 3484, 'labels': 867, 'qc': 29} now={'still': 3, 'running': 1, 'walking': 1} err=None
+ 1750s conn=True rate=50.0 n=87379 missing=102 reconn=0 rows={'raw': 87379, 'sound': 3504, 'labels': 872, 'qc': 29} now={'still': 5} err=None
+ 1760s conn=True rate=50.0 n=87879 missing=102 reconn=0 rows={'raw': 87879, 'sound': 3524, 'labels': 877, 'qc': 29} now={'still': 5} err=None
+ 1770s conn=True rate=50.0 n=88379 missing=102 reconn=0 rows={'raw': 88379, 'sound': 3544, 'labels': 882, 'qc': 29} now={'still': 5} err=None
+ 1780s conn=True rate=50.0 n=88879 missing=102 reconn=0 rows={'raw': 88879, 'sound': 3564, 'labels': 887, 'qc': 30} now={'still': 1, 'running': 1, 'walking': 2, 'small': 1} err=None
+ 1790s conn=True rate=50.0 n=89379 missing=102 reconn=0 rows={'raw': 89379, 'sound': 3584, 'labels': 892, 'qc': 30} now={'small': 3, 'still': 2} err=None
+ 1800s conn=True rate=50.0 n=89879 missing=102 reconn=0 rows={'raw': 89879, 'sound': 3604, 'labels': 897, 'qc': 30} now={'still': 5} err=None
+ 1810s conn=True rate=50.0 n=90379 missing=102 reconn=0 rows={'raw': 90379, 'sound': 3624, 'labels': 902, 'qc': 30} now={'still': 3, 'walking': 1, 'small': 1} err=None
+ 1820s conn=True rate=50.0 n=90879 missing=102 reconn=0 rows={'raw': 90879, 'sound': 3644, 'labels': 907, 'qc': 30} now={'still': 3, 'walking': 2} err=None
+ 1830s conn=True rate=50.0 n=91379 missing=102 reconn=0 rows={'raw': 91379, 'sound': 3664, 'labels': 912, 'qc': 30} now={'small': 3, 'still': 2} err=None
+ 1840s conn=True rate=50.0 n=91879 missing=102 reconn=0 rows={'raw': 91879, 'sound': 3684, 'labels': 917, 'qc': 31} now={'small': 4, 'walking': 1} err=None
+ 1850s conn=True rate=50.0 n=92378 missing=102 reconn=0 rows={'raw': 92378, 'sound': 3704, 'labels': 922, 'qc': 31} now={'small': 4, 'still': 1} err=None
+ 1860s conn=True rate=50.0 n=92878 missing=102 reconn=0 rows={'raw': 92878, 'sound': 3724, 'labels': 927, 'qc': 31} now={'small': 2, 'walking': 2, 'running': 1} err=None
+ 1870s conn=True rate=50.0 n=93378 missing=102 reconn=0 rows={'raw': 93378, 'sound': 3744, 'labels': 932, 'qc': 31} now={'walking': 1, 'small': 4} err=None
+ 1880s conn=True rate=50.0 n=93878 missing=102 reconn=0 rows={'raw': 93878, 'sound': 3764, 'labels': 937, 'qc': 31} now={'small': 5} err=None
+ 1890s conn=True rate=50.0 n=94378 missing=102 reconn=0 rows={'raw': 94378, 'sound': 3784, 'labels': 942, 'qc': 31} now={'small': 3, 'walking': 2} err=None
+ 1900s conn=True rate=50.0 n=94878 missing=102 reconn=0 rows={'raw': 94878, 'sound': 3804, 'labels': 947, 'qc': 32} now={'walking': 1, 'small': 4} err=None
+ 1910s conn=True rate=50.0 n=95378 missing=102 reconn=0 rows={'raw': 95378, 'sound': 3824, 'labels': 952, 'qc': 32} now={'shaking': 1, 'walking': 1, 'small': 2, 'still': 1} err=None
+ 1920s conn=True rate=50.0 n=95878 missing=102 reconn=0 rows={'raw': 95878, 'sound': 3844, 'labels': 957, 'qc': 32} now={'small': 3, 'still': 1, 'walking': 1} err=None
+ 1930s conn=True rate=50.0 n=96378 missing=102 reconn=0 rows={'raw': 96378, 'sound': 3864, 'labels': 962, 'qc': 32} now={'small': 2, 'walking': 3} err=None
+ 1940s conn=True rate=50.0 n=96878 missing=102 reconn=0 rows={'raw': 96878, 'sound': 3884, 'labels': 967, 'qc': 32} now={'small': 1, 'still': 1, 'walking': 3} err=None
+ 1950s conn=True rate=50.0 n=97378 missing=102 reconn=0 rows={'raw': 97378, 'sound': 3904, 'labels': 972, 'qc': 32} now={'still': 5} err=None
+ 1960s conn=True rate=50.0 n=97878 missing=102 reconn=0 rows={'raw': 97878, 'sound': 3924, 'labels': 977, 'qc': 33} now={'still': 5} err=None
+ 1970s conn=True rate=50.0 n=98378 missing=102 reconn=0 rows={'raw': 98378, 'sound': 3944, 'labels': 982, 'qc': 33} now={'still': 3, 'small': 2} err=None
+ 1980s conn=True rate=50.0 n=98878 missing=102 reconn=0 rows={'raw': 98878, 'sound': 3964, 'labels': 987, 'qc': 33} now={'still': 3, 'walking': 1, 'small': 1} err=None
+ 1990s conn=True rate=50.0 n=99378 missing=102 reconn=0 rows={'raw': 99378, 'sound': 3984, 'labels': 992, 'qc': 33} now={'small': 2, 'still': 1, 'running': 1, 'walking': 1} err=None
+ 2000s conn=True rate=50.0 n=99878 missing=102 reconn=0 rows={'raw': 99878, 'sound': 4004, 'labels': 997, 'qc': 33} now={'small': 3, 'walking': 2} err=None
+ 2010s conn=True rate=50.0 n=100378 missing=102 reconn=0 rows={'raw': 100378, 'sound': 4024, 'labels': 1002, 'qc': 33} now={'small': 3, 'still': 2} err=None
+ 2020s conn=True rate=50.0 n=100878 missing=102 reconn=0 rows={'raw': 100878, 'sound': 4044, 'labels': 1007, 'qc': 34} now={'still': 4, 'running': 1} err=None
+ 2030s conn=True rate=50.0 n=101378 missing=102 reconn=0 rows={'raw': 101378, 'sound': 4064, 'labels': 1012, 'qc': 34} now={'walking': 3, 'still': 2} err=None
+ 2040s conn=True rate=50.0 n=101878 missing=102 reconn=0 rows={'raw': 101878, 'sound': 4084, 'labels': 1017, 'qc': 34} now={'walking': 2, 'still': 1, 'small': 2} err=None
+ 2050s conn=True rate=50.0 n=102377 missing=102 reconn=0 rows={'raw': 102377, 'sound': 4104, 'labels': 1022, 'qc': 34} now={'small': 2, 'still': 3} err=None
+ 2060s conn=True rate=50.0 n=102877 missing=102 reconn=0 rows={'raw': 102877, 'sound': 4124, 'labels': 1027, 'qc': 34} now={'still': 5} err=None
+ 2070s conn=True rate=50.0 n=103377 missing=102 reconn=0 rows={'raw': 103377, 'sound': 4144, 'labels': 1032, 'qc': 34} now={'still': 2, 'running': 1, 'walking': 1, 'small': 1} err=None
+ 2080s conn=True rate=50.0 n=103877 missing=102 reconn=0 rows={'raw': 103877, 'sound': 4164, 'labels': 1037, 'qc': 35} now={'still': 5} err=None
+ 2090s conn=True rate=50.0 n=104378 missing=102 reconn=0 rows={'raw': 104378, 'sound': 4184, 'labels': 1042, 'qc': 35} now={'still': 5} err=None
+ 2100s conn=True rate=50.0 n=104877 missing=102 reconn=0 rows={'raw': 104877, 'sound': 4204, 'labels': 1047, 'qc': 35} now={'still': 2, 'small': 1, 'walking': 2} err=None
+ 2110s conn=True rate=50.0 n=105377 missing=102 reconn=0 rows={'raw': 105377, 'sound': 4224, 'labels': 1052, 'qc': 35} now={'still': 2, 'walking': 1, 'running': 2} err=None
+ 2120s conn=True rate=50.0 n=105877 missing=102 reconn=0 rows={'raw': 105877, 'sound': 4244, 'labels': 1057, 'qc': 35} now={'walking': 1, 'still': 4} err=None
+ 2130s conn=True rate=50.0 n=106377 missing=102 reconn=0 rows={'raw': 106377, 'sound': 4264, 'labels': 1062, 'qc': 35} now={'still': 5} err=None
+ 2140s conn=True rate=50.0 n=106877 missing=102 reconn=0 rows={'raw': 106877, 'sound': 4284, 'labels': 1067, 'qc': 36} now={'still': 3, 'running': 1, 'walking': 1} err=None
+ 2150s conn=True rate=50.0 n=107377 missing=102 reconn=0 rows={'raw': 107377, 'sound': 4304, 'labels': 1072, 'qc': 36} now={'still': 5} err=None
+ 2160s conn=True rate=50.0 n=107877 missing=102 reconn=0 rows={'raw': 107877, 'sound': 4324, 'labels': 1077, 'qc': 36} now={'still': 5} err=None
+ 2170s conn=True rate=50.0 n=108377 missing=102 reconn=0 rows={'raw': 108377, 'sound': 4344, 'labels': 1082, 'qc': 36} now={'still': 2, 'walking': 2, 'running': 1} err=None
+stopped

@@ -1,0 +1,121 @@
+17:14:31 ISSUE n=30484 missing=0 reconn=0 raw=1223KB high rest jitter 6.084 mg (loose strap?)
+17:14:47 ISSUE n=30984 missing=0 reconn=0 raw=1252KB high rest jitter 6.084 mg (loose strap?)
+17:15:02 ISSUE n=31984 missing=0 reconn=0 raw=1282KB high rest jitter 7.534 mg (loose strap?)
+17:15:17 ISSUE n=32484 missing=0 reconn=0 raw=1311KB high rest jitter 7.534 mg (loose strap?)
+17:15:32 ISSUE n=33484 missing=0 reconn=0 raw=1340KB high rest jitter 7.534 mg (loose strap?)
+17:15:47 ISSUE n=33985 missing=0 reconn=0 raw=1370KB high rest jitter 7.534 mg (loose strap?)
+17:16:02 ISSUE n=34985 missing=0 reconn=0 raw=1399KB high rest jitter 5.224 mg (loose strap?)
+17:16:17 ISSUE n=35985 missing=0 reconn=0 raw=1428KB high rest jitter 5.224 mg (loose strap?)
+17:16:32 ISSUE n=36484 missing=0 reconn=0 raw=1458KB high rest jitter 5.224 mg (loose strap?)
+17:16:47 ISSUE n=37484 missing=0 reconn=0 raw=1487KB high rest jitter 5.224 mg (loose strap?)
+17:17:02 OK    n=37983 missing=0 reconn=0 raw=1516KB 
+17:17:17 OK    n=38985 missing=0 reconn=0 raw=1545KB 
+17:17:32 OK    n=39485 missing=0 reconn=0 raw=1575KB 
+17:17:47 OK    n=40485 missing=0 reconn=0 raw=1604KB 
+17:18:02 ISSUE n=40985 missing=0 reconn=0 raw=1633KB high rest jitter 6.204 mg (loose strap?)
+17:18:17 ISSUE n=41985 missing=0 reconn=0 raw=1663KB high rest jitter 6.204 mg (loose strap?)
+17:18:32 ISSUE n=42485 missing=0 reconn=0 raw=1692KB high rest jitter 6.204 mg (loose strap?)
+17:18:47 ISSUE n=43485 missing=0 reconn=0 raw=1721KB high rest jitter 6.204 mg (loose strap?)
+17:19:02 ISSUE n=43985 missing=0 reconn=0 raw=1751KB high rest jitter 9.111 mg (loose strap?)
+17:19:17 ISSUE n=44985 missing=0 reconn=0 raw=1780KB high rest jitter 9.111 mg (loose strap?)
+17:19:32 ISSUE n=45485 missing=0 reconn=0 raw=1809KB high rest jitter 9.111 mg (loose strap?)
+17:19:47 ISSUE n=46485 missing=0 reconn=0 raw=1839KB high rest jitter 9.111 mg (loose strap?)
+17:20:03 ISSUE n=46985 missing=0 reconn=0 raw=1868KB high rest jitter 7.598 mg (loose strap?)
+17:20:18 ISSUE n=47985 missing=0 reconn=0 raw=1897KB high rest jitter 7.598 mg (loose strap?)
+17:20:33 ISSUE n=48485 missing=0 reconn=0 raw=1926KB high rest jitter 7.598 mg (loose strap?)
+17:20:48 ISSUE n=49485 missing=0 reconn=0 raw=1956KB high rest jitter 7.598 mg (loose strap?)
+17:21:03 ISSUE n=49984 missing=0 reconn=0 raw=1985KB high rest jitter 6.719 mg (loose strap?)
+17:21:18 ISSUE n=50985 missing=0 reconn=0 raw=2014KB high rest jitter 6.719 mg (loose strap?)
+17:21:33 ISSUE n=51485 missing=0 reconn=0 raw=2044KB high rest jitter 6.719 mg (loose strap?)
+17:21:48 ISSUE n=52485 missing=0 reconn=0 raw=2073KB high rest jitter 6.719 mg (loose strap?)
+17:22:03 ISSUE n=52985 missing=0 reconn=0 raw=2102KB high rest jitter 10.552 mg (loose strap?)
+17:22:18 ISSUE n=53985 missing=0 reconn=0 raw=2132KB high rest jitter 10.552 mg (loose strap?)
+17:22:33 ISSUE n=54484 missing=0 reconn=0 raw=2161KB high rest jitter 10.552 mg (loose strap?)
+17:22:48 ISSUE n=55485 missing=0 reconn=0 raw=2190KB high rest jitter 10.552 mg (loose strap?)
+17:23:03 ISSUE n=55985 missing=0 reconn=0 raw=2220KB high rest jitter 11.989 mg (loose strap?)
+17:23:18 ISSUE n=56985 missing=0 reconn=0 raw=2249KB high rest jitter 11.989 mg (loose strap?)
+17:23:33 ISSUE n=57485 missing=0 reconn=0 raw=2278KB high rest jitter 11.989 mg (loose strap?)
+17:23:48 ISSUE n=58485 missing=0 reconn=0 raw=2307KB high rest jitter 11.989 mg (loose strap?)
+17:24:03 ISSUE n=58985 missing=0 reconn=0 raw=2337KB high rest jitter 7.965 mg (loose strap?)
+17:24:18 ISSUE n=59985 missing=0 reconn=0 raw=2366KB high rest jitter 7.965 mg (loose strap?)
+17:24:33 ISSUE n=60485 missing=0 reconn=0 raw=2395KB high rest jitter 7.965 mg (loose strap?)
+17:24:48 ISSUE n=61485 missing=0 reconn=0 raw=2425KB high rest jitter 7.965 mg (loose strap?)
+17:25:03 ISSUE n=61985 missing=0 reconn=0 raw=2454KB high rest jitter 6.611 mg (loose strap?)
+17:25:18 ISSUE n=62985 missing=0 reconn=0 raw=2483KB high rest jitter 6.611 mg (loose strap?)
+17:25:34 ISSUE n=63484 missing=0 reconn=0 raw=2513KB high rest jitter 6.611 mg (loose strap?)
+17:25:49 ISSUE n=64484 missing=0 reconn=0 raw=2542KB high rest jitter 6.611 mg (loose strap?)
+17:26:04 ISSUE n=64984 missing=0 reconn=0 raw=2571KB high rest jitter 6.252 mg (loose strap?)
+17:26:19 ISSUE n=65984 missing=0 reconn=0 raw=2600KB high rest jitter 6.252 mg (loose strap?)
+17:26:34 ISSUE n=66484 missing=0 reconn=0 raw=2630KB high rest jitter 6.252 mg (loose strap?)
+17:26:49 ISSUE n=67484 missing=0 reconn=0 raw=2659KB high rest jitter 6.252 mg (loose strap?)
+17:27:04 ISSUE n=67984 missing=0 reconn=0 raw=2688KB high rest jitter 8.245 mg (loose strap?)
+17:27:19 ISSUE n=68984 missing=0 reconn=0 raw=2718KB high rest jitter 8.245 mg (loose strap?)
+17:27:34 ISSUE n=69484 missing=0 reconn=0 raw=2747KB high rest jitter 8.245 mg (loose strap?)
+17:27:49 ISSUE n=70483 missing=0 reconn=0 raw=2776KB high rest jitter 8.245 mg (loose strap?)
+17:28:04 ISSUE n=70983 missing=0 reconn=0 raw=2806KB high rest jitter 9.321 mg (loose strap?)
+17:28:19 ISSUE n=71983 missing=0 reconn=0 raw=2835KB high rest jitter 9.321 mg (loose strap?)
+17:28:34 ISSUE n=72483 missing=0 reconn=0 raw=2874KB high rest jitter 9.321 mg (loose strap?)
+17:28:49 ISSUE n=73483 missing=0 reconn=0 raw=2903KB high rest jitter 9.321 mg (loose strap?)
+17:29:04 OK    n=73983 missing=0 reconn=0 raw=2933KB 
+17:29:19 OK    n=74983 missing=0 reconn=0 raw=2962KB 
+17:29:34 OK    n=75483 missing=0 reconn=0 raw=2991KB 
+17:29:49 OK    n=76483 missing=0 reconn=0 raw=3020KB 
+17:30:04 ISSUE n=76983 missing=0 reconn=0 raw=3050KB high rest jitter 8.18 mg (loose strap?)
+17:30:19 ISSUE n=77982 missing=0 reconn=0 raw=3079KB high rest jitter 8.18 mg (loose strap?)
+17:30:34 ISSUE n=78482 missing=0 reconn=0 raw=3108KB high rest jitter 8.18 mg (loose strap?)
+17:30:49 ISSUE n=79482 missing=0 reconn=0 raw=3138KB high rest jitter 8.18 mg (loose strap?)
+17:31:04 ISSUE n=79982 missing=0 reconn=0 raw=3167KB high rest jitter 10.156 mg (loose strap?)
+17:31:19 ISSUE n=80982 missing=0 reconn=0 raw=3198KB high rest jitter 10.156 mg (loose strap?)
+17:31:34 ISSUE n=81482 missing=0 reconn=0 raw=3228KB high rest jitter 10.156 mg (loose strap?)
+17:31:49 ISSUE n=82482 missing=0 reconn=0 raw=3259KB high rest jitter 10.156 mg (loose strap?)
+17:32:05 ISSUE n=82880 missing=102 reconn=0 raw=3285KB low rate 41.5; last minute: read_errors=2.0 recoveries=1.0 dropped=0.0
+17:32:20 ISSUE n=83880 missing=102 reconn=0 raw=3315KB last minute: read_errors=2.0 recoveries=1.0 dropped=0.0
+17:32:35 ISSUE n=84380 missing=102 reconn=0 raw=3345KB last minute: read_errors=2.0 recoveries=1.0 dropped=0.0
+17:32:50 ISSUE n=85380 missing=102 reconn=0 raw=3375KB last minute: read_errors=2.0 recoveries=1.0 dropped=0.0
+17:33:05 OK    n=85879 missing=102 reconn=0 raw=3405KB 
+17:33:20 OK    n=86879 missing=102 reconn=0 raw=3435KB 
+17:33:35 OK    n=87379 missing=102 reconn=0 raw=3465KB 
+17:33:50 OK    n=88379 missing=102 reconn=0 raw=3495KB 
+17:34:05 OK    n=88879 missing=102 reconn=0 raw=3526KB 
+17:34:20 OK    n=89879 missing=102 reconn=0 raw=3557KB 
+17:34:35 OK    n=90379 missing=102 reconn=0 raw=3587KB 
+17:34:50 OK    n=91379 missing=102 reconn=0 raw=3618KB 
+17:35:05 OK    n=91879 missing=102 reconn=0 raw=3648KB 
+17:35:20 OK    n=92878 missing=102 reconn=0 raw=3678KB 
+17:35:35 OK    n=93378 missing=102 reconn=0 raw=3709KB 
+17:35:50 OK    n=94378 missing=102 reconn=0 raw=3739KB 
+17:36:05 ISSUE n=94878 missing=102 reconn=0 raw=3770KB high rest jitter 10.68 mg (loose strap?)
+17:36:20 ISSUE n=95878 missing=102 reconn=0 raw=3801KB high rest jitter 10.68 mg (loose strap?)
+17:36:35 ISSUE n=96378 missing=102 reconn=0 raw=3832KB high rest jitter 10.68 mg (loose strap?)
+17:36:50 ISSUE n=97378 missing=102 reconn=0 raw=3863KB high rest jitter 10.68 mg (loose strap?)
+17:37:05 ISSUE n=97878 missing=102 reconn=0 raw=3893KB high rest jitter 5.453 mg (loose strap?)
+17:37:20 ISSUE n=98878 missing=102 reconn=0 raw=3924KB high rest jitter 5.453 mg (loose strap?)
+17:37:35 ISSUE n=99378 missing=102 reconn=0 raw=3953KB high rest jitter 5.453 mg (loose strap?)
+17:37:50 ISSUE n=100378 missing=102 reconn=0 raw=3981KB high rest jitter 5.453 mg (loose strap?)
+17:38:05 ISSUE n=100878 missing=102 reconn=0 raw=4011KB high rest jitter 5.272 mg (loose strap?)
+17:38:20 ISSUE n=101878 missing=102 reconn=0 raw=4041KB high rest jitter 5.272 mg (loose strap?)
+17:38:35 ISSUE n=102377 missing=102 reconn=0 raw=4070KB high rest jitter 5.272 mg (loose strap?)
+17:38:50 ISSUE n=103377 missing=102 reconn=0 raw=4100KB high rest jitter 5.272 mg (loose strap?)
+17:39:05 OK    n=103877 missing=102 reconn=0 raw=4131KB 
+17:39:20 OK    n=104877 missing=102 reconn=0 raw=4161KB 
+17:39:35 OK    n=105377 missing=102 reconn=0 raw=4192KB 
+17:39:50 OK    n=106377 missing=102 reconn=0 raw=4223KB 
+17:40:05 OK    n=106877 missing=102 reconn=0 raw=4253KB 
+17:40:20 OK    n=107877 missing=102 reconn=0 raw=4283KB 
+17:40:36 OK    n=108377 missing=102 reconn=0 raw=4299KB 
+17:40:51 ISSUE n=108377 missing=102 reconn=0 raw=4299KB sample count not increasing; raw file not written for 23s
+17:41:06 ISSUE n=108377 missing=102 reconn=0 raw=4299KB sample count not increasing; raw file not written for 38s
+17:41:21 ISSUE n=108377 missing=102 reconn=0 raw=4299KB sample count not increasing; raw file not written for 53s
+17:41:36 ISSUE n=108377 missing=102 reconn=0 raw=4299KB sample count not increasing; raw file not written for 68s
+17:41:51 ISSUE n=108377 missing=102 reconn=0 raw=4299KB sample count not increasing; raw file not written for 83s
+17:42:06 ISSUE n=108377 missing=102 reconn=0 raw=4299KB sample count not increasing; raw file not written for 98s
+17:42:21 ISSUE n=108377 missing=102 reconn=0 raw=4299KB sample count not increasing; raw file not written for 113s
+17:42:36 ISSUE n=108377 missing=102 reconn=0 raw=4299KB sample count not increasing; raw file not written for 128s
+17:42:51 ISSUE n=108377 missing=102 reconn=0 raw=4299KB sample count not increasing; raw file not written for 143s
+17:43:06 ISSUE n=108377 missing=102 reconn=0 raw=4299KB sample count not increasing; raw file not written for 158s
+17:43:21 ISSUE n=108377 missing=102 reconn=0 raw=4299KB sample count not increasing; raw file not written for 173s
+17:43:36 ISSUE n=108377 missing=102 reconn=0 raw=4299KB sample count not increasing; raw file not written for 188s
+17:43:51 ISSUE n=108377 missing=102 reconn=0 raw=4299KB sample count not increasing; raw file not written for 203s
+17:44:06 ISSUE n=108377 missing=102 reconn=0 raw=4299KB sample count not increasing; raw file not written for 218s
+17:44:21 ISSUE n=108377 missing=102 reconn=0 raw=4299KB sample count not increasing; raw file not written for 233s
+WATCHDOG DONE: 120 checks, 93 with issues

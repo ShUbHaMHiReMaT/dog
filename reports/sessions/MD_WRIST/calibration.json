@@ -1,0 +1,35 @@
+{
+  "source_session": "MD_WRIST_20261022-170417",
+  "made": "2026-10-22T17:40:07",
+  "method": "GGIR-style autocalibration (van Hees 2014): still 10 s windows, SD<13 mg per axis",
+  "orientation_coverage": {
+    "n_still_windows": 71,
+    "axis_min": [
+      -0.935,
+      -0.975,
+      -0.986
+    ],
+    "axis_max": [
+      0.841,
+      0.982,
+      0.998
+    ]
+  },
+  "enough_orientations": true,
+  "error_before_mg": 6.3,
+  "offset_g": [
+    0.00977,
+    0.00164,
+    0.00318
+  ],
+  "gain": [
+    0.99819,
+    1.00145,
+    1.00232
+  ],
+  "error_after_mg": 0.82,
+  "noise_floor_mg": 4.82,
+  "sample_rate_hz": 49.937,
+  "mic_background_dbfs": -45.6,
+  "mic_loud_dbfs": -12.3
+}

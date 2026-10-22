@@ -26,7 +26,11 @@
 #include "src/SparkFun_BMI270/SparkFun_BMI270_Arduino_Library.h"   // bundled copy (SparkFun MIT + Bosch BSD-3)
 #include "config.h"
 
-#define FW_VERSION "0.3.0"
+#if USE_MIC
+#include <ESP_I2S.h>
+#endif
+
+#define FW_VERSION "0.4.0"
 
 BMI270 imu;
 Preferences prefs;
@@ -286,6 +290,50 @@ static void readerLoop(void*) {
 }
 
 // ---------------------------------------------------------------- SD
+// Microphone (sound LEVEL only). Privacy by design: audio samples never leave this task. Every 0.5 s it
+// publishes two numbers - RMS and peak level in dBFS - plus whether the mic produced any data at all.
+#if USE_MIC
+static I2SClass micI2S;
+static volatile float micDbRms = NAN, micDbPeak = NAN;
+static volatile bool micFresh = false, micDead = false;
+
+static void micLoop(void*) {
+  micI2S.setPins(PIN_MIC_SCK, PIN_MIC_WS, -1, PIN_MIC_SD);
+  if (!micI2S.begin(I2S_MODE_STD, MIC_RATE, I2S_DATA_BIT_WIDTH_32BIT, I2S_SLOT_MODE_MONO, I2S_STD_SLOT_LEFT)) {
+    Serial.println("#E,mic_i2s_begin_failed");
+    vTaskDelete(nullptr);
+  }
+  static int32_t buf[MIC_RATE / 10];                  // 100 ms blocks
+  double sumsq = 0;
+  float peak = 0;
+  uint32_t n = 0, nonzero = 0;
+  int blocks = 0;
+  for (;;) {
+    size_t got = micI2S.readBytes((char*)buf, sizeof(buf)) / sizeof(int32_t);
+    if (got == 0) { vTaskDelay(5); continue; }
+    double mean = 0;
+    for (size_t i = 0; i < got; i++) mean += (double)(buf[i] >> 8);   // INMP441: 24-bit left-justified
+    mean /= got;                                      // remove DC offset per block
+    for (size_t i = 0; i < got; i++) {
+      if (buf[i] != 0) nonzero++;
+      float x = (float)(((double)(buf[i] >> 8) - mean) / 8388608.0);
+      sumsq += (double)x * x;
+      float ax = fabsf(x);
+      if (ax > peak) peak = ax;
+    }
+    n += got;
+    if (++blocks >= 5) {                              // publish every 0.5 s
+      float rms = sqrtf((float)(sumsq / n));
+      micDbRms = 20.0f * log10f(rms + 1e-9f);
+      micDbPeak = 20.0f * log10f(peak + 1e-9f);
+      micDead = (nonzero == 0);
+      micFresh = true;
+      sumsq = 0; peak = 0; n = 0; nonzero = 0; blocks = 0;
+    }
+  }
+}
+#endif
+
 static void closeFiles() {
   if (rawFile) { rawFile.print(rawBuf); rawBuf = ""; rawFile.close(); }
   if (qcFile) qcFile.close();
@@ -460,6 +508,9 @@ void setup() {
   if (!timeSynced) Serial.println("#W,time_not_synced - run tools/collar_logger.py (sends T<epoch_ms>) or set WIFI_SSID");
 
   xTaskCreatePinnedToCore(readerLoop, "bmi_reader", 4096, nullptr, configMAX_PRIORITIES - 2, &readerTask, 0);
+#if USE_MIC
+  xTaskCreatePinnedToCore(micLoop, "mic", 4096, nullptr, 2, nullptr, 1);
+#endif
 #if PIN_BMI_INT1 >= 0
   pinMode(PIN_BMI_INT1, INPUT);
   attachInterrupt(digitalPinToInterrupt(PIN_BMI_INT1), onDataReady, RISING);
@@ -497,6 +548,18 @@ void loop() {
     if (now - fileStartMs >= (int64_t)SD_ROTATE_HOURS * 3600000LL) openFiles();
   }
   if (now - minuteStartMs >= 60000) { qcEmit(); minuteStartMs = now; }
+
+#if USE_MIC
+  if (micFresh) {                                      // sound level twice a second: #A,ts,rms_dbfs,peak_dbfs,ok
+    micFresh = false;
+    int64_t ts = timeSynced ? nowEpochMs() : espMs();
+    Serial.printf("#A,%lld,%.1f,%.1f,%d\n", (long long)ts, micDbRms, micDbPeak, micDead ? 0 : 1);
+    static int deadCount = 0;
+    if (micDead && ++deadCount % 20 == 1)
+      Serial.println("#W,mic_no_data - check INMP441 wiring: SCK->GPIO5, WS->GPIO6, SD->GPIO7, L/R->GND, VDD->3V3");
+    if (!micDead) deadCount = 0;
+  }
+#endif
 
   // last resort: sensor still silent after recovery attempts -> restart the ESP32, keeping the clock
   if (lastGoodUs && (esp_timer_get_time() - lastGoodUs) > (int64_t)STALL_RESTART_MS * 1000) {

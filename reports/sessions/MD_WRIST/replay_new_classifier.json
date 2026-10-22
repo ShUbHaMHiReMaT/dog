@@ -1,0 +1,38 @@
+{
+  "wrist": {
+    "minutes": 27.5,
+    "activity_s": {
+      "Small movements": 624,
+      "Still (calibrate posture)": 548,
+      "Walking": 392,
+      "Large slow movements (play / rolling)": 50,
+      "Shaking / scratching": 18,
+      "Running / playing": 16
+    },
+    "fit": {
+      "worn": "yes (20.1 mg resting motion)",
+      "loose": "firm (6% rattle)",
+      "shifted": "calibrate posture to check",
+      "gravity": "OK (1.000 g)",
+      "summary": "OK"
+    }
+  },
+  "table": {
+    "minutes": 8.6,
+    "activity_s": {
+      "Still (calibrate posture)": 292,
+      "Small movements": 108,
+      "Walking": 80,
+      "Large slow movements (play / rolling)": 26,
+      "Shaking / scratching": 8
+    },
+    "fit": {
+      "worn": "yes (6.5 mg resting motion)",
+      "loose": "firm (4% rattle)",
+      "shifted": "calibrate posture to check",
+      "gravity": "OK (1.001 g)",
+      "summary": "OK"
+    },
+    "first_not_worn_minute": 29.9
+  }
+}

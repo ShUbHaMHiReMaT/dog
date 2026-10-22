@@ -1,0 +1,199 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  html,body{margin:0;padding:0;background:transparent;overflow:hidden;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+  #wrap{position:relative;width:100%;height:__HEIGHT__px;border-radius:12px;overflow:hidden;
+        background:linear-gradient(#e9f1f8,#f8fafc)}
+  #lab{position:absolute;left:14px;top:10px;font-weight:700;font-size:22px;color:#1d2733}
+  #sub{position:absolute;left:14px;top:40px;font-size:13px;color:#4b5866}
+  #hint{position:absolute;right:12px;bottom:8px;font-size:11px;color:#7b8794}
+  #dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;background:#9aa5b1}
+</style></head>
+<body><div id="wrap"><canvas id="c"></canvas>
+<div id="lab"><span id="dot"></span><span id="labt">Waiting for live data…</span></div>
+<div id="sub"></div><div id="hint">drag to rotate · scroll to zoom</div></div>
+<script>__THREE__</script>
+<script>
+const CFG = __CFG__;
+const wrap = document.getElementById('wrap'), canvas = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({canvas, antialias: true, alpha: true});
+renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(32, 1, 0.05, 50);
+scene.add(new THREE.HemisphereLight(0xffffff, 0xb9a88f, 0.75));
+const sun = new THREE.DirectionalLight(0xffffff, 0.75);
+sun.position.set(1.5, 3, 2); sun.castShadow = true; sun.shadow.mapSize.set(1024, 1024);
+Object.assign(sun.shadow.camera, {left: -1.5, right: 1.5, top: 1.5, bottom: -1.5});
+scene.add(sun);
+const ground = new THREE.Mesh(new THREE.CircleGeometry(6, 64), new THREE.MeshStandardMaterial({color: 0xe3e8d8, roughness: 1}));
+ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
+
+// ------------------------------------------------------------------ materials & helpers
+const M = c => new THREE.MeshStandardMaterial({color: c, roughness: 0.85});
+const FUR = M(0xc98a4b), DARK = M(0x7a4a26), BLACK = M(0x1b1b1b), RED = M(0xe4002b), STRAP = M(0x2f3b4a);
+function mesh(geo, mat, parent, pos, scale) {
+  const m = new THREE.Mesh(geo, mat); m.castShadow = true;
+  if (pos) m.position.set(...pos); if (scale) m.scale.set(...scale); parent.add(m); return m;
+}
+const SPH = new THREE.SphereGeometry(1, 24, 16);
+function limb(parent, len, r0, r1, mat, up) {          // a rounded limb from the joint along -y (or +y)
+  const s = up ? 1 : -1;
+  mesh(new THREE.CylinderGeometry(up ? r1 : r0, up ? r0 : r1, len, 14), mat, parent, [0, s * len / 2, 0]);
+  mesh(SPH, mat, parent, [0, 0, 0], [r0, r0, r0]);
+  mesh(SPH, mat, parent, [0, s * len, 0], [r1, r1, r1]);
+}
+
+// ------------------------------------------------------------------ the dog (x forward, y up, z = left side)
+const root = new THREE.Group(); scene.add(root);           // pivot at the hips
+const trunk = new THREE.Group(); root.add(trunk);
+mesh(SPH, FUR, trunk, [0.27, 0.03, 0], [0.33, 0.14, 0.13]);
+mesh(SPH, FUR, trunk, [0.49, 0.04, 0], [0.16, 0.16, 0.14]);   // chest
+mesh(SPH, FUR, trunk, [0.05, 0.04, 0], [0.14, 0.13, 0.13]);   // rump
+const legs = {};
+for (const [name, x, z, front] of [["fl", .5, .085, 1], ["fr", .5, -.085, 1], ["rl", .04, .085, 0], ["rr", .04, -.085, 0]]) {
+  const up = new THREE.Group(); up.position.set(x, -0.04, z); root.add(up);
+  limb(up, 0.22, front ? 0.045 : 0.062, 0.038, FUR);
+  const low = new THREE.Group(); low.position.set(0, -0.22, 0); up.add(low);
+  limb(low, 0.21, 0.036, 0.03, FUR);
+  mesh(SPH, DARK, low, [0.025, -0.225, 0], [0.05, 0.028, 0.04]);  // paw
+  legs[name] = {up, low, side: z > 0 ? 1 : -1, front};
+}
+const neck = new THREE.Group(); neck.position.set(0.58, 0.07, 0); root.add(neck);
+limb(neck, 0.2, 0.075, 0.065, FUR, true);
+const head = new THREE.Group(); head.position.set(0, 0.2, 0); neck.add(head);
+mesh(SPH, FUR, head, [0.03, 0.03, 0], [0.12, 0.1, 0.095]);
+mesh(new THREE.CylinderGeometry(0.045, 0.055, 0.14, 14), FUR, head, [0.15, 0.0, 0]).rotation.z = Math.PI / 2;
+mesh(SPH, BLACK, head, [0.225, 0.01, 0], [0.025, 0.022, 0.025]);           // nose
+for (const s of [1, -1]) {
+  mesh(SPH, BLACK, head, [0.12, 0.07, s * 0.055], [0.014, 0.014, 0.014]);  // eyes
+  const ear = mesh(SPH, DARK, head, [-0.01, 0.06, s * 0.085], [0.035, 0.08, 0.02]);
+  ear.rotation.x = s * 0.35; ear.rotation.z = -0.25;
+}
+const tail = new THREE.Group(); tail.position.set(-0.07, 0.08, 0); root.add(tail);
+mesh(new THREE.CylinderGeometry(0.012, 0.03, 0.3, 10), FUR, tail, [0, 0.15, 0]);
+// the device: chest strap + red sensor box under the sternum, or a collar round the neck
+const device = new THREE.Group();
+if (CFG.mount === 'neck collar') {
+  mesh(new THREE.TorusGeometry(0.078, 0.014, 8, 28), STRAP, neck, [0, 0.07, 0]).rotation.x = Math.PI / 2;
+  neck.add(device); device.position.set(0.075, 0.07, 0);
+} else if (CFG.mount === 'back') {
+  trunk.add(device); device.position.set(0.3, 0.17, 0);
+} else {
+  const strap = mesh(new THREE.TorusGeometry(0.15, 0.012, 8, 32), STRAP, trunk, [0.47, 0.04, 0], [1, 1.05, 0.95]);
+  strap.rotation.y = Math.PI / 2;
+  trunk.add(device); device.position.set(0.56, -0.1, 0);
+}
+mesh(new THREE.BoxGeometry(0.06, 0.03, 0.05), RED, device);
+
+// ------------------------------------------------------------------ poses (angles in radians)
+// legs: [upper, lower] rotation about z; + = paw forward. neckW / headW are WORLD angles (stay natural when the body tilts)
+const STAND = {y: .505, pitch: 0, roll: 0, fl: [.04, -.04], fr: [.04, -.04], rl: [.12, -.22], rr: [.12, -.22], splay: 0,
+               neckW: -.45, headX: 0, tail: .75, gaitF: 0, gaitA: 0, lift: 0, bounce: 0, shake: 0, wag: 0, breathe: 0,
+               gait: [0, .5, .5, 0]};
+const P = {
+  standing: {...STAND},
+  still: {...STAND},
+  tilted: {...STAND},
+  sitting: {...STAND, y: .145, pitch: .75, fl: [-.75, 0], fr: [-.75, 0], rl: [.45, -2.65], rr: [.45, -2.65], splay: .25,
+            neckW: -.3, tail: 1.6},
+  lying_belly: {...STAND, y: .15, fl: [1.3, .25], fr: [1.3, .25], rl: [1.25, -2.75], rr: [1.25, -2.75], splay: .55,
+                neckW: -.2, tail: 1.5, breathe: .03},
+  lying_side: {...STAND, y: .15, roll: 1.45, fl: [.45, -.3], fr: [.25, -.2], rl: [-.1, -.3], rr: [-.25, -.2],
+               neckW: -1.15, headX: -.15, tail: 1.45, breathe: .03},
+  small: {...STAND, neckW: -2.0, headX: -.85, wag: .25},
+  walking: {...STAND, gaitF: 1.7, gaitA: .33, lift: .55, wag: .35, neckW: -.6, gait: [0, .5, .75, .25]},
+  running: {...STAND, y: .49, gaitF: 2.7, gaitA: .62, lift: 1.0, bounce: .035, wag: .2, neckW: -.95, tail: 1.2,
+            gait: [0, .12, .55, .67]},
+  shaking: {...STAND, shake: .32, neckW: -.55},
+  large: {...STAND, gaitF: .8, gaitA: .45, lift: .6, shake: .1, wag: .6, neckW: -.8, gait: [0, .5, .5, 0]},
+};
+const KEYS = ['y','pitch','roll','splay','neckW','headX','tail','gaitF','gaitA','lift','bounce','shake','wag','breathe'];
+const cur = JSON.parse(JSON.stringify(P.standing));
+let target = P.standing;
+
+// ------------------------------------------------------------------ camera (drag to orbit, wheel to zoom)
+let az = 0.85, el = 0.26, dist = 3.0;
+function placeCamera() {
+  camera.position.set(0.3 + dist * Math.cos(el) * Math.sin(az), 0.3 + dist * Math.sin(el), dist * Math.cos(el) * Math.cos(az));
+  camera.lookAt(0.3, 0.3, 0);
+}
+let drag = null;
+canvas.addEventListener('pointerdown', e => { drag = [e.clientX, e.clientY]; canvas.setPointerCapture(e.pointerId); });
+canvas.addEventListener('pointerup', () => drag = null);
+canvas.addEventListener('pointermove', e => {
+  if (!drag) return;
+  az -= (e.clientX - drag[0]) * 0.008; el = Math.max(0.02, Math.min(1.3, el + (e.clientY - drag[1]) * 0.006));
+  drag = [e.clientX, e.clientY];
+});
+canvas.addEventListener('wheel', e => { e.preventDefault(); dist = Math.max(1.0, Math.min(5, dist * (1 + e.deltaY * 0.001))); },
+                        {passive: false});
+function resize() {
+  const w = wrap.clientWidth, h = wrap.clientHeight;
+  renderer.setSize(w, h, false); canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+  camera.aspect = w / h; camera.updateProjectionMatrix();
+}
+window.addEventListener('resize', resize); resize();
+
+// ------------------------------------------------------------------ animation
+let t = 0, last = performance.now();
+function animate(now) {
+  const dt = Math.min(0.05, (now - last) / 1000); last = now; t += dt;
+  const k = 1 - Math.exp(-dt * 4);                       // smooth transition between poses
+  for (const key of KEYS) cur[key] += (target[key] - cur[key]) * k;
+  for (const l of ['fl','fr','rl','rr']) for (const j of [0, 1]) cur[l][j] += (target[l][j] - cur[l][j]) * k;
+  for (let i = 0; i < 4; i++) cur.gait[i] = target.gait[i];
+  const ph = 2 * Math.PI * cur.gaitF * t;
+  root.position.y = cur.y + cur.bounce * Math.abs(Math.sin(ph));
+  root.rotation.z = cur.pitch + (cur.bounce ? 0.05 * Math.sin(ph) : 0);
+  root.rotation.x = cur.roll + cur.shake * Math.sin(2 * Math.PI * 6.5 * t) * (cur.shake > .02 ? 1 : 0);
+  ['fl','fr','rl','rr'].forEach((n, i) => {
+    const L = legs[n], p = ph + 2 * Math.PI * cur.gait[i];
+    L.up.rotation.z = cur[n][0] + cur.gaitA * Math.sin(p);
+    L.low.rotation.z = cur[n][1] - cur.lift * Math.max(0, Math.sin(p + Math.PI / 2)) * (L.front ? 1 : -0.7);
+    L.up.rotation.x = -L.side * cur.splay;
+  });
+  neck.rotation.z = cur.neckW - root.rotation.z + 0.04 * Math.sin(ph);
+  head.rotation.z = -(cur.neckW) + cur.headX;
+  tail.rotation.z = cur.tail;
+  tail.rotation.x = cur.wag * Math.sin(2 * Math.PI * 3 * t);
+  trunk.scale.y = 1 + cur.breathe * Math.sin(2 * Math.PI * 0.35 * t);
+  placeCamera(); renderer.render(scene, camera);
+  requestAnimationFrame(animate);
+}
+requestAnimationFrame(animate);
+
+// ------------------------------------------------------------------ data
+const lab = document.getElementById('labt'), sub = document.getElementById('sub'), dot = document.getElementById('dot');
+function show(act, text, detail, color) {
+  target = P[act] || P.standing; lab.textContent = text; sub.textContent = detail || ''; dot.style.background = color;
+}
+if (CFG.demo) {
+  const order = ['standing', 'walking', 'running', 'sitting', 'lying_belly', 'lying_side', 'small', 'shaking'];
+  if (CFG.demo !== 'cycle') {
+    Object.assign(cur, JSON.parse(JSON.stringify(P[CFG.demo])));
+    show(CFG.demo, CFG.labels[CFG.demo] + '  (preview)', 'demo pose - not live data', '#9467bd');
+  } else {
+    let i = 0;
+    const step = () => { const a = order[i++ % order.length]; show(a, CFG.labels[a] + '  (preview)', 'demo cycle - not live data', '#9467bd'); };
+    step(); setInterval(step, 3500);
+  }
+} else {
+  const url = (() => { try { return window.parent.location.origin + '/app/static/live_pose.json'; }
+                       catch (e) { return new URL('/app/static/live_pose.json', document.baseURI).href; } })();
+  async function poll() {
+    try {
+      const r = await fetch(url + '?t=' + Date.now(), {cache: 'no-store'});
+      const d = await r.json();
+      const age = Date.now() / 1000 - d.wall;
+      if (!d.connected) show('standing', 'Device disconnected', 'reconnecting…', '#e45756');
+      else if (age > 8) show('standing', 'Waiting for live data…', `last update ${Math.round(age)} s ago`, '#9aa5b1');
+      else {
+        const i = d.info || {}, f = v => (v === null || v === undefined) ? '-' : Math.round(v);
+        show(d.activity, d.label, `motion ${(+i.motion_g || 0).toFixed(3)} g · ${i.dom_hz ?? '-'} Hz · forward/back ${f(i.pitch_deg)}° · side ${f(i.roll_deg)}° · ${d.dog}`, '#2ca02c');
+      }
+    } catch (e) { show('standing', 'Waiting for live data…', 'start a live session', '#9aa5b1'); }
+  }
+  poll(); setInterval(poll, 600);
+}
+</script></body></html>

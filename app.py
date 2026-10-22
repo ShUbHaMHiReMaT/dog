@@ -9,6 +9,7 @@ dog never saw that dog during training.
 from __future__ import annotations
 
 import json
+import time
 from pathlib import Path
 
 import numpy as np
@@ -165,49 +166,104 @@ def live_sessions():
 
 
 if page == "📡 Live collar":
+    from praniiva.live import ACTIVITIES, RULES
+    ACT_COLOR = {"standing": "#72b7b2", "sitting": "#9467bd", "lying_belly": "#4c78a8", "lying_side": "#1f3f6e",
+                 "tilted": "#8c8c8c", "still": "#9d9d9d", "small": "#d4a017", "walking": "#54a24b",
+                 "running": "#e45756", "large": "#f58518", "shaking": "#b279a2"}
+    ACT_ICON = {"standing": "🧍", "sitting": "🪑", "lying_belly": "🛌", "lying_side": "😴", "tilted": "↘",
+                "still": "⏸", "small": "👃", "walking": "🚶", "running": "🏃", "large": "🤸", "shaking": "🌀"}
     st.title("📡 Live collar - real-time analysis")
-    st.caption("Streaming from the PRANIIVA prototype collar (ESP32-S3 + BMI270, 50 samples/s). "
-               "**Prototype demo:** the behaviour model was trained on simulated dogs and is not yet validated on real "
-               "dogs; breathing rate from the collar is experimental. Not a diagnostic device.")
+    st.caption("Streaming from the PRANIIVA prototype (ESP32-S3 + BMI270, 50 samples/s, + sound level). "
+               "Activity comes from transparent motion rules that work on a chest harness or a neck collar "
+               "(thresholds provisional until tuned on labelled real recordings). Not a diagnostic device.")
     sess = live_sessions()
-    c1, c2, c3, c4 = st.columns([1, 1, 1, 1])
-    port = c1.text_input("Collar port", "COM15")
+    c1, c2, c3, c4, c5 = st.columns([1, 1, 1, 1, 1])
+    port = c1.text_input("Device port", "COM15")
     dog = c2.text_input("Dog ID", "ID0001")
-    if c3.button("▶ Start live session", type="primary"):
+    mount = c3.selectbox("Mounted at", ["chest", "neck collar", "back"], index=0)
+    if c4.button("▶ Start live session", type="primary"):
         if sess.get("live"):
             sess["live"].stop()
         from praniiva.live import LiveCollar
-        sess["live"] = LiveCollar(port, dog)
-    if c4.button("■ Stop") and sess.get("live"):
+        sess["live"] = LiveCollar(port, dog.strip() or "ID0001", mount=mount)
+    if c5.button("■ Stop & save") and sess.get("live"):
         sess["live"].stop()
+        st.success(f"Saved: {sess['live'].base}_*.csv")
         sess.pop("live")
     live = sess.get("live")
     if live is None:
-        st.info("Connect the collar by USB and press **Start live session**. "
-                "(Close tools/collar_logger.py first - only one program can use the port.)")
+        st.info("Connect the device by USB and press **Start live session**. Everything is recorded automatically "
+                "to data/raw/<dog>/. (Close check_mic.py / check_sensor.py / collar_logger.py first - only one program "
+                "can use the port.)")
+        from praniiva.viz3d import dog3d_html
+        st.markdown("**3D dog - preview of the postures the system can show** (follows the real device once a session runs)")
+        st.iframe(dog3d_html(height=420, mount=mount, demo="cycle"), height=430)
         st.stop()
-    mc1, mc2 = st.columns([3, 1])
-    label = mc1.text_input("Mark what the dog is doing now (saved with the recording for model training)", "")
-    if mc2.button("Add marker") and label:
-        live.mark(label.replace(",", " "))
+    b1, b1b, b2, b3 = st.columns([1.3, 1.3, 2, 0.8])
+    if b1.button("① 🧍 Dog is STANDING still → calibrate",
+                 help="Press after the dog has stood calmly for 3 s. Needed for any posture."):
+        st.toast("Standing calibrated ✓ - now ask the dog to SIT and press ②" if live.calibrate_standing() else
+                 "Not calibrated - the device was moving or no data yet; try again while the dog stands still")
+    if b1b.button("② 🪑 Dog is SITTING still → calibrate",
+                  help="Press after the dog has sat calmly for 3 s. Lets the system tell sitting from lying."):
+        why = live.calibrate_sitting()
+        st.toast("Sitting calibrated ✓ - posture detection is fully set up" if why is None else f"Not calibrated: {why}")
+    label = b2.text_input("Mark what the dog is doing (saved with the recording)", "",
+                          placeholder="e.g. walking on leash, eating, lying down, scratching")
+    if b3.button("Add marker") and label:
+        live.mark(label)
+        st.toast(f"Marker saved: {label}")
+
+    from praniiva.viz3d import dog3d_html
+    st.iframe(dog3d_html(height=430, mount=live.mount), height=440)   # polls the live pose by itself
 
     @st.fragment(run_every="1s")
     def live_view():
         snap = live.snapshot(30)
-        if snap["error"]:
-            st.error(f"Collar connection problem: {snap['error']}")
-            return
         labels = snap["labels"]
-        recent = [b for _, b, _ in labels[-3:]]
-        now_beh = max(set(recent), key=recent.count) if recent else None
-        conf = np.mean([c for _, b, c in labels[-3:] if b == now_beh]) if now_beh else 0
-        k1, k2, k3, k4, k5 = st.columns(5)
-        k1.metric("Collar", "🟢 streaming" if snap["connected"] and snap["rate"] > 40 else "🟡 waiting")
-        k2.metric("Samples / second", f"{snap['rate']:.1f}")
-        k3.metric("Session time", f"{int(snap['elapsed'] // 60)} min {int(snap['elapsed'] % 60)} s")
-        k4.metric("Missing samples", f"{snap['gaps']}")
-        k5.metric("Doing now", BEH_NICE.get(now_beh, "…"), f"{conf:.0%} confidence" if now_beh else None,
-                  delta_color="off")
+        fmt = lambda v: "-" if v is None else f"{v:.0f}"
+        fresh = snap["last_write"] is not None and time.time() - snap["last_write"] < 5
+        if not snap["connected"]:
+            st.error(f"🔌 Device disconnected - reconnecting every 2 s. Recording resumes automatically. "
+                     f"({snap['error']})")
+        elif snap["rate"] < 40:
+            st.warning("Connected, waiting for motion data…")
+        recent = [a for _, a, _, _ in labels[-2:]]
+        now_act = recent[-1] if recent else None
+        info = labels[-1][3] if labels else {}
+
+        a1, a2 = st.columns([2, 3])
+        with a1:
+            if now_act:
+                st.markdown(
+                    f"<div style='padding:18px;border-radius:12px;background:{ACT_COLOR[now_act]};color:white'>"
+                    f"<div style='font-size:15px;opacity:.85'>Doing now</div>"
+                    f"<div style='font-size:34px;font-weight:700'>{ACT_ICON[now_act]} {ACTIVITIES[now_act]}</div>"
+                    f"<div style='font-size:13px;opacity:.85'>motion {info.get('motion_g', 0):.3f} g · "
+                    f"{info.get('dom_hz', 0)} Hz · tilt {fmt(info.get('tilt_deg'))}° · "
+                    f"forward/back {fmt(info.get('pitch_deg'))}° · side {fmt(info.get('roll_deg'))}° · "
+                    f"model says: {BEH_NICE.get(labels[-1][2], labels[-1][2])} (experimental)</div></div>",
+                    unsafe_allow_html=True)
+            else:
+                st.info("First activity label after 2 s of data…")
+            if snap["calibrated"] == "none":
+                st.caption("Posture not set up: press **①** while the dog stands, then **②** while it sits.")
+            elif snap["calibrated"] == "standing":
+                st.caption("Standing calibrated. Press **②** while the dog sits to tell sitting from lying.")
+            else:
+                st.caption("Posture calibrated (standing + sitting) ✓")
+        with a2:
+            k1, k2, k3, k4 = st.columns(4)
+            k1.metric("Device", "🟢 live" if snap["connected"] and snap["rate"] > 40 else "🔴 offline")
+            k2.metric("Samples / s", f"{snap['rate']:.1f}")
+            k3.metric("Session", f"{int(snap['elapsed'] // 60)} min {int(snap['elapsed'] % 60)} s")
+            k4.metric("Missing samples", f"{snap['gaps']}", f"{snap['reconnects']} reconnects", delta_color="off")
+            rows = snap["rows"]
+            st.markdown(f"**Recording** {'🟢 saving' if fresh else '🔴 not saving'} · "
+                        f"{rows.get('raw', 0):,} motion rows · {rows.get('sound', 0):,} sound · "
+                        f"{rows.get('labels', 0):,} labels · {rows.get('events', 0)} markers · "
+                        f"{rows.get('qc', 0)} health reports")
+            st.caption(f"Files: {snap['files']}")
 
         s = snap["samples"]
         if len(s) > 10:
@@ -215,51 +271,68 @@ if page == "📡 Live collar":
             vm = np.linalg.norm(s[:, 1:4], axis=1)
             fig = make_subplots(rows=1, cols=2, column_widths=[0.62, 0.38],
                                 subplot_titles=("Motion, last 30 s (g)", "Time spent this session (min)"))
-            for i, (nm, col) in enumerate((("x (along neck)", "#e45756"), ("y", "#54a24b"), ("z", "#4c78a8"))):
+            for i, (nm, col) in enumerate((("x", "#e45756"), ("y", "#54a24b"), ("z", "#4c78a8"))):
                 fig.add_trace(go.Scatter(x=t, y=s[:, 1 + i], name=nm, line=dict(width=1, color=col)), 1, 1)
             fig.add_trace(go.Scatter(x=t, y=vm, name="|a| total", line=dict(width=2, color="black")), 1, 1)
             bud = sorted(snap["budget"].items(), key=lambda kv: -kv[1])
-            fig.add_trace(go.Bar(x=[v / 60 for _, v in bud], y=[BEH_NICE[b] for b, _ in bud], orientation="h",
-                                 marker_color=[BEH_COLOR[b] for b, _ in bud], showlegend=False), 1, 2)
+            fig.add_trace(go.Bar(x=[v / 60 for _, v in bud], y=[ACTIVITIES[b] for b, _ in bud], orientation="h",
+                                 marker_color=[ACT_COLOR[b] for b, _ in bud], showlegend=False), 1, 2)
             fig.update_xaxes(title_text="seconds ago", row=1, col=1)
-            fig.update_layout(height=380, margin=dict(l=10, r=10, t=40, b=10), legend=dict(orientation="h", y=-0.2))
+            fig.update_layout(height=360, margin=dict(l=10, r=10, t=40, b=10), legend=dict(orientation="h", y=-0.2))
             st.plotly_chart(fig, width="stretch", key="live_main")
 
         if labels:
             lt = np.array([x[0] for x in labels], float)
             lt = (lt - lt[-1]) / 60000
             fig2 = go.Figure()
-            for b in BEHAVIOURS:
-                m = [x[1] == b for x in labels]
-                if any(m):
-                    fig2.add_trace(go.Scatter(x=lt[m], y=[BEH_NICE[b]] * int(sum(m)), mode="markers", name=BEH_NICE[b],
-                                              marker=dict(symbol="square", size=9, color=BEH_COLOR[b])))
-            fig2.update_layout(title="Behaviour timeline (each square = 2 s)", height=300, showlegend=False,
+            for b in ACTIVITIES:
+                m = np.array([x[1] == b for x in labels])
+                if m.any():
+                    fig2.add_trace(go.Scatter(x=lt[m], y=[ACTIVITIES[b]] * int(m.sum()), mode="markers",
+                                              name=ACTIVITIES[b], marker=dict(symbol="square", size=9,
+                                                                              color=ACT_COLOR[b])))
+            fig2.update_layout(title="Activity timeline (each square = 2 s)", height=300, showlegend=False,
                                xaxis_title="minutes ago", margin=dict(l=10, r=10, t=40, b=10),
-                               yaxis=dict(categoryorder="array", categoryarray=[BEH_NICE[b] for b in BEHAVIOURS]))
+                               yaxis=dict(categoryorder="array", categoryarray=list(ACTIVITIES.values())))
             st.plotly_chart(fig2, width="stretch", key="live_timeline")
+
+        if snap.get("sound"):
+            snd = np.array(snap["sound"], float)
+            st_t = snd[:, 0] - snd[-1, 0]
+            figs = go.Figure([go.Scatter(x=st_t, y=snd[:, 2], name="peak", line=dict(color="#e45756", width=1)),
+                              go.Scatter(x=st_t, y=snd[:, 1], name="average", line=dict(color="#4c78a8", width=2))])
+            figs.update_layout(title=f"Sound level (now {snd[-1, 1]:.0f} dBFS) - levels only, no audio is recorded",
+                               height=220, xaxis_title="seconds ago", yaxis_title="dBFS", yaxis=dict(range=[-90, 0]),
+                               margin=dict(l=10, r=10, t=40, b=10), legend=dict(orientation="h", y=-0.3))
+            st.plotly_chart(figs, width="stretch", key="live_sound")
 
         r1, r2 = st.columns(2)
         with r1:
             st.markdown("**Resting breathing rate (experimental)**")
             if snap["rr"]:
-                last_rr = snap["rr"][-1][1]
-                st.metric("Breaths / minute", f"{last_rr:.0f}", help="From collar micro-motion during 60 s of lying "
-                          "still. Vets flag sleeping rates above 30 in cardiac patients. Not yet validated against "
-                          "counted breaths.")
+                st.metric("Breaths / minute", f"{snap['rr'][-1][1]:.0f}", help="From body micro-motion during 60 s "
+                          "of lying still. Not yet validated against counted breaths.")
             else:
                 still = 0
-                for _, b, _ in reversed(labels):
-                    if b != "lying_rest":
+                for _, a, _, _ in reversed(labels):
+                    if a not in ("lying_belly", "lying_side", "still"):
                         break
                     still += 2
                 st.info(f"Needs 60 s of continuous lying still (now: {min(still, 60)} s).")
         with r2:
-            st.markdown("**Collar health**")
+            st.markdown("**Fit check** (is the device placed correctly?)")
+            fit = snap.get("fit") or {}
+            for k, nm in (("worn", "On the body"), ("loose", "Strap"), ("shifted", "Position since calibration"),
+                          ("gravity", "Sensor reading")):
+                v = str(fit.get(k, "checking"))
+                icon = "🔴" if v.split(" ")[0] in ("NO", "FAULT", "LOOSE", "MOVED") else "⏳" if v.startswith(
+                    ("checking", "calibrate")) else "🟢"
+                st.write(f"{icon} {nm}: {v}")
+            st.markdown("**Device health**")
             if snap["qc"]:
                 q = snap["qc"][-1]
                 try:
-                    st.write(f"Resting jitter {float(q[2]):.2f} mg (loose collar -> high) · dropped {q[5]} · "
+                    st.write(f"Resting jitter {float(q[2]):.2f} mg (loose fit -> high) · dropped {q[5]} · "
                              f"read errors {q[6]} · recoveries {q[8] if len(q) > 8 else '-'} (last minute)")
                 except (ValueError, IndexError):
                     st.write(", ".join(q))
@@ -267,7 +340,10 @@ if page == "📡 Live collar":
                 st.write("First health report arrives after 1 minute.")
             for m_ in snap["messages"][-4:]:
                 st.caption(m_)
-        st.caption(f"Recording to data/raw/{live.dog}/ · {snap['n']:,} samples received")
+        st.caption(f"Mounted at: {live.mount} · {snap['n']:,} samples received · rules: still < "
+                   f"{RULES['still_std_g']} g, walking ≥ {RULES['small_std_g']} g, running > {RULES['run_std_g']} g, "
+                   f"shaking ≥ {RULES['shake_min_hz']} Hz · on the chest, lying on the belly looks like standing - "
+                   f"it is called 'lying on belly (likely)' after {RULES['belly_after_s'] // 60} min motionless")
 
     live_view()
     st.stop()

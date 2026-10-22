@@ -1,0 +1,10 @@
+exp,lying_belly,lying_side,running,shaking,sitting,small,standing,still,walking
+A_motion:running,0,0,800,0,0,0,0,0,0
+A_motion:shaking,0,0,0,800,0,0,0,0,0
+A_motion:small,0,0,0,0,0,800,0,0,0
+A_motion:still,0,0,0,0,0,0,0,800,0
+A_motion:walking,0,0,0,0,0,0,0,0,800
+B_posture:lying_belly,400,0,0,0,0,0,0,0,0
+B_posture:lying_side,0,800,0,0,0,0,0,0,0
+B_posture:sitting,0,0,0,0,400,0,0,0,0
+B_posture:standing,0,0,0,0,0,0,800,0,0

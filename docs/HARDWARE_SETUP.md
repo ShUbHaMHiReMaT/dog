@@ -78,6 +78,57 @@ Optional **battery sense:** LiPo+ → 100 kΩ → GPIO 1 → 100 kΩ → GND, th
 A different ESP32-S3 board (XIAO, Feather, etc.)? Pick any free GPIOs and change `firmware/praniiva_collar/config.h`.
 Avoid GPIO 19/20 (USB) and the PSRAM pins of N16R8 modules (GPIO 35-37).
 
+## 1b. Battery build for demos and dog trials (LiPo + TP4056 USB-C + 3.3 V LDO + microSD)
+
+```
+ USB-C (charging)
+      │
+ ┌────┴─────────────┐        ┌──────────── SLIDE SWITCH (off while the ESP32's own USB is plugged in)
+ │ TP4056 (with     │ OUT+ ──┘──────┐
+ │ DW01 protection) │ OUT- ─────────┼──────────────────────────────── common GND ───────────────┐
+ │  B+  B-          │               │                                                          │
+ └──┬───┬───────────┘          ┌────┴─────┐ 3.3 V                                               │
+    │   │                      │ 3.3 V LDO├────────┬──────────────┬───────────────┐             │
+  LiPo 3.7 V                   │ (HW-764) │        │              │               │             │
+  (+)  (-)                     └──────────┘   ESP32-S3 3V3    BMI270 3V3   microSD 3V3*         │
+                                                   GND ────────── GND ─────────── GND ───────────┘
+ battery sense (optional): TP4056 B+ ── 100 kΩ ──┬── 100 kΩ ── GND
+                                                 └── ESP32 GPIO 1   (config.h: PIN_BATTERY_ADC 1)
+```
+
+| From | To | Notes |
+|---|---|---|
+| LiPo + / − | TP4056 **B+ / B−** | single-cell 3.7 V LiPo with protection; check polarity twice - reversed LiPo destroys the TP4056 |
+| TP4056 **OUT+** | slide switch → LDO **VIN** | OUT (not B) so the DW01 protection cuts off a flat battery |
+| TP4056 **OUT−** | LDO **GND** + common GND | |
+| LDO **3.3 V out** | ESP32-S3 **3V3** pin | feeds the 3.3 V rail directly (bypasses the board's own regulator) |
+| ESP32 3V3 / GND | BMI270 3V3 / GND | unchanged |
+| ESP32 GPIO 4 / 9 | BMI270 SDA / SCL | unchanged |
+| ESP32 3V3* / GND | microSD VCC* / GND | *see the SD regulator warning below |
+| ESP32 GPIO 10 / 11 / 12 / 13 | microSD **CS / MOSI / SCK / MISO** | `config.h` PIN_SD_* |
+
+**Before connecting the battery - three checks:**
+1. **What chip is on the HW-764?** Read the marking on the 3-legged/5-legged chip.
+   * `AMS1117-3.3` (or `1117`) → **will not work from a LiPo**: it needs ≥ 4.4 V in, the ESP32 will brown-out and reset.
+     Use a low-dropout regulator instead: **ME6211 / RT9013 / XC6220 / MCP1825 (≥ 500 mA)**, or a 3.3 V buck-boost module.
+   * `ME6211`, `RT9013`, `XC6220`, `TLV757`, `662K` (XC6206 - only 200 mA, too weak for the ESP32) → check its current ≥ 500 mA.
+   * Measure: with the battery connected and no load, LDO output must read **3.25-3.35 V**.
+2. **microSD module type.** Most blue 6-pin modules (`Catalex`, with a `74LVC125` chip) have an **AMS1117 for 5 V
+   input** - fed from 3.3 V the card gets only ~2.3 V and fails randomly. Either buy a **3.3 V-only microSD breakout
+   (no regulator)**, or bridge that module's AMS1117 input to output and feed 3.3 V (never 5 V after bridging).
+3. **TP4056 charge current** is 1 A by default (R_PROG 1.2 kΩ). Charge at ≤ 1C: for a battery **smaller than
+   1000 mAh** replace R_PROG (e.g. 2.4 kΩ = 500 mA for a 500 mAh cell).
+
+**USB and battery together:** never feed the 3V3 rail from the LDO while the ESP32's own USB is connected (two
+regulators fighting). Switch the battery off before plugging USB in - or live-stream over USB without the battery.
+
+**Battery life estimate (to measure, not promise):** ESP32-S3 with radios off + BMI270 + SD writes ≈ 50-90 mA →
+1000 mAh ≈ 11-18 h. Fine for day-long trials; the 14-day product needs the low-power redesign (DEVICE_SPEC.md).
+
+**SD card:** FAT32, ≤ 32 GB. Files appear as `/<dog>/<dog>_<UTC time>_{raw,qc,events}.csv`. Sync the clock first
+(USB + `tools/collar_logger.py` for a few seconds, then unplug) - or the files are named `UNSYNCED-...` and the
+pipeline rejects them on purpose.
+
 ## 2. Mounting - this matters for every algorithm
 * The board is fixed **rigidly** to the collar housing (no foam, no free play), on the side of the neck.
 * The algorithms expect **device x = along the neck, pointing toward the dog's HEAD**. Look at the axis arrows

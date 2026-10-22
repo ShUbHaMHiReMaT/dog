@@ -22,8 +22,15 @@
 #define SD_ROTATE_HOURS    6        // start a new file every N hours (limits loss if a file corrupts)
 #define SD_FLUSH_SECONDS   10       // at most this much data is lost on sudden power loss
 
+// ---------------- INMP441 I2S microphone (research add-on; sound LEVEL only, never raw audio) ----------------
+#define USE_MIC            1
+#define PIN_MIC_SCK        5        // INMP441 SCK (bit clock)
+#define PIN_MIC_WS         6        // INMP441 WS  (word select)
+#define PIN_MIC_SD         7        // INMP441 SD  (data out of the mic)
+#define MIC_RATE           16000    // Hz; INMP441 L/R pin -> GND = left channel
+
 // ---------------- Marker button (video-sync / labelling) ----------------
-#define PIN_MARKER_BUTTON  0        // BOOT button on most ESP32-S3 boards; press = marker event
+#define PIN_MARKER_BUTTON  14       // tactile button: diagonal legs to GPIO14 and GND (internal pull-up)
 
 // ---------------- Optional battery sense (via 1:2 divider) ----------------
 #define PIN_BATTERY_ADC    -1       // e.g. 1 ; -1 = not connected

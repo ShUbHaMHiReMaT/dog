@@ -1,0 +1,317 @@
+<title>Collar Breadboard Wiring</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one reading column of numbered build steps, each with a large to-scale-ish breadboard diagram. */
+:root {
+  --bg: #f6f7f4; --panel: #ffffff; --fg: #1d2220; --muted: #5d6662; --line: #d5dad6;
+  --board: #eef0ec; --hole: #b9c0bb; --pos: #d23b2f; --gnd: #1d2220; --sig: #d99a00; --sig2: #2f7fd2;
+  --part: #33403b; --partfg: #f4f6f3; --ok: #2b8a4b; --bad: #c0392b; --accent: #0f7a6a;
+  --sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif; --mono: "IBM Plex Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #141816; --panel: #1c211f; --fg: #e7ebe8; --muted: #9aa5a0; --line: #303834;
+  --board: #242a27; --hole: #4a5450; --pos: #ff6b5e; --gnd: #e7ebe8; --sig: #ffc23d; --sig2: #6fb2ff;
+  --part: #c9d1cd; --partfg: #141816; --ok: #5ccb83; --bad: #ff7a6b; --accent: #4fd1b9; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #141816; --panel: #1c211f; --fg: #e7ebe8; --muted: #9aa5a0; --line: #303834;
+  --board: #242a27; --hole: #4a5450; --pos: #ff6b5e; --gnd: #e7ebe8; --sig: #ffc23d; --sig2: #6fb2ff;
+  --part: #c9d1cd; --partfg: #141816; --ok: #5ccb83; --bad: #ff7a6b; --accent: #4fd1b9; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font-family: var(--sans); font-size: 16px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 48px; }
+main { max-width: 920px; margin: 0 auto; display: grid; gap: 28px; }
+h1 { font-size: 1.9rem; margin: 0; text-wrap: balance; }
+h2 { font-size: 1.25rem; margin: 0; text-wrap: balance; }
+p { margin: 0; max-width: 68ch; }
+.lead { color: var(--muted); }
+section { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 20px; display: grid; gap: 14px; min-width: 0; }
+.tag { font-family: var(--mono); font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+.warn { border-left: 4px solid var(--bad); padding: 10px 14px; background: color-mix(in srgb, var(--bad) 9%, transparent); border-radius: 6px; }
+.fig { overflow-x: auto; }
+svg { display: block; max-width: 100%; height: auto; font-family: var(--sans); }
+svg text { fill: var(--fg); }
+ol { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
+code, .mono { font-family: var(--mono); font-size: .92em; }
+table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); }
+th { color: var(--muted); font-weight: 600; font-size: .82rem; letter-spacing: .04em; text-transform: uppercase; }
+td.mono { font-variant-numeric: tabular-nums; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: .9rem; color: var(--muted); }
+.sw { display: inline-block; width: 22px; height: 4px; border-radius: 2px; vertical-align: middle; margin-right: 6px; }
+</style>
+
+<main>
+  <header style="display:grid; gap:8px">
+    <span class="tag">PRANIIVA collar · unit #1</span>
+    <h1>Breadboard wiring: power switch and marker button</h1>
+    <p class="lead">Your small 4-leg button is a <b>momentary</b> button: it only connects while you press it. Use it as the
+      marker button. For battery ON/OFF you need a <b>slide switch</b> that stays where you put it.</p>
+  </header>
+
+  <!-- ===================================================== 0. COMPLETE -->
+  <section>
+    <span class="tag">Complete wiring · everything together</span>
+    <h2>The whole collar on one picture</h2>
+    <p>Red = 3.3 V, black = GND. Every part takes power from the two rails on the sides; the coloured wires are signals.
+       A dot means the wires are joined; lines that just cross are <b>not</b> connected.</p>
+    <div class="fig">
+      <svg viewBox="0 0 1000 620" role="img" aria-label="Complete collar wiring">
+        <!-- ===== rails ===== -->
+        <polyline points="60,560 60,150 940,150 940,450" fill="none" stroke="var(--pos)" stroke-width="5" stroke-linejoin="round"/>
+        <polyline points="80,560 80,172 960,172 960,450" fill="none" stroke="var(--gnd)" stroke-width="5" stroke-linejoin="round"/>
+        <text x="66" y="582" font-size="12" fill="var(--pos)" font-weight="600">3.3 V rail</text>
+        <text x="900" y="470" font-size="12" font-weight="600">GND rail</text>
+
+        <!-- ===== power chain (top) ===== -->
+        <rect x="20" y="40" width="90" height="70" rx="6" fill="none" stroke="var(--fg)" stroke-width="2"/>
+        <text x="65" y="70" text-anchor="middle" font-size="13" font-weight="600">LiPo</text>
+        <text x="65" y="88" text-anchor="middle" font-size="12" fill="var(--muted)">3.7 V</text>
+        <rect x="150" y="40" width="150" height="70" rx="6" fill="var(--part)"/>
+        <text x="225" y="62" text-anchor="middle" font-size="13" font-weight="600" fill="var(--partfg)">TP4056 USB-C</text>
+        <text x="158" y="84" font-size="11" fill="var(--partfg)">B+</text><text x="158" y="102" font-size="11" fill="var(--partfg)">B−</text>
+        <text x="262" y="84" font-size="11" fill="var(--partfg)">OUT+</text><text x="262" y="102" font-size="11" fill="var(--partfg)">OUT−</text>
+        <line x1="110" y1="80" x2="150" y2="80" stroke="var(--pos)" stroke-width="4"/>
+        <line x1="110" y1="98" x2="150" y2="98" stroke="var(--gnd)" stroke-width="4"/>
+        <rect x="370" y="58" width="80" height="40" rx="5" fill="var(--part)"/>
+        <text x="410" y="83" text-anchor="middle" font-size="12" font-weight="600" fill="var(--partfg)">ON/OFF</text>
+        <text x="410" y="50" text-anchor="middle" font-size="11" fill="var(--muted)">slide switch</text>
+        <line x1="300" y1="80" x2="370" y2="80" stroke="var(--pos)" stroke-width="4"/>
+        <rect x="540" y="40" width="160" height="70" rx="6" fill="var(--part)"/>
+        <text x="620" y="62" text-anchor="middle" font-size="13" font-weight="600" fill="var(--partfg)">HW-764 3.3 V</text>
+        <text x="548" y="84" font-size="11" fill="var(--partfg)">VIN</text>
+        <text x="590" y="102" font-size="11" fill="var(--partfg)">3.3V</text><text x="652" y="102" font-size="11" fill="var(--partfg)">GND</text>
+        <line x1="450" y1="80" x2="540" y2="80" stroke="var(--pos)" stroke-width="4"/>
+        <!-- HW-764 out to rails -->
+        <line x1="605" y1="110" x2="605" y2="150" stroke="var(--pos)" stroke-width="4"/><circle cx="605" cy="150" r="6" fill="var(--pos)"/>
+        <line x1="665" y1="110" x2="665" y2="172" stroke="var(--gnd)" stroke-width="4"/><circle cx="665" cy="172" r="6" fill="var(--gnd)"/>
+        <!-- TP4056 OUT- to GND rail -->
+        <polyline points="300,98 330,98 330,172" fill="none" stroke="var(--gnd)" stroke-width="4" stroke-linejoin="round"/><circle cx="330" cy="172" r="6" fill="var(--gnd)"/>
+
+        <!-- ===== ESP32-S3 ===== -->
+        <rect x="400" y="215" width="200" height="345" rx="10" fill="var(--part)"/>
+        <text x="500" y="295" text-anchor="middle" font-size="17" font-weight="600" fill="var(--partfg)">ESP32-S3</text>
+        <g font-size="12" fill="var(--partfg)" font-family="var(--mono)">
+          <text x="408" y="244">3V3</text><text x="408" y="274">GND</text>
+          <text x="408" y="324">GPIO4</text><text x="408" y="354">GPIO9</text>
+          <text x="408" y="414">GPIO5</text><text x="408" y="444">GPIO6</text><text x="408" y="474">GPIO7</text>
+          <text x="408" y="534">GPIO14</text>
+          <text x="592" y="274" text-anchor="end">GND</text>
+          <text x="592" y="324" text-anchor="end">GPIO10</text><text x="592" y="354" text-anchor="end">GPIO11</text>
+          <text x="592" y="384" text-anchor="end">GPIO12</text><text x="592" y="414" text-anchor="end">GPIO13</text>
+        </g>
+        <text x="500" y="320" text-anchor="middle" font-size="11" fill="var(--partfg)">USB (COM15)</text>
+        <!-- ESP32 power to rails -->
+        <line x1="400" y1="240" x2="60" y2="240" stroke="var(--pos)" stroke-width="4"/><circle cx="60" cy="240" r="6" fill="var(--pos)"/>
+        <line x1="400" y1="270" x2="80" y2="270" stroke="var(--gnd)" stroke-width="4"/><circle cx="80" cy="270" r="6" fill="var(--gnd)"/>
+        <line x1="600" y1="270" x2="960" y2="270" stroke="var(--gnd)" stroke-width="4"/><circle cx="960" cy="270" r="6" fill="var(--gnd)"/>
+
+        <!-- ===== BMI270 ===== -->
+        <rect x="140" y="292" width="120" height="80" rx="6" fill="var(--part)"/>
+        <text x="200" y="326" text-anchor="middle" font-size="13" font-weight="600" fill="var(--partfg)">BMI270</text>
+        <text x="200" y="344" text-anchor="middle" font-size="10" fill="var(--partfg)">X arrow → head</text>
+        <line x1="140" y1="304" x2="60" y2="304" stroke="var(--pos)" stroke-width="3"/><circle cx="60" cy="304" r="5" fill="var(--pos)"/>
+        <line x1="140" y1="362" x2="80" y2="362" stroke="var(--gnd)" stroke-width="3"/><circle cx="80" cy="362" r="5" fill="var(--gnd)"/>
+        <line x1="260" y1="320" x2="400" y2="320" stroke="var(--sig)" stroke-width="4"/>
+        <line x1="260" y1="350" x2="400" y2="350" stroke="var(--sig)" stroke-width="4"/>
+        <text x="268" y="314" font-size="11">SDA</text><text x="268" y="344" font-size="11">SCL</text>
+
+        <!-- ===== INMP441 microphone ===== -->
+        <rect x="140" y="395" width="120" height="95" rx="6" fill="var(--part)"/>
+        <text x="200" y="432" text-anchor="middle" font-size="13" font-weight="600" fill="var(--partfg)">INMP441</text>
+        <text x="200" y="450" text-anchor="middle" font-size="10" fill="var(--partfg)">microphone</text>
+        <line x1="140" y1="405" x2="60" y2="405" stroke="var(--pos)" stroke-width="3"/><circle cx="60" cy="405" r="5" fill="var(--pos)"/>
+        <line x1="140" y1="462" x2="80" y2="462" stroke="var(--gnd)" stroke-width="3"/><circle cx="80" cy="462" r="5" fill="var(--gnd)"/>
+        <line x1="140" y1="482" x2="80" y2="482" stroke="var(--gnd)" stroke-width="3"/><circle cx="80" cy="482" r="5" fill="var(--gnd)"/>
+        <text x="96" y="458" font-size="10" fill="var(--muted)">GND</text><text x="96" y="497" font-size="10" fill="var(--muted)">L/R</text>
+        <text x="96" y="400" font-size="10" fill="var(--muted)">VDD</text>
+        <line x1="260" y1="410" x2="400" y2="410" stroke="var(--ok)" stroke-width="4"/>
+        <line x1="260" y1="440" x2="400" y2="440" stroke="var(--ok)" stroke-width="4"/>
+        <line x1="260" y1="470" x2="400" y2="470" stroke="var(--ok)" stroke-width="4"/>
+        <text x="268" y="404" font-size="11">SCK</text><text x="268" y="434" font-size="11">WS</text><text x="268" y="464" font-size="11">SD</text>
+
+        <!-- ===== marker button ===== -->
+        <rect x="200" y="512" width="44" height="36" rx="4" fill="var(--part)"/>
+        <circle cx="222" cy="530" r="9" fill="var(--sig2)"/>
+        <line x1="244" y1="530" x2="400" y2="530" stroke="var(--bad)" stroke-width="4"/>
+        <line x1="200" y1="530" x2="80" y2="530" stroke="var(--gnd)" stroke-width="3"/><circle cx="80" cy="530" r="5" fill="var(--gnd)"/>
+        <text x="222" y="568" text-anchor="middle" font-size="11">marker button</text>
+
+        <!-- ===== HW-125 microSD ===== -->
+        <rect x="730" y="292" width="140" height="150" rx="6" fill="var(--part)"/>
+        <text x="800" y="370" text-anchor="middle" font-size="13" font-weight="600" fill="var(--partfg)">HW-125</text>
+        <text x="800" y="388" text-anchor="middle" font-size="10" fill="var(--partfg)">microSD</text>
+        <line x1="600" y1="320" x2="730" y2="320" stroke="var(--sig2)" stroke-width="4"/>
+        <line x1="600" y1="350" x2="730" y2="350" stroke="var(--sig2)" stroke-width="4"/>
+        <line x1="600" y1="380" x2="730" y2="380" stroke="var(--sig2)" stroke-width="4"/>
+        <line x1="600" y1="410" x2="730" y2="410" stroke="var(--sig2)" stroke-width="4"/>
+        <text x="690" y="314" font-size="11">CS</text><text x="682" y="344" font-size="11">MOSI</text>
+        <text x="686" y="374" font-size="11">SCK</text><text x="682" y="404" font-size="11">MISO</text>
+        <line x1="870" y1="305" x2="940" y2="305" stroke="var(--pos)" stroke-width="3" stroke-dasharray="7 4"/><circle cx="940" cy="305" r="5" fill="var(--pos)"/>
+        <line x1="870" y1="430" x2="960" y2="430" stroke="var(--gnd)" stroke-width="3"/><circle cx="960" cy="430" r="5" fill="var(--gnd)"/>
+        <text x="876" y="298" font-size="10">VCC*</text><text x="876" y="424" font-size="10">GND</text>
+        <text x="730" y="470" font-size="11" fill="var(--muted)">*VCC dashed: 3.3 V only after bridging</text>
+        <text x="730" y="486" font-size="11" fill="var(--muted)">its regulator. On USB-only tests, use the</text>
+        <text x="730" y="502" font-size="11" fill="var(--muted)">ESP32 5V pin instead.</text>
+      </svg>
+    </div>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--pos)"></i>3.3 V</span><span><i class="sw" style="background:var(--gnd)"></i>GND</span>
+      <span><i class="sw" style="background:var(--sig)"></i>I2C (BMI270)</span><span><i class="sw" style="background:var(--ok)"></i>I2S (microphone)</span>
+      <span><i class="sw" style="background:var(--sig2)"></i>SPI (microSD)</span><span><i class="sw" style="background:var(--bad)"></i>button</span>
+    </div>
+    <p class="warn"><b>Before switching the battery on:</b> check the chip on the HW-764 is not an AMS1117, measure its output (3.25-3.35 V),
+      and never have the battery switch ON while the ESP32's USB cable is plugged in.</p>
+  </section>
+
+  <!-- ===================================================== 1. POWER SWITCH -->
+  <section>
+    <span class="tag">Step 1 · battery on / off</span>
+    <h2>Slide switch in the battery line</h2>
+    <p>The switch sits between the TP4056 <b>OUT+</b> and the HW-764 <b>VIN</b>. Slide it one way: collar on. Slide it back: off.</p>
+    <div class="fig">
+      <svg viewBox="0 0 900 360" role="img" aria-label="Power wiring with slide switch">
+        <!-- breadboard -->
+        <rect x="300" y="40" width="300" height="200" rx="8" fill="var(--board)" stroke="var(--line)"/>
+        <text x="450" y="30" text-anchor="middle" font-size="13" fill="var(--muted)">breadboard (3 separate rows used)</text>
+        <g fill="var(--hole)">
+          <circle cx="340" cy="90" r="4"/><circle cx="360" cy="90" r="4"/><circle cx="380" cy="90" r="4"/><circle cx="400" cy="90" r="4"/>
+          <circle cx="340" cy="140" r="4"/><circle cx="360" cy="140" r="4"/><circle cx="380" cy="140" r="4"/><circle cx="400" cy="140" r="4"/>
+          <circle cx="340" cy="190" r="4"/><circle cx="360" cy="190" r="4"/><circle cx="380" cy="190" r="4"/><circle cx="400" cy="190" r="4"/>
+        </g>
+        <text x="315" y="94" font-size="12" fill="var(--muted)">row 1</text>
+        <text x="315" y="144" font-size="12" fill="var(--muted)">row 2</text>
+        <text x="315" y="194" font-size="12" fill="var(--muted)">row 3</text>
+        <!-- slide switch body -->
+        <rect x="430" y="70" width="70" height="140" rx="6" fill="var(--part)"/>
+        <rect x="450" y="85" width="30" height="45" rx="4" fill="var(--partfg)"/>
+        <text x="465" y="232" text-anchor="middle" font-size="13" font-weight="600">slide switch (SPDT)</text>
+        <line x1="430" y1="90" x2="400" y2="90" stroke="var(--part)" stroke-width="4"/>
+        <line x1="430" y1="140" x2="400" y2="140" stroke="var(--part)" stroke-width="4"/>
+        <line x1="430" y1="190" x2="400" y2="190" stroke="var(--part)" stroke-width="4"/>
+        <text x="510" y="94" font-size="12">leg 1 → VIN</text>
+        <text x="510" y="144" font-size="12">middle → OUT+</text>
+        <text x="510" y="194" font-size="12">leg 3 (empty)</text>
+
+        <!-- TP4056 -->
+        <rect x="30" y="80" width="190" height="130" rx="8" fill="var(--part)"/>
+        <text x="125" y="104" text-anchor="middle" font-size="15" font-weight="600" fill="var(--partfg)">TP4056 (USB-C)</text>
+        <text x="45" y="140" font-size="13" fill="var(--partfg)">B+  B−</text>
+        <text x="150" y="140" font-size="13" fill="var(--partfg)">OUT+</text>
+        <text x="150" y="190" font-size="13" fill="var(--partfg)">OUT−</text>
+        <!-- battery -->
+        <rect x="30" y="270" width="190" height="60" rx="8" fill="none" stroke="var(--fg)" stroke-width="2"/>
+        <text x="125" y="306" text-anchor="middle" font-size="14" font-weight="600">LiPo 3.7 V</text>
+        <line x1="55" y1="148" x2="55" y2="270" stroke="var(--pos)" stroke-width="4"/>
+        <line x1="85" y1="148" x2="85" y2="270" stroke="var(--gnd)" stroke-width="4"/>
+        <text x="62" y="262" font-size="12" fill="var(--pos)">+</text>
+        <text x="92" y="262" font-size="12">−</text>
+        <!-- OUT+ to middle row -->
+        <polyline points="220,136 300,136 340,140" fill="none" stroke="var(--pos)" stroke-width="4" stroke-linejoin="round"/>
+        <!-- HW-764 -->
+        <rect x="690" y="60" width="180" height="120" rx="8" fill="var(--part)"/>
+        <text x="780" y="86" text-anchor="middle" font-size="15" font-weight="600" fill="var(--partfg)">HW-764 3.3 V</text>
+        <text x="705" y="120" font-size="13" fill="var(--partfg)">VIN</text>
+        <text x="705" y="160" font-size="13" fill="var(--partfg)">GND</text>
+        <text x="820" y="120" font-size="13" fill="var(--partfg)">3.3V</text>
+        <!-- row1 to VIN -->
+        <polyline points="360,90 360,52 640,52 640,116 690,116" fill="none" stroke="var(--pos)" stroke-width="4" stroke-linejoin="round"/>
+        <!-- OUT- to HW GND -->
+        <polyline points="220,186 260,186 260,290 660,290 660,156 690,156" fill="none" stroke="var(--gnd)" stroke-width="4" stroke-linejoin="round"/>
+        <!-- to ESP32 -->
+        <rect x="690" y="230" width="180" height="90" rx="8" fill="none" stroke="var(--fg)" stroke-width="2"/>
+        <text x="780" y="262" text-anchor="middle" font-size="15" font-weight="600">ESP32-S3</text>
+        <text x="780" y="286" text-anchor="middle" font-size="13">3V3 pin · GND pin</text>
+        <polyline points="870,116 885,116 885,250 870,250" fill="none" stroke="var(--pos)" stroke-width="4" stroke-linejoin="round"/>
+        <polyline points="660,290 690,290" fill="none" stroke="var(--gnd)" stroke-width="4"/>
+      </svg>
+    </div>
+    <div class="legend"><span><i class="sw" style="background:var(--pos)"></i>+ (power)</span><span><i class="sw" style="background:var(--gnd)"></i>GND</span></div>
+    <p class="warn"><b>Switch OFF before plugging USB into the ESP32.</b> Battery and USB together would put two power sources on the same 3.3 V line.</p>
+  </section>
+
+  <!-- ===================================================== 2. MARKER BUTTON -->
+  <section>
+    <span class="tag">Step 2 · your small button</span>
+    <h2>Marker button on GPIO 14</h2>
+    <p>Push the button across the middle gap of the breadboard. Use two <b>diagonally opposite</b> legs: one goes to GPIO 14, the other to GND. Diagonal legs are always on opposite sides of the switch, so you can't get it wrong.</p>
+    <div class="fig">
+      <svg viewBox="0 0 900 380" role="img" aria-label="Tactile button straddling the breadboard gap">
+        <rect x="160" y="30" width="420" height="320" rx="8" fill="var(--board)" stroke="var(--line)"/>
+        <rect x="355" y="30" width="30" height="320" fill="var(--bg)" opacity=".7"/>
+        <text x="370" y="22" text-anchor="middle" font-size="12" fill="var(--muted)">middle gap</text>
+        <!-- column letters -->
+        <g font-size="12" fill="var(--muted)" text-anchor="middle">
+          <text x="205" y="55">a</text><text x="235" y="55">b</text><text x="265" y="55">c</text><text x="295" y="55">d</text><text x="325" y="55">e</text>
+          <text x="415" y="55">f</text><text x="445" y="55">g</text><text x="475" y="55">h</text><text x="505" y="55">i</text><text x="535" y="55">j</text>
+        </g>
+        <!-- holes rows 10..14 -->
+        <g fill="var(--hole)">
+          <g transform="translate(0,90)"><circle cx="205" cy="0" r="4"/><circle cx="235" cy="0" r="4"/><circle cx="265" cy="0" r="4"/><circle cx="295" cy="0" r="4"/><circle cx="325" cy="0" r="4"/><circle cx="415" cy="0" r="4"/><circle cx="445" cy="0" r="4"/><circle cx="475" cy="0" r="4"/><circle cx="505" cy="0" r="4"/><circle cx="535" cy="0" r="4"/></g>
+          <g transform="translate(0,140)"><circle cx="205" cy="0" r="4"/><circle cx="235" cy="0" r="4"/><circle cx="265" cy="0" r="4"/><circle cx="295" cy="0" r="4"/><circle cx="325" cy="0" r="4"/><circle cx="415" cy="0" r="4"/><circle cx="445" cy="0" r="4"/><circle cx="475" cy="0" r="4"/><circle cx="505" cy="0" r="4"/><circle cx="535" cy="0" r="4"/></g>
+          <g transform="translate(0,190)"><circle cx="205" cy="0" r="4"/><circle cx="235" cy="0" r="4"/><circle cx="265" cy="0" r="4"/><circle cx="295" cy="0" r="4"/><circle cx="325" cy="0" r="4"/><circle cx="415" cy="0" r="4"/><circle cx="445" cy="0" r="4"/><circle cx="475" cy="0" r="4"/><circle cx="505" cy="0" r="4"/><circle cx="535" cy="0" r="4"/></g>
+          <g transform="translate(0,240)"><circle cx="205" cy="0" r="4"/><circle cx="235" cy="0" r="4"/><circle cx="265" cy="0" r="4"/><circle cx="295" cy="0" r="4"/><circle cx="325" cy="0" r="4"/><circle cx="415" cy="0" r="4"/><circle cx="445" cy="0" r="4"/><circle cx="475" cy="0" r="4"/><circle cx="505" cy="0" r="4"/><circle cx="535" cy="0" r="4"/></g>
+          <g transform="translate(0,290)"><circle cx="205" cy="0" r="4"/><circle cx="235" cy="0" r="4"/><circle cx="265" cy="0" r="4"/><circle cx="295" cy="0" r="4"/><circle cx="325" cy="0" r="4"/><circle cx="415" cy="0" r="4"/><circle cx="445" cy="0" r="4"/><circle cx="475" cy="0" r="4"/><circle cx="505" cy="0" r="4"/><circle cx="535" cy="0" r="4"/></g>
+        </g>
+        <g font-size="12" fill="var(--muted)" text-anchor="end">
+          <text x="185" y="94">10</text><text x="185" y="144">11</text><text x="185" y="194">12</text><text x="185" y="244">13</text><text x="185" y="294">14</text>
+        </g>
+        <!-- row strips hint -->
+        <rect x="195" y="82" width="140" height="16" rx="8" fill="none" stroke="var(--sig)" stroke-dasharray="4 3"/>
+        <rect x="405" y="182" width="140" height="16" rx="8" fill="none" stroke="var(--gnd)" stroke-dasharray="4 3"/>
+        <!-- button -->
+        <rect x="318" y="82" width="104" height="116" rx="6" fill="var(--part)"/>
+        <circle cx="370" cy="140" r="22" fill="var(--sig2)"/>
+        <!-- legs -->
+        <circle cx="325" cy="90" r="7" fill="var(--sig)" stroke="var(--bg)" stroke-width="2"/>
+        <circle cx="415" cy="90" r="6" fill="var(--hole)" stroke="var(--bg)" stroke-width="2"/>
+        <circle cx="325" cy="190" r="6" fill="var(--hole)" stroke="var(--bg)" stroke-width="2"/>
+        <circle cx="415" cy="190" r="7" fill="var(--gnd)" stroke="var(--bg)" stroke-width="2"/>
+        <text x="325" y="74" text-anchor="middle" font-size="12" font-weight="600">A</text>
+        <text x="415" y="215" text-anchor="middle" font-size="12" font-weight="600">D</text>
+        <!-- wires -->
+        <polyline points="205,90 120,90 120,120 70,120" fill="none" stroke="var(--sig)" stroke-width="5" stroke-linejoin="round"/>
+        <circle cx="205" cy="90" r="5" fill="var(--sig)"/>
+        <polyline points="535,190 640,190 640,220 690,220" fill="none" stroke="var(--gnd)" stroke-width="5" stroke-linejoin="round"/>
+        <circle cx="535" cy="190" r="5" fill="var(--gnd)"/>
+        <rect x="10" y="100" width="62" height="40" rx="6" fill="none" stroke="var(--sig)" stroke-width="2"/>
+        <text x="41" y="125" text-anchor="middle" font-size="13" font-weight="600">GPIO 14</text>
+        <rect x="690" y="200" width="80" height="40" rx="6" fill="none" stroke="var(--fg)" stroke-width="2"/>
+        <text x="730" y="225" text-anchor="middle" font-size="13" font-weight="600">ESP32 GND</text>
+        <text x="600" y="110" font-size="13">leg A = row 10, left side (e10)</text>
+        <text x="600" y="130" font-size="13">leg D = row 12, right side (f12)</text>
+        <text x="600" y="150" font-size="13" fill="var(--muted)">A and D are diagonal</text>
+      </svg>
+    </div>
+    <ol>
+      <li>Press the button into holes <span class="mono">e10, f10, e12, f12</span> so it straddles the gap (bend the legs straight if needed).</li>
+      <li>Yellow wire: any hole in row 10 on the <b>left</b> side (for example <span class="mono">a10</span>) → <b>GPIO 14</b>.</li>
+      <li>Black wire: any hole in row 12 on the <b>right</b> side (for example <span class="mono">j12</span>) → <b>GND</b>.</li>
+      <li>The firmware enables the ESP32's internal pull-up, so no resistor is needed. Pressing it writes a "button" marker into the recording.</li>
+    </ol>
+  </section>
+
+  <!-- ===================================================== 3. ALL PINS -->
+  <section>
+    <span class="tag">Reference</span>
+    <h2>Every connection on the collar</h2>
+    <div class="fig">
+      <table>
+        <thead><tr><th>Part</th><th>Part pin</th><th>Goes to</th></tr></thead>
+        <tbody>
+          <tr><td>LiPo battery</td><td>+ / −</td><td>TP4056 B+ / B−</td></tr>
+          <tr><td>TP4056</td><td>OUT+</td><td>slide switch middle leg</td></tr>
+          <tr><td>Slide switch</td><td>side leg</td><td>HW-764 VIN</td></tr>
+          <tr><td>TP4056</td><td>OUT−</td><td>HW-764 GND, common GND</td></tr>
+          <tr><td>HW-764</td><td>3.3 V out</td><td>ESP32-S3 3V3 pin</td></tr>
+          <tr><td>BMI270</td><td>3V3 / GND</td><td>3V3 / GND</td></tr>
+          <tr><td>BMI270</td><td>SDA / SCL</td><td class="mono">GPIO 4 / GPIO 9</td></tr>
+          <tr><td>HW-125 microSD</td><td>CS / MOSI / SCK / MISO</td><td class="mono">GPIO 10 / 11 / 12 / 13</td></tr>
+          <tr><td>HW-125 microSD</td><td>VCC</td><td>5V pin on USB; 3V3 on battery after bridging its regulator</td></tr>
+          <tr><td>Microphone (INMP441)</td><td>SCK / WS / SD</td><td class="mono">GPIO 5 / 6 / 7</td></tr>
+          <tr><td>Microphone (INMP441)</td><td>VDD / GND / L-R</td><td>3V3 / GND / GND</td></tr>
+          <tr><td>Marker button</td><td>diagonal legs</td><td class="mono">GPIO 14 / GND</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>

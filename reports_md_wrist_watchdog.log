@@ -1,0 +1,4 @@
+17:13:31 OK  n=27484 rate=50.0 missing=0 reconn=0 raw=1106KB 
+17:13:46 OK  n=27984 rate=50.0 missing=0 reconn=0 raw=1135KB 
+17:14:01 ISSUE n=28984 rate=50.0 missing=0 reconn=0 raw=1164KB high rest jitter 6.084 mg (loose strap?)
+17:14:16 ISSUE n=29484 rate=50.0 missing=0 reconn=0 raw=1194KB high rest jitter 6.084 mg (loose strap?)
